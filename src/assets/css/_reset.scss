@@ -265,9 +265,6 @@ section {
 *[hidden] {
   display: none;
 }
-html {
-  overflow: initial !important;
-}
 html,
 body {
   -webkit-text-size-adjust: none; /* 크롬, 사파리, 오페라 신버전 */
@@ -314,33 +311,35 @@ button {
   display: table;
   clear: both;
 }
-#app .wrap {
+#root .wrap {
   width: 100%;
   min-width: 320px;
   overflow: hidden;
 }
 html,
 body,
-#app {
+#root {
   min-width: 320px;
 }
 #root {
-  max-width: 1200px;
   margin: 0 auto;
-}
-#app {
   overflow: hidden;
 }
-#app .wrap {
+
+#root .layout {
+  margin: 0 auto;
   width: 100%;
-  min-height: 100vh;
+  padding: 0 24px;
+  box-sizing: border-box;
+  max-width: 1248px;
 }
-#app .container {
+
+#root .container {
   width: 100%;
   height: 100%;
   margin: 0 auto;
 }
-#app main {
+#root main {
   position: relative;
   width: 100%;
 }
