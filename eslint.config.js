@@ -4,8 +4,9 @@ import pluginReact from "eslint-plugin-react";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
+  pluginReact.configs.flat.recommended,
   { files: ["**/*.{js,mjs,cjs,jsx}"], 
-    plugins: { js }, 
+    plugins: { js },
     extends: ["js/recommended"], 
     languageOptions: { globals: globals.browser }, 
     rules: {
@@ -15,8 +16,8 @@ export default defineConfig([
       "indent": ["error", 2],       // 들여쓰기 2칸
       "prefer-const": "error",      // 재할당 없는 변수는 const
       "no-var": "error",            // var 금지
-      "react/react-in-jsx-scope": "off" // React 17+에서는 필요 없음
+      "react/react-in-jsx-scope": "off", // React 17+에서는 필요 없음
+      "react/prop-types":"off" 
     }
   },
-  pluginReact.configs.flat.recommended,
 ]);
