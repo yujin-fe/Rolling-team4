@@ -1,0 +1,21 @@
+.Toggle {
+  width: 244px;
+}
+
+.Toggle .Toggle_btn {
+  width: 50%;
+  height: 40px;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 6px;
+  background: rgb(240, 240, 240);
+  color: #181818;
+  white-space: nowrap;
+}
+
+.Toggle_btn.active {
+  border: 2px solid #9935ff;
+  color: #9935ff;
+  background-color: #fff;
+  font-weight: bold;
+}
