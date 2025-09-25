@@ -1,0 +1,703 @@
+/* Pretendard */
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-display: swap;
+  src:
+    url("@/assets/fonts/Pretendard/Pretendard-Bold.woff2") format("woff2"),
+    url("@/assets/fonts/Pretendard/Pretendard-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url("@/assets/fonts/Pretendard/Pretendard-Regular.woff2") format("woff2"),
+    url("@/assets/fonts/Pretendard/Pretendard-Regular.woff") format("woff");
+}
+
+/*Noto Sans KR*/
+@font-face {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: normal;
+  src: url("@/assets/fonts/NotoSans/NotoSansKR-Regular.eot");
+  src:
+    local(※),
+    url("@/assets/fonts/NotoSans/NotoSansKR-Regular.woff2") format("woff2"),
+    url("@/assets/fonts/NotoSans/NotoSansKR-Regular.woff") format("woff"),
+    url("@/assets/fonts/NotoSans/NotoSansKR-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 500;
+  src: url("@/assets/fonts/NotoSans/NotoSansKR-Medium.eot");
+  src:
+    local(※),
+    url("@/assets/fonts/NotoSans/NotoSansKR-Medium.woff2") format("woff2"),
+    url("@/assets/fonts/NotoSans/NotoSansKR-Medium.woff") format("woff"),
+    url("@/assets/fonts/NotoSans/NotoSansKR-Medium.otf") format("opentype");
+}
+@font-face {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: bold;
+  src: url("@/assets/fonts/NotoSans/NotoSansKR-Bold.eot");
+  src:
+    local(※),
+    url("@/assets/fonts/NotoSans/NotoSansKR-Bold.woff2") format("woff2"),
+    url("@/assets/fonts/NotoSans/NotoSansKR-Bold.woff") format("woff"),
+    url("@/assets/fonts/NotoSans/NotoSansKR-Bold.otf") format("opentype");
+}
+
+/*접근성*/
+*:focus-visible {
+  // outline: 1px solid #38d !important;
+  z-index: 100;
+  position: relative;
+}
+
+.hidden {
+  overflow: hidden;
+  border: 0;
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  font-size: 0px;
+  clip: rect(0, 0, 0, 0);
+}
+
+* {
+  -webkit-text-size-adjust: none;
+  margin: 0;
+  padding: 0;
+}
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+button,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+menu,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  font-family: "Pretendard", "Noto Sans KR", "맑은고딕", "굴림", gulim, helvetica, arial, sans-serif;
+  vertical-align: baseline;
+  -webkit-text-size-adjust: none;
+}
+html,
+body,
+div,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+tt,
+var,
+u,
+i,
+center,
+dl,
+menu,
+ol,
+ul,
+fieldset,
+form,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  color: #000;
+}
+a,
+button {
+  color: #000;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section {
+  display: block;
+}
+/* HTML5 hidden-attribute fix for newer browsers */
+*[hidden] {
+  display: none;
+}
+html {
+  overflow: initial !important;
+}
+html,
+body {
+  -webkit-text-size-adjust: none; /* 크롬, 사파리, 오페라 신버전 */
+  -ms-text-size-adjust: none; /* IE */
+  -moz-text-size-adjust: none; /* 파이어폭스 */
+  -o-text-size-adjust: none; /* 오페라 구버전 */
+}
+body {
+  line-height: 1;
+  background: #fff;
+}
+menu,
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+a {
+  text-decoration: none;
+}
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+}
+.clearfix:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+#app .wrap {
+  width: 100%;
+  min-width: 320px;
+  overflow: hidden;
+}
+html,
+body,
+#app {
+  min-width: 320px;
+}
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+#app {
+  overflow: hidden;
+}
+#app .wrap {
+  width: 100%;
+  min-height: 100vh;
+}
+#app .container {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+#app main {
+  position: relative;
+  width: 100%;
+}
+
+/* form default */
+fieldset,
+img,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+button,
+hr {
+  border: 0;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+  font-style: normal;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+a {
+  text-decoration: none;
+}
+input,
+select,
+label {
+  vertical-align: middle;
+}
+input,
+select,
+textarea,
+button {
+  font-size: 100%;
+  vertical-align: middle;
+  padding: 0;
+  margin: 0;
+}
+input,
+textarea,
+select {
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family:
+    Inter,
+    Noto Sans KR,
+    Malgun Gothic,
+    "맑은고딕",
+    "굴림",
+    gulim,
+    helvetica,
+    arial,
+    sans-serif;
+  letter-spacing: -0.025em;
+}
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="num"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="file"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+}
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+input::-ms-clear {
+  display: none;
+}
+textarea {
+  resize: none;
+}
+button {
+  border: 0 none;
+  background-color: transparent;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.ie-browser button:focus {
+  border: 1px solid #000;
+}
+b,
+strong {
+  font-weight: 500;
+}
+select {
+  position: relative;
+  display: block;
+  border: 0 none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  padding-left: 3px;
+  background: transparent;
+  z-index: 1;
+}
+select::-ms-expand {
+  display: none;
+}
+select option {
+  border: 0 none;
+}
+fieldset {
+  min-width: 0;
+  text-overflow: ellipsis;
+}
+legend,
+.blind {
+  overflow: hidden;
+  border: 0;
+  left: -100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+}
+
+table caption {
+  overflow: hidden;
+  border: 0;
+  position: absolute;
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+}
+textarea:focus,
+button:focus,
+input:focus,
+select:focus {
+  outline: none;
+}
+input:disabled,
+select:disabled,
+input:read-only,
+select:read-only {
+  opacity: 1 !important;
+}
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="date"]::-webkit-inner-spin-button:focus,
+input[type="date"]::-webkit-calendar-picker-indicator:focus,
+.ios textarea:focus,
+.android textarea:focus,
+.ios button:focus,
+.android button:focus,
+.ios input:focus,
+.android input:focus,
+.ios select:focus,
+.android select:focus,
+.ios a:focus,
+.android a:focus {
+  outline: none;
+}
+/* 접근성 */
+*:focus-visible {
+  outline: none;
+  // box-shadow: 0px 0px 0px 2px #1101ff;
+  z-index: 101;
+}
+.input-box input:focus-visible {
+  position: relative;
+}
+
+.hidden {
+  overflow: hidden;
+  border: 0;
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  font-size: 0px;
+  clip: rect(0, 0, 0, 0);
+}
+
+/*margin*/
+.mg-t0 {
+  margin-top: 0px !important;
+}
+.mg-t04 {
+  margin-top: 4px !important;
+}
+.mg-t10 {
+  margin-top: 10px !important;
+}
+.mg-t12 {
+  margin-top: 12px !important;
+}
+.mg-t15 {
+  margin-top: 15px !important;
+}
+.mg-t25 {
+  margin-top: 25px !important;
+}
+.mg-t30 {
+  margin-top: 30px !important;
+}
+.mg-t35 {
+  margin-top: 35px !important;
+}
+.mg-b10 {
+  margin-bottom: 10px !important;
+}
+.mg-b12 {
+  margin-bottom: 12px !important;
+}
+.mg-b15 {
+  margin-bottom: 15px !important;
+}
+.mg-b20 {
+  margin-bottom: 20px !important;
+}
+.mg-b40 {
+  margin-bottom: 40px !important;
+}
+.mg-b80 {
+  margin-bottom: 80px !important;
+}
+.mg-b120 {
+  margin-bottom: 120px !important;
+}
+.mg-l35 {
+  margin-left: 35px !important;
+}
+.mg-b150 {
+  margin-bottom: 150px !important;
+}
+
+/*padding*/
+.pd-t0 {
+  padding-top: 0px !important;
+}
+.pd-t10 {
+  padding-top: 10px !important;
+}
+.pd-t12 {
+  padding-top: 12px !important;
+}
+.pd-t15 {
+  padding-top: 15px !important;
+}
+.pd-t20 {
+  padding-top: 20px !important;
+}
+.pd-t25 {
+  padding-top: 25px !important;
+}
+.pd-t30 {
+  padding-top: 30px !important;
+}
+.pd-t40 {
+  padding-top: 40px !important;
+}
+.pd-b0 {
+  padding-bottom: 0 !important;
+}
+.pd-b20 {
+  padding-bottom: 20px !important;
+}
+.pd-b25 {
+  padding-bottom: 25px !important;
+}
+.pd-b30 {
+  padding-bottom: 30px !important;
+}
+.pd-b35 {
+  padding-bottom: 35px !important;
+}
+.pd-b40 {
+  padding-bottom: 40px !important;
+}
+.pd-b60 {
+  padding-bottom: 60px !important;
+}
+
+/*font*/
+
+/* backgroud color */
+
+/* common ex */
+
+body.scroll-hidden {
+  overflow: hidden;
+}
+
+/* skip menu */
+.skip {
+  color: #fff;
+}
+.skip a {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  display: block;
+  font-size: 14px;
+  color: #fff;
+  width: 100%;
+  height: 0;
+  background: #fff;
+  text-align: center;
+  line-height: 24px;
+  opacity: 0;
+}
+.skip a:focus {
+  color: #fff;
+}
+.skip a:focus-visible {
+  height: 24px;
+  color: #000;
+  z-index: 999;
+  opacity: 1;
+  border: 2px solid #38d !important;
+  box-sizing: border-box;
+}
