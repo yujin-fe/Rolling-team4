@@ -61,7 +61,7 @@ npm run dev
 - 참고: 원격에서는 메인에 머지 후 브랜치 자동 삭제됨, 로컬에서는 직접 삭제해야함
   - 로컬 삭제 방법: 
     ```bash
-      git checkout -d feature/작업명
+      git branch -d feature/작업명
     ```
 3. 작업 후 커밋
     ```bash
