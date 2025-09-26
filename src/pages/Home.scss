@@ -1,0 +1,86 @@
+* {
+  box-sizing: border-box;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.point_first {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 60px;
+  max-width: 1200px;
+  width: 100%;
+  min-height: 324px;
+  background-color: $surface;
+  border-radius: 16px;
+  padding-top: 60px;
+  padding-left: 60px;
+  overflow: hidden;
+}
+
+.point_image {
+  display: flex;
+  padding: 21px 40px;
+}
+
+.point_text_01 {
+  font-family: "Pretendard";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 82px;
+  height: 32px;
+  padding: 6px 13px;
+  margin-bottom: 16px;
+  background-color: $purple-600;
+  color: $white;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.point_text_02 {
+  font-family: "Pretendard";
+  min-width: 268px;
+  color: $gray-900;
+}
+
+.point_text_03 {
+  font-family: "Pretendard";
+  min-width: 182px;
+  white-space: nowrap;
+}
+
+.point_second {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  width: 100%;
+  min-height: 324px;
+  margin-top: 30px;
+  background-color: $surface;
+  border-radius: 16px;
+  padding-top: 60px;
+  padding-left: 60px;
+  padding-right: 192px;
+  overflow: hidden;
+}
+
+.point.point_second > .point_image {
+  padding: 0 21px;
+}
+
+.home_btn {
+  font-family: "Pretendard";
+  min-width: 280px;
+  height: 56px;
+  background-color: $purple-600;
+  border-radius: 12px;
+  margin-top: 48px;
+  color: $white;
+}
