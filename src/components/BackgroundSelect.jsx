@@ -1,25 +1,20 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import axios from "@/api/axios";
 import BackgroundList from "./BackgroundList";
-import bg1 from "@/assets/imgs/post/bg1.jpg";
-import bg2 from "@/assets/imgs/post/bg2.jpg";
-import bg3 from "@/assets/imgs/post/bg3.jpg";
-import bg4 from "@/assets/imgs/post/bg4.jpg";
 
 const colorsList = ["beige", "purple", "blue", "green"];
-const imageList = [bg1, bg2, bg3, bg4];
 
-const BackgroundSelect = () => {
-  const [tab, setTab] = useState("color");
-  const [background, setBackground] = useState("beige");
-  const [uploadedImg, setUploadedImg] = useState(null);
+const BackgroundSelect = ({ tab, setTab, background, setBackground }) => {
+  const [backgroundImg, setBackgroundImg] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get("/background-images/");
-      // const { data } = await axios.get("/4/recipients/");
-      console.log("data", data);
+      try {
+        const { data } = await axios.get("/background-images/");
+        setBackgroundImg(data.imageUrls);
+      } catch (err) {
+        console.error("fetch error", err);
+      }
     };
     fetchData();
   }, []);
@@ -27,19 +22,10 @@ const BackgroundSelect = () => {
   useEffect(() => {
     if (tab === "color") {
       setBackground(colorsList[0]);
-    } else {
-      setBackground(imageList[0]);
+    } else if (backgroundImg.length > 0) {
+      setBackground(backgroundImg[0]);
     }
-  }, [tab]);
-
-  const handleUpload = (previewURL) => {
-    setUploadedImg(previewURL); // 업로드된 이미지 저장
-    setBackground(previewURL); // 업로드 이미지 선택
-  };
-
-  const handleGenerate = () => {
-    console.log("선택된 배경:", background);
-  };
+  }, [tab, backgroundImg]);
 
   return (
     <div className="background-select">
@@ -70,14 +56,8 @@ const BackgroundSelect = () => {
         selected={background}
         onSelect={setBackground}
         colorsList={colorsList}
-        imageList={imageList}
-        uploadedImg={uploadedImg}
-        onUpload={handleUpload}
+        imageList={backgroundImg}
       />
-
-      <button type="button" className="btn-generate" onClick={handleGenerate}>
-        생성하기
-      </button>
     </div>
   );
 };

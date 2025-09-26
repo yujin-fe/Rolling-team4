@@ -36,6 +36,10 @@
         background-position: center;
         cursor: pointer;
         overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.08);
+        display: flex;
+        justify-content: center;
+        align-items: center;
         &.active {
           &:before {
             content: "";
@@ -46,38 +50,6 @@
           }
         }
       }
-      &.upload {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        .replace-btn {
-          position: absolute;
-          top: 6px;
-          right: 6px;
-          background: rgba(0, 0, 0, 0.6);
-          color: #fff;
-          border: none;
-          border-radius: 50%;
-          font-size: 12px;
-          padding: 2px 4px;
-          cursor: pointer;
-          z-index: 1;
-          padding-top: 1px;
-        }
-        .plus {
-          &:after {
-            content: "";
-            display: block;
-            width: 44px;
-            height: 44px;
-            background: url("@/assets/imgs/post/more_ico.svg") no-repeat 0 0/44px auto;
-          }
-        }
-      }
     }
-  }
-  input[type="file"] {
-    display: none;
   }
 }

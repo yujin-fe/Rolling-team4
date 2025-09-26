@@ -1,24 +1,28 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 
-const BackgroundList = ({
-  tab,
-  selected,
-  onSelect,
-  colorsList,
-  imageList,
-  uploadedImg,
-  onUpload,
-}) => {
-  const fileInputRef = useRef(null);
+const ImageItem = ({ img, selected, onSelect }) => {
+  const [loaded, setLoaded] = useState(false);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const previewURL = URL.createObjectURL(file);
-      onUpload(previewURL);
-    }
-  };
+  return (
+    <div
+      className={`item img ${selected === img && loaded ? "active" : ""}`}
+      style={{ backgroundImage: loaded ? `url(${img})` : "none" }}
+      onClick={() => onSelect(img)}
+    >
+      {!loaded && <div className="loading">로딩중...</div>}
 
+      <img
+        src={img}
+        alt=""
+        style={{ display: "none" }}
+        onLoad={() => setLoaded(true)}
+      />
+      {selected === img && loaded && <span className="check"></span>}
+    </div>
+  );
+};
+
+const BackgroundList = ({ tab, selected, onSelect, colorsList, imageList }) => {
   return (
     <div className="background-list">
       {tab === "color" &&
@@ -33,63 +37,15 @@ const BackgroundList = ({
           </div>
         ))}
 
-      {tab === "image" && (
-        <>
-          {imageList.slice(0, 3).map((img) => (
-            <div
-              key={img}
-              className={`item img ${selected === img ? "active" : ""}`}
-              style={{ backgroundImage: `url(${img})` }}
-              onClick={() => onSelect(img)}
-            >
-              {selected === img && <span className="check"></span>}
-            </div>
-          ))}
-
-          {uploadedImg ? (
-            <div
-              className={`item img upload ${selected === uploadedImg ? "active" : ""}`}
-              style={{ backgroundImage: `url(${uploadedImg})` }}
-              onClick={() => onSelect(uploadedImg)}
-            >
-              {selected === uploadedImg && <span className="check"></span>}
-
-              <button
-                type="button"
-                className="replace-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  fileInputRef.current.click();
-                }}
-              >
-                ✎
-              </button>
-
-              <input
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                onChange={handleFileChange}
-              />
-            </div>
-          ) : (
-            <div
-              className="item img upload"
-              onClick={() => fileInputRef.current.click()}
-            >
-              <span className="plus">
-                <span className="blind">등록하기</span>
-              </span>
-              <input
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                onChange={handleFileChange}
-              />
-            </div>
-          )}
-        </>
-      )}
+      {tab === "image" &&
+        imageList.map((img) => (
+          <ImageItem
+            key={img}
+            img={img}
+            selected={selected}
+            onSelect={onSelect}
+          />
+        ))}
     </div>
   );
 };

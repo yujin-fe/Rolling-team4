@@ -271,6 +271,7 @@ body {
   -ms-text-size-adjust: none; /* IE */
   -moz-text-size-adjust: none; /* 파이어폭스 */
   -o-text-size-adjust: none; /* 오페라 구버전 */
+  min-height: 100vh;
 }
 body {
   line-height: 1;
@@ -320,6 +321,7 @@ html,
 body,
 #root {
   min-width: 320px;
+  height: 100%;
 }
 #root {
   margin: 0 auto;
