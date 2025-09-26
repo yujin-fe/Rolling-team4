@@ -1,17 +1,28 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import axios from "@/api/axios";
 import BackgroundList from "./BackgroundList";
-import bg1 from "@/assets/imgs/bg1.jpg";
-import bg2 from "@/assets/imgs/bg2.jpg";
-import bg3 from "@/assets/imgs/bg3.jpg";
-import bg4 from "@/assets/imgs/bg4.jpg";
+import bg1 from "@/assets/imgs/post/bg1.jpg";
+import bg2 from "@/assets/imgs/post/bg2.jpg";
+import bg3 from "@/assets/imgs/post/bg3.jpg";
+import bg4 from "@/assets/imgs/post/bg4.jpg";
 
-const colorsList = ["--beige-200", "--purple-200", "--blue-200", "--green-200"];
+const colorsList = ["beige", "purple", "blue", "green"];
 const imageList = [bg1, bg2, bg3, bg4];
 
 const BackgroundSelect = () => {
   const [tab, setTab] = useState("color");
-  const [background, setBackground] = useState("--beige-200");
+  const [background, setBackground] = useState("beige");
+  const [uploadedImg, setUploadedImg] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get("/background-images/");
+      // const { data } = await axios.get("/4/recipients/");
+      console.log("data", data);
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (tab === "color") {
@@ -20,6 +31,11 @@ const BackgroundSelect = () => {
       setBackground(imageList[0]);
     }
   }, [tab]);
+
+  const handleUpload = (previewURL) => {
+    setUploadedImg(previewURL); // 업로드된 이미지 저장
+    setBackground(previewURL); // 업로드 이미지 선택
+  };
 
   const handleGenerate = () => {
     console.log("선택된 배경:", background);
@@ -55,6 +71,8 @@ const BackgroundSelect = () => {
         onSelect={setBackground}
         colorsList={colorsList}
         imageList={imageList}
+        uploadedImg={uploadedImg}
+        onUpload={handleUpload}
       />
 
       <button type="button" className="btn-generate" onClick={handleGenerate}>
