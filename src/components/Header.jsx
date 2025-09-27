@@ -1,7 +1,8 @@
+import "./Header.scss";
 import React from "react";
 import { Link } from "react-router-dom";
+
 import logo from "../assets/imgs/logo.png";
-import "./Header.scss";
 
 const Header = () => {
   const isActive = true;

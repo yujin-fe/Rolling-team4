@@ -1,8 +1,9 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route,Routes } from "react-router-dom";
+
 import Layout from "./layouts/Layout";
-import Post from "./pages/Post";
 import Home from "./pages/Home";
+import Post from "./pages/Post";
 
 function App() {
   return (

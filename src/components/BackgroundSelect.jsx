@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import axios from "@/api/axios";
+
 import BackgroundList from "./BackgroundList";
+
+import axios from "@/api/axios";
 
 const colorsList = ["beige", "purple", "blue", "green"];
 

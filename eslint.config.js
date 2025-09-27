@@ -1,8 +1,8 @@
 import js from "@eslint/js";
-import globals from "globals";
+import { defineConfig } from "eslint/config";
 import pluginReact from "eslint-plugin-react";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
-import { defineConfig } from "eslint/config";
+import globals from "globals";
 
 export default defineConfig([
   pluginReact.configs.flat.recommended,
@@ -27,11 +27,8 @@ export default defineConfig([
         "error",
         {
           groups: [
-            // 1. 외부 라이브러리
             ["^\\u0000", "^react", "^@?\\w"],
-            // 2. 부모 경로 (../)
             ["^\\.\\./"],
-            // 3. 같은 폴더 (./)
             ["^\\./"],
           ],
         },

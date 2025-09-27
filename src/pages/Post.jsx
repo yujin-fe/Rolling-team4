@@ -1,8 +1,10 @@
-import { useState } from "react";
-import InputPost from "../components/InputPost";
-import BackgroundSelect from "../components/BackgroundSelect";
-import axios from "@/api/axios";
 import "./Post.scss";
+import { useState } from "react";
+
+import BackgroundSelect from "../components/BackgroundSelect";
+import InputPost from "../components/InputPost";
+
+import axios from "@/api/axios";
 
 const Post = () => {
   const [receiver, setReceiver] = useState("");
