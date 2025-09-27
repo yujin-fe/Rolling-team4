@@ -1,29 +1,31 @@
-import React from "react";
 import { useEffect, useState } from "react";
+import axios from "@/api/axios";
 import BackgroundList from "./BackgroundList";
-import bg1 from "@/assets/imgs/bg1.jpg";
-import bg2 from "@/assets/imgs/bg2.jpg";
-import bg3 from "@/assets/imgs/bg3.jpg";
-import bg4 from "@/assets/imgs/bg4.jpg";
 
-const colorsList = ["--beige-200", "--purple-200", "--blue-200", "--green-200"];
-const imageList = [bg1, bg2, bg3, bg4];
+const colorsList = ["beige", "purple", "blue", "green"];
 
-const BackgroundSelect = () => {
-  const [tab, setTab] = useState("color");
-  const [background, setBackground] = useState("--beige-200");
+const BackgroundSelect = ({ tab, setTab, background, setBackground }) => {
+  const [backgroundImg, setBackgroundImg] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get("/background-images/");
+        setBackgroundImg(data.imageUrls);
+      } catch (err) {
+        console.error("fetch error", err);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (tab === "color") {
       setBackground(colorsList[0]);
-    } else {
-      setBackground(imageList[0]);
+    } else if (backgroundImg.length > 0) {
+      setBackground(backgroundImg[0]);
     }
-  }, [tab]);
-
-  const handleGenerate = () => {
-    console.log("선택된 배경:", background);
-  };
+  }, [tab, backgroundImg]);
 
   return (
     <div className="background-select">
@@ -54,12 +56,8 @@ const BackgroundSelect = () => {
         selected={background}
         onSelect={setBackground}
         colorsList={colorsList}
-        imageList={imageList}
+        imageList={backgroundImg}
       />
-
-      <button type="button" className="btn-generate" onClick={handleGenerate}>
-        생성하기
-      </button>
     </div>
   );
 };

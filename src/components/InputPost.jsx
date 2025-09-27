@@ -1,13 +1,11 @@
-import React from "react";
 import { useState } from "react";
 
-const PostInput = ({ title }) => {
-  const [receiver, setReceiver] = useState("");
+const InputPost = ({ title, receiver, setReceiver }) => {
   const [showError, setShowError] = useState(false);
 
   const onChangeName = (e) => {
     setReceiver(e.target.value);
-    if (receiver.trim().length < 1) {
+    if (e.target.value.trim().length > 0) {
       setShowError(false);
     }
   };
@@ -19,6 +17,7 @@ const PostInput = ({ title }) => {
       setShowError(false);
     }
   };
+
   return (
     <div className="input-box">
       <p className="tit txt-24-b mg-b12">{title}</p>
@@ -35,4 +34,4 @@ const PostInput = ({ title }) => {
   );
 };
 
-export default PostInput;
+export default InputPost;

@@ -1,4 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+
+const ImageItem = ({ img, selected, onSelect }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div
+      className={`item img ${selected === img && loaded ? "active" : ""}`}
+      style={{ backgroundImage: loaded ? `url(${img})` : "none" }}
+      onClick={() => onSelect(img)}
+    >
+      {!loaded && <div className="loading">로딩중...</div>}
+
+      <img
+        src={img}
+        alt=""
+        style={{ display: "none" }}
+        onLoad={() => setLoaded(true)}
+      />
+      {selected === img && loaded && <span className="check"></span>}
+    </div>
+  );
+};
 
 const BackgroundList = ({ tab, selected, onSelect, colorsList, imageList }) => {
   return (
@@ -8,7 +30,7 @@ const BackgroundList = ({ tab, selected, onSelect, colorsList, imageList }) => {
           <div
             key={color}
             className={`item ${selected === color ? "active" : ""}`}
-            style={{ background: `var(${color})` }}
+            style={{ background: `var(--${color}-200)` }}
             onClick={() => onSelect(color)}
           >
             {selected === color && <span className="check"></span>}
@@ -17,16 +39,12 @@ const BackgroundList = ({ tab, selected, onSelect, colorsList, imageList }) => {
 
       {tab === "image" &&
         imageList.map((img) => (
-          <div
+          <ImageItem
             key={img}
-            className={`item img ${selected === img ? "active" : ""}`}
-            style={{
-              backgroundImage: `url(${img})`,
-            }}
-            onClick={() => onSelect(img)}
-          >
-            {selected === img && <span className="check"></span>}
-          </div>
+            img={img}
+            selected={selected}
+            onSelect={onSelect}
+          />
         ))}
     </div>
   );
