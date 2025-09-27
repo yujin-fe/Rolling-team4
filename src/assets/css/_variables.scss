@@ -130,11 +130,3 @@ $font-regular: 400;
 .font-noto {
   font-family: "Noto Sans KR";
 }
-
-// CSS 변수로 노출
-:root {
-  --beige-200: #{$beige-200};
-  --purple-200: #{$purple-200};
-  --blue-200: #{$blue-200};
-  --green-200: #{$green-200};
-}
