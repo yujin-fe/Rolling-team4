@@ -1,0 +1,102 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  // variant별 스타일
+  &.primary {
+    background-color: $purple-600;
+    color: $white;
+
+    &:hover:not(.disabled) {
+      background-color: $purple-700;
+    }
+    &:active:not(.disabled) {
+      background-color: $purple-800;
+    }
+    &:focus {
+      outline: 2px solid $purple-200;
+    }
+    &.disabled {
+      background-color: $gray-300;
+      color: $white;
+      cursor: not-allowed;
+    }
+  }
+
+  &.secondary {
+    background-color: $white;
+    color: $purple-700;
+    border: 1px solid $purple-700;
+
+    &:hover:not(.disabled) {
+      background-color: $purple-100;
+    }
+    &:active:not(.disabled) {
+      background-color: $purple-200;
+    }
+    &:focus {
+      outline: 2px solid $purple-300;
+    }
+    &.disabled {
+      background-color: $gray-100;
+      color: $gray-400;
+      cursor: not-allowed;
+    }
+  }
+
+  &.outlined {
+    background-color: transparent;
+    border: 1px solid $gray-300;
+    color: $gray-900;
+
+    &:hover:not(.disabled) {
+      background-color: $gray-100;
+    }
+    &:active:not(.disabled) {
+      background-color: $gray-200;
+    }
+    &:focus {
+      outline: 2px solid $gray-300;
+    }
+    &.disabled {
+      color: $gray-400;
+      border-color: $gray-300;
+      cursor: not-allowed;
+    }
+  }
+
+  // size별 스타일
+  &.xl {
+    padding: 14px 24px;
+    border-radius: 12px;
+    @extend .txt-18-b;
+  }
+  &.lg {
+    padding: 7px 16px;
+    border-radius: 6px;
+    @extend .txt-16;
+  }
+  &.md {
+    padding: 6px 16px;
+    border-radius: 6px;
+    @extend .txt-16;
+  }
+  &.sm {
+    padding: 2px 16px;
+    border-radius: 6px;
+    @extend .txt-16;
+  }
+
+  // 아이콘 전용 버튼
+  &.with-icon {
+    .btn-icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
