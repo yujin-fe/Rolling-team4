@@ -11,6 +11,11 @@ const Post = () => {
   const [background, setBackground] = useState("");
   const [tab, setTab] = useState("color");
 
+  const isDisabled =
+    !receiver.trim() ||
+    (tab === "color" && !background) ||
+    (tab === "image" && !background);
+
   const handleGenerate = async () => {
     const payload = {
       team: "4",
@@ -41,11 +46,7 @@ const Post = () => {
         type="button"
         className="btn full"
         onClick={handleGenerate}
-        disabled={
-          !receiver.trim() ||
-          (tab === "color" && !background) ||
-          (tab === "image" && !background)
-        }
+        disabled={isDisabled}
       >
         생성하기
       </button>

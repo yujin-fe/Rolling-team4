@@ -137,9 +137,7 @@
   font-size: 18px;
   color: $white;
   background: $purple-600;
-  &.has-icon {
-    width: auto !important;
-  }
+
   &.primary {
     &:disabled {
       background: $gray-300;
@@ -216,21 +214,47 @@
     height: 56px;
     border-radius: 12px;
     padding: 14px 24px;
+    @extend .txt-18-b;
   }
   &.lg {
     width: 280px;
     height: 56px;
+    @extend .txt-18-b;
   }
   &.wd {
     width: 157px;
     height: 40px;
+    @extend .txt-16-b;
   }
   &.md {
     width: 122px;
     height: 40px;
+    @extend .txt-16;
   }
   &.sm {
     width: 92px;
     height: 39px;
+    @extend .txt-16;
   }
+  &.has-icon {
+    width: auto !important;
+    align-self: flex-start;
+    height: auto;
+    padding: 6px 16px;
+    min-height: 36px;
+    .btn__icon {
+      margin-right: 4px;
+    }
+  }
+}
+
+@media screen and (max-width: 1248px) {
+  .btn {
+    &.lg {
+      width: 100%;
+    }
+  }
+}
+/* 모바일 */
+@media screen and (max-width: 768px) {
 }
