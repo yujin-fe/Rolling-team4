@@ -18,7 +18,7 @@ function App() {
   const [recipientsData, setRecipientsData] = useState([]);
 
   useEffect(() => {
-    const getData = async () => {
+    const getRecipientsData = async () => {
       try {
         const res = await instance.get("/recipients/");
         setRecipientsData(res.data);
@@ -28,7 +28,7 @@ function App() {
       }
     };
 
-    getData();
+    getRecipientsData();
   }, []);
 
   return (
