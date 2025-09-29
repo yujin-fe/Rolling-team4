@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React from "react";
-=======
 import { createContext, useEffect, useState } from "react";
->>>>>>> 1e21a4d92378c95eda5f51c970ddf5de98fb68fb
 import { Route, Routes } from "react-router-dom";
 
 import instance from "./api/axios.js";
@@ -24,11 +20,11 @@ function App() {
   useEffect(() => {
     const getRecipientsData = async () => {
       try {
-        const res = await instance.get("/recipients/");
+        const res = await instance.get("19-4/recipients/");
         setRecipientsData(res.data);
-      } catch(e) {
-        console.log(e)
-        alert('오류가 발생했습니다.')
+      } catch (e) {
+        console.log(e);
+        alert("오류가 발생했습니다.");
       }
     };
 
