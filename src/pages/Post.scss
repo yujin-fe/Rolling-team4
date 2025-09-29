@@ -1,4 +1,12 @@
 .post-wrap {
+  max-width: 720px;
+  padding-top: 57px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .post-container {
+    padding-bottom: 0px;
+  }
   .tit {
     color: $gray-900;
   }
@@ -8,11 +16,28 @@
   .input-box {
     margin-bottom: 50px;
   }
+  .background-select {
+    .tab {
+      .tab-btn {
+        width: 122px;
+        height: 40px;
+        border-radius: 6px;
+        background: $gray-100;
+        &.active {
+          color: $purple-700;
+          font-weight: 700;
+          background: $white;
+          border: 2px solid $purple-600;
+        }
+      }
+    }
+  }
   .background-list {
     display: flex;
     justify-content: center;
     gap: 16px;
     width: 100%;
+    padding: 45px 0 69px;
     .item {
       position: relative;
       width: 168px;
@@ -50,6 +75,41 @@
           }
         }
       }
+    }
+  }
+}
+
+/* 태블릿 */
+@media screen and (max-width: 1248px) {
+  .post-wrap {
+    max-width: none;
+    width: 100%;
+    padding: 49px 24px 24px;
+    .input-box {
+      margin-bottom: 54px;
+    }
+    .background-list {
+      padding-top: 40px;
+      padding-bottom: 0;
+    }
+    .btn.full {
+      margin-top: auto;
+    }
+  }
+}
+/* 모바일 */
+@media screen and (max-width: 768px) {
+  .post-wrap {
+    padding: 50px 20px 20px;
+    .post-container {
+      padding-bottom: 82px;
+    }
+    .background-list {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .background-list .item {
+      flex: 0 0 calc(50% - 7px);
     }
   }
 }

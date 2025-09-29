@@ -36,17 +36,17 @@ const BackgroundSelect = ({ tab, setTab, background, setBackground }) => {
         컬러를 선택하거나, 이미지를 선택할 수 있습니다.
       </p>
 
-      <nav className="tab">
+      <nav className="tab mg-t24">
         <button
           type="button"
-          className={`tab-btn ${tab === "color" ? "active" : ""}`}
+          className={`tab-btn txt-16  ${tab === "color" ? "active" : ""}`}
           onClick={() => setTab("color")}
         >
           컬러
         </button>
         <button
           type="button"
-          className={`tab-btn ${tab === "image" ? "active" : ""}`}
+          className={`tab-btn txt-16  ${tab === "image" ? "active" : ""}`}
           onClick={() => setTab("image")}
         >
           이미지

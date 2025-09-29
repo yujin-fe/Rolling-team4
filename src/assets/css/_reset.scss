@@ -325,21 +325,26 @@ body,
 }
 #root {
   margin: 0 auto;
-  overflow: hidden;
 }
 
 #root .layout {
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   width: 100%;
   padding: 0 24px;
   box-sizing: border-box;
   max-width: 1248px;
+  height: 100%;
 }
 
 #root .container {
   width: 100%;
   height: 100%;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #root main {
   position: relative;
@@ -406,16 +411,7 @@ select {
   border-radius: 0;
   appearance: none;
   -webkit-appearance: none;
-  font-family:
-    Inter,
-    Noto Sans KR,
-    Malgun Gothic,
-    "맑은고딕",
-    "굴림",
-    gulim,
-    helvetica,
-    arial,
-    sans-serif;
+  font-family: "Pretendard", "Noto Sans KR", "맑은고딕", "굴림", gulim, helvetica, arial, sans-serif;
   letter-spacing: -0.025em;
 }
 input[type="text"],
@@ -578,6 +574,9 @@ input[type="date"]::-webkit-calendar-picker-indicator:focus,
 .mg-t15 {
   margin-top: 15px !important;
 }
+.mg-t24 {
+  margin-top: 24px !important;
+}
 .mg-t25 {
   margin-top: 25px !important;
 }
@@ -701,4 +700,172 @@ body.scroll-hidden {
   opacity: 1;
   border: 2px solid #38d !important;
   box-sizing: border-box;
+}
+
+/* input type */
+.input-box {
+  input[type="text"] {
+    width: 100%;
+    height: 50px;
+    padding: 12px 16px;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    color: $gray-500;
+    border-radius: 8px;
+    border: 1px solid $gray-300;
+    box-sizing: border-box;
+    &::placeholder {
+      color: $gray-500;
+      &-shown {
+        border: 1px solid $gray-900;
+      }
+    }
+    &:not(:placeholder-shown) {
+      border: 1px solid $gray-900;
+      color: $gray-900;
+    }
+  }
+  .err-txt {
+    margin-top: 4px;
+    color: $error;
+  }
+  &.err {
+    input {
+      border-color: $error;
+      color: $gray-900;
+      &::placeholder {
+        color: $gray-900;
+      }
+    }
+  }
+}
+
+/*
+*button type
+*/
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 7px 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 18px;
+  color: $white;
+  background: $purple-600;
+  &.has-icon {
+    width: auto !important;
+  }
+  &.primary {
+    &:disabled {
+      background: $gray-300;
+      color: $white;
+    }
+    &:hover {
+      background: $purple-700;
+    }
+    &:active {
+      background: $purple-800;
+    }
+    &:focus {
+      background: $purple-800;
+      border: 2px solid $purple-900;
+    }
+  }
+  &.secondary {
+    background: $white;
+    border: 1px solid $purple-600;
+    color: $purple-700;
+    &:disabled {
+      background: $gray-300;
+      color: $white;
+    }
+    &:hover {
+      color: $purple-600;
+      background: $purple-100;
+      border: 1px solid $purple-700;
+    }
+    &:active {
+      color: $purple-600;
+      background: $purple-100;
+      border: 1px solid $purple-700;
+    }
+    &:focus {
+      background: $white;
+      color: #9747ff;
+      border: 1px solid $purple-800;
+    }
+  }
+  &.outlined {
+    background: $white;
+    border: 1px solid $gray-300;
+    color: $gray-900;
+    &:disabled {
+      background: $gray-300;
+      color: $white;
+    }
+    &:hover {
+      color: $gray-900;
+      background: $gray-100;
+      border: 1px solid $gray-300;
+    }
+    &:active {
+      color: $gray-900;
+      background: $gray-100;
+      border: 1px solid $gray-300;
+    }
+    &:focus {
+      background: $white;
+      color: $gray-900;
+      border: 1px solid $gray-500;
+    }
+  }
+  &.add {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: url("@/assets/imgs/add_ico.svg") no-repeat 50%/24px auto;
+    background-color: $gray-500;
+  }
+  &.full {
+    width: 100%;
+    height: 56px;
+    border-radius: 12px;
+    padding: 14px 24px;
+  }
+  &.lg {
+    width: 280px;
+    height: 56px;
+  }
+  &.wd {
+    width: 157px;
+    height: 40px;
+  }
+  &.md {
+    width: 122px;
+    height: 40px;
+  }
+  &.sm {
+    width: 92px;
+    height: 39px;
+  }
+}
+
+/* 태블릿 */
+@media screen and (max-width: 1248px) {
+  #root .layout {
+    padding: 0;
+  }
+  #root .container {
+    justify-content: unset;
+  }
+}
+/* 모바일 */
+@media screen and (max-width: 768px) {
+  #root .container {
+    height: auto;
+  }
 }

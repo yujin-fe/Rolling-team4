@@ -19,7 +19,7 @@ const InputPost = ({ title, receiver, setReceiver }) => {
   };
 
   return (
-    <div className="input-box">
+    <div className={`input-box ${showError ? "err" : ""}`}>
       <p className="tit txt-24-b mg-b12">{title}</p>
       <input
         name="receive"
@@ -29,7 +29,7 @@ const InputPost = ({ title, receiver, setReceiver }) => {
         onBlur={onBlurName}
         placeholder="받는 사람 이름을 입력해 주세요"
       />
-      {showError && <p>값을 입력해 주세요.</p>}
+      {showError && <p className="err-txt">값을 입력해 주세요.</p>}
     </div>
   );
 };
