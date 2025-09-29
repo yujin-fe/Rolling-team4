@@ -330,9 +330,10 @@ body,
 #root .layout {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   width: 100%;
-  padding: 0 24px;
+  padding: 0px;
   box-sizing: border-box;
   max-width: 1248px;
   height: 100%;
@@ -705,7 +706,7 @@ body.scroll-hidden {
 /* 태블릿 */
 @media screen and (max-width: 1248px) {
   #root .layout {
-    padding: 0;
+    padding: 0 24px;
   }
   #root .container {
     justify-content: unset;
