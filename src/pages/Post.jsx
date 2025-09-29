@@ -29,7 +29,7 @@ const Post = () => {
   return (
     <div className="post-wrap">
       <div className="post-container">
-        <InputPost title="To." receiver={receiver} setReceiver={setReceiver} />
+        <InputPost title="To." value={receiver} onChange={setReceiver} />
         <BackgroundSelect
           tab={tab}
           setTab={setTab}
