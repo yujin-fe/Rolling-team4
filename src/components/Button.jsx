@@ -1,30 +1,13 @@
-/*
-<Button 
-      variant = "primary" // primary / secondary / outlined / add
-      size = "lg"  // full / lg / wd / md / sm
-      text="확인"
-      icon = {isDisabled ? <아이콘1 /> : <아이콘2 /> }
-      disabled = {isDisabled}
-/>
-*/
+import React from "react";
+import "./Button.scss";
 
-function Button({
-  variant = "primary",
-  size = "md",
-  text,
-  icon,
-  onClick,
-  disabled = false,
-}) {
+function Button({ variant = "primary", size, icon, children, ...props }) {
+  const classNames = ["btn", variant, size, icon ? "with-icon" : ""].join(" ");
+
   return (
-    <button
-      type="button"
-      className={`btn ${variant} ${size} ${icon ? "has-icon" : ""}`}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {icon && <span className="btn__icon">{icon}</span>}
-      {text && <span className="btn__text">{text}</span>}
+    <button className={classNames} {...props}>
+      {icon && <img src={icon} alt="" className="btn-icon" />}
+      {children}
     </button>
   );
 }
