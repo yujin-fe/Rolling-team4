@@ -10,8 +10,8 @@
 
 function Button({
   variant = "primary",
-  text,
   size = "md",
+  text,
   icon,
   onClick,
   disabled = false,
