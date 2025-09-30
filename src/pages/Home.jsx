@@ -1,10 +1,13 @@
 import "./Home.scss";
-import { Link } from "react-router-dom";
 
+import { Link } from "react-router-dom";
+import Button from "../components/Button";
 import home_image1 from "../assets/imgs/home_image1.png";
 import home_image2 from "../assets/imgs/home_image2.png";
 import home_image3 from "../assets/imgs/home_image3.png";
 import home_image4 from "../assets/imgs/home_image4.png";
+
+import addEmoji from "../assets/icons/add-24.png";
 
 const Home = () => {
   const isActive = true;
