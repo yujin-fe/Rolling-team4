@@ -20,7 +20,7 @@ const Post = () => {
     const payload = {
       team: "4",
       name: receiver,
-      backgroundColor: tab === background || "beige",
+      backgroundColor: tab === "color" ? background : "beige",
       backgroundImageURL: tab === "image" ? background : null,
     };
     try {
