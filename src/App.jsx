@@ -20,11 +20,11 @@ function App() {
   useEffect(() => {
     const getRecipientsData = async () => {
       try {
-        const res = await instance.get("/recipients/");
+        const res = await instance.get("19-4/recipients/");
         setRecipientsData(res.data);
-      } catch(e) {
-        console.log(e)
-        alert('오류가 발생했습니다.')
+      } catch (e) {
+        console.log(e);
+        alert("오류가 발생했습니다.");
       }
     };
 
