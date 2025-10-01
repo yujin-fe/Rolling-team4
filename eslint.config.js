@@ -14,6 +14,11 @@ export default defineConfig([
     },
     extends: ["js/recommended"],
     languageOptions: { globals: globals.browser },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
     rules: {
       "no-unused-vars": "warn", // 사용 안 하는 변수 경고
       "no-undef": "error", // 정의 안 된 변수 에러
@@ -26,11 +31,7 @@ export default defineConfig([
       "simple-import-sort/imports": [
         "error",
         {
-          groups: [
-            ["^\\u0000", "^react", "^@?\\w"],
-            ["^\\.\\./"],
-            ["^\\./"],
-          ],
+          groups: [["^\\u0000", "^react", "^@?\\w"], ["^\\.\\./"], ["^\\./"]],
         },
       ],
       "simple-import-sort/exports": "error",
