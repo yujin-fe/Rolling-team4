@@ -4,16 +4,16 @@ import { useState } from "react";
 import btn_arrow from "./../assets/imgs/btn_arrow.svg";
 import btn_arrow_gray from "./../assets/imgs/btn_arrow_gray.svg";
 
-const Dropdown = ({title, data, handleSelectChange, value}) => {
+const Dropdown = ({ title, data, handleSelectChange, value }) => {
   const [isOpened, setIsOpend] = useState(false);
-  const isFinished = !!value && !isOpened
+  const isFinished = !!value && !isOpened;
 
   const onClickTitle = () => {
     setIsOpend(!isOpened);
   };
 
   const onClickItem = (e) => {
-    handleSelectChange(e.target.innerText); 
+    handleSelectChange(e.target.innerText);
     setIsOpend(!isOpened);
   };
 
@@ -42,14 +42,12 @@ const Dropdown = ({title, data, handleSelectChange, value}) => {
       >
         <div className={`title txt-16 ${isFinished ? "selected-title" : ""}`}>
           {/* title은, 기본으로 보여지는 화면에 필요한 문구. */}
-          {isFinished ? value : title} 
+          {isFinished ? value : title}
         </div>
         {arrowIcon}
       </button>
 
-      {!isOpened ? (
-        ""
-      ) : (
+      {isOpened && (
         <ul className="list">
           {data.map((item) => (
             <li key={item.id}>
@@ -79,7 +77,7 @@ export default Dropdown;
 //   setSelectedOption(input)
 // }
 
-// <Dropdown 
+// <Dropdown
 //   title="공유 방법 선택" -> 선택전 기본적으로 보여지는 부분
 //   data={data} -> 선택될 리스트들이 담겨진 데이터
 //   handleSelectChange={handleSelectChange} -> 상태를 변경하는 함수, 선택된 값이 아규먼트로 전달됨
