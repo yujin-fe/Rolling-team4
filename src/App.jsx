@@ -1,7 +1,6 @@
-import { createContext, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import instance from "./api/axios.js";
+import { ModalProvider } from "./contexts/ModalContext";
 import Layout from "./layouts/Layout";
 import PostApiLayout from "./layouts/PostApiLayout";
 import PostDetailLayout from "./layouts/PostDetailLayout";
@@ -12,28 +11,9 @@ import PostId from "./pages/PostId";
 import PostIdEdit from "./pages/PostIdEdit";
 import PostIdMessage from "./pages/PostIdMessage";
 
-export const RecipientsStateContext = createContext();
-
 function App() {
-  // recipients 데이터 관리하는 상태
-  const [recipientsData, setRecipientsData] = useState([]);
-
-  useEffect(() => {
-    const getRecipientsData = async () => {
-      try {
-        const res = await instance.get("19-4/recipients/");
-        setRecipientsData(res.data);
-      } catch (e) {
-        console.log(e);
-        alert("오류가 발생했습니다.");
-      }
-    };
-
-    getRecipientsData();
-  }, []);
-
   return (
-    <RecipientsStateContext.Provider value={recipientsData}>
+    <ModalProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -51,7 +31,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-    </RecipientsStateContext.Provider>
+    </ModalProvider>
   );
 }
 

@@ -166,9 +166,7 @@ video {
   border: 0;
   letter-spacing: -0.01em;
   font-weight: 400;
-  font-family:
-    "Pretendard", "Noto Sans KR", "맑은고딕", "굴림", gulim, helvetica, arial,
-    sans-serif;
+  font-family: "Pretendard", "Noto Sans KR", "맑은고딕", "굴림", gulim, helvetica, arial, sans-serif;
   vertical-align: baseline;
   -webkit-text-size-adjust: none;
 }
@@ -326,6 +324,9 @@ body,
   min-width: 320px;
   height: 100dvh;
 }
+body.modal-open {
+  overflow: hidden;
+}
 #root {
   margin: 0 auto;
 }
@@ -415,9 +416,7 @@ select {
   border-radius: 0;
   appearance: none;
   -webkit-appearance: none;
-  font-family:
-    "Pretendard", "Noto Sans KR", "맑은고딕", "굴림", gulim, helvetica, arial,
-    sans-serif;
+  font-family: "Pretendard", "Noto Sans KR", "맑은고딕", "굴림", gulim, helvetica, arial, sans-serif;
   letter-spacing: -0.025em;
 }
 input[type="text"],
