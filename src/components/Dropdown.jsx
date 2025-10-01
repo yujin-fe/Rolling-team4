@@ -4,21 +4,17 @@ import { useState } from "react";
 import btn_arrow from "./../assets/imgs/btn_arrow.svg";
 import btn_arrow_gray from "./../assets/imgs/btn_arrow_gray.svg";
 
-const Dropdown = ({title, data, handleSelectedOpt, value}) => {
+const Dropdown = ({title, data, handleSelectChange, value}) => {
   const [isOpened, setIsOpend] = useState(false);
-  const [isFinished, setIsFinished] = useState(false);
+  const isFinished = !!value && !isOpened
 
   const onClickTitle = () => {
     setIsOpend(!isOpened);
-    if (isFinished) {
-      setIsFinished(false);
-    }
   };
 
   const onClickItem = (e) => {
-    handleSelectedOpt(e.target.innerText); 
+    handleSelectChange(e.target.innerText); 
     setIsOpend(!isOpened);
-    setIsFinished(!isFinished);
   };
 
   const arrowIcon = isFinished ? (
@@ -77,16 +73,16 @@ export default Dropdown;
 //     content:'예시'
 //   },...
 // ]
-// const [selectedOption, setSelectedOption] = useState('')
+// const [selectedOpt, setSelectedOpt] = useState('')
 
-// const handleSelectedOpt = (input) => {
+// const handleSelectChange = (input) => {
 //   setSelectedOption(input)
 // }
 
 // <Dropdown 
 //   title="공유 방법 선택" -> 선택전 기본적으로 보여지는 부분
 //   data={data} -> 선택될 리스트들이 담겨진 데이터
-//   handleSelectedOpt={handleSelectedOpt} -> 상태를 변경하는 함수, 선택된 값이 아규먼트로 전달됨
-//   value={selectedOption} -> 선택된 상태, 선택이 끝난 후 드롭다운 박스에 표시됨
+//   handleSelectChange={handleSelectChange} -> 상태를 변경하는 함수, 선택된 값이 아규먼트로 전달됨
+//   value={selectedOpt} -> 선택된 상태, 선택이 끝난 후 드롭다운 박스에 표시됨
 // />
 //
