@@ -36,7 +36,7 @@ const List = () => {
     const fetchRecentCard = async () => {
       try {
         const res = await axios.get(
-          "https://rolling-api.vercel.app/4/recipients/?limit=4&offset=0"
+          "https://rolling-api.vercel.app/19-4/recipients/?limit=4&offset=0"
         );
         console.log("카드API 응답:", res.data);
         if (res.data && Array.isArray(res.data.results)) {
@@ -79,7 +79,7 @@ const List = () => {
   }, []);
 
   return (
-    <div className="list">
+    <div className="rolling_list">
       <div className="rolling_popular">
         <h3 className={`txt-24-b ${isActive ? "active" : ""}`}>
           인기 롤링 페이퍼 🔥
