@@ -1,10 +1,12 @@
-import "./Emoji.css";
+import "./Emoji.scss";
 
-const Emoji = ({ emoji, count }) => {
+const Emoji = ({ emoji, count, color = "#fff", ...props }) => {
   return (
-    <div className="Emoji">
+    <div className="Emoji" {...props}>
       <div className="emoji_emoji">{emoji}</div>
-      <div className="emoji_count">{count}</div>
+      <div className="emoji_count" style={{ color: color }}>
+        {count}
+      </div>
     </div>
   );
 };

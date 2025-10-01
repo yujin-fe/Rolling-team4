@@ -1,12 +1,12 @@
-import "./Toggle.css"
-import {useState} from 'react'
+import "./Toggle.scss";
+import { useState } from "react";
 
-const Toggle = ({leftText,rightText}) => {
-  const [active, setActive] = useState("left")
+const Toggle = ({ leftText, rightText }) => {
+  const [active, setActive] = useState("left");
 
   const onChangeToggle = (value) => {
-    setActive(value)
-  }
+    setActive(value);
+  };
 
   return (
     <div className="Toggle">
@@ -23,7 +23,7 @@ const Toggle = ({leftText,rightText}) => {
         {rightText}
       </button>
     </div>
-  )
-}
+  );
+};
 
 export default Toggle;
