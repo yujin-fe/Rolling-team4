@@ -1,0 +1,85 @@
+.post-messase-wrap {
+  max-width: 720px;
+  padding-top: 57px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .post-message-container {
+    padding-bottom: 0px;
+  }
+  .tit {
+    color: $gray-900;
+    display: block;
+  }
+  .txt {
+    color: $gray-500;
+  }
+  .profile-wrap {
+    .profile-imgs {
+      display: flex;
+
+      .profile-main {
+        border-radius: 50%;
+        overflow: hidden;
+        width: 80px;
+        height: 80px;
+        margin-right: 32px;
+        min-width: 80px;
+      }
+      .profile-list {
+        ul {
+          display: flex;
+          gap: 4px;
+          li {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+  .ql-container {
+    height: 178px;
+  }
+  .input-box {
+    margin-bottom: 50px;
+  }
+}
+
+/* 태블릿 */
+@media screen and (max-width: 1248px) {
+  .post-messase-wrap {
+    max-width: none;
+    width: 100%;
+    padding: 49px 24px 24px;
+    .input-box {
+      margin-bottom: 54px;
+    }
+    .btn.full {
+      margin-top: auto;
+    }
+  }
+}
+/* 모바일 */
+@media screen and (max-width: 768px) {
+  .post-messase-wrap {
+    padding: 50px 0px 20px;
+    .post-message-container {
+      padding-bottom: 82px;
+    }
+    .profile-wrap .profile-imgs .profile-list ul {
+      flex-wrap: wrap;
+      gap: 2px;
+      li {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+}
