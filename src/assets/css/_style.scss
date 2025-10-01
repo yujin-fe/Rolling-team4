@@ -151,17 +151,17 @@
   background: $purple-600;
 
   &.primary {
-    &:disabled {
+    &:disabled:not(:disabled) {
       background: $gray-300;
       color: $white;
     }
-    &:hover {
+    &:hover:not(:disabled) {
       background: $purple-700;
     }
-    &:active {
+    &:active:not(:disabled) {
       background: $purple-800;
     }
-    &:focus {
+    &:focus:not(:disabled) {
       background: $purple-800;
       border: 2px solid $purple-900;
     }
@@ -170,21 +170,21 @@
     background: $white;
     border: 1px solid $purple-600;
     color: $purple-700;
-    &:disabled {
+    &:disabled:not(:disabled) {
       background: $gray-300;
       color: $white;
     }
-    &:hover {
+    &:hover:not(:disabled) {
       color: $purple-600;
       background: $purple-100;
       border: 1px solid $purple-700;
     }
-    &:active {
+    &:active:not(:disabled) {
       color: $purple-600;
       background: $purple-100;
       border: 1px solid $purple-700;
     }
-    &:focus {
+    &:focus:not(:disabled) {
       background: $white;
       color: #9747ff;
       border: 1px solid $purple-800;
@@ -198,17 +198,17 @@
       background: $gray-300;
       color: $white;
     }
-    &:hover {
+    &:hover:not(:disabled) {
       color: $gray-900;
       background: $gray-100;
       border: 1px solid $gray-300;
     }
-    &:active {
+    &:active:not(:disabled) {
       color: $gray-900;
       background: $gray-100;
       border: 1px solid $gray-300;
     }
-    &:focus {
+    &:focus:not(:disabled) {
       background: $white;
       color: $gray-900;
       border: 1px solid $gray-500;
@@ -256,6 +256,11 @@
     min-height: 36px;
     .btn-icon {
       margin-right: 4px;
+    }
+    img {
+      margin-right: 4px;
+      width: 24px;
+      height: 24px;
     }
   }
 }
