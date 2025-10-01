@@ -1,7 +1,7 @@
-import "./Badge.css";
+import "./Badge.scss";
 
-const Badge = ({ text, type }) => {
-  return <div className={`Badge ${type}`}>{text}</div>;
+const Badge = ({ text, relationType }) => {
+  return <div className={`Badge ${relationType}`}>{text}</div>;
 };
 
 export default Badge;

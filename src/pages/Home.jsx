@@ -46,7 +46,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <Link to="/post">
+      <Link to="/list">
         <button className={`home_btn txt-18-b ${isActive ? "active" : ""}`}>
           구경해보기
         </button>
