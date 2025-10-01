@@ -1,0 +1,27 @@
+.list {
+  max-width: 1160px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.rolling_popular,
+.rolling_recent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 50px;
+}
+
+.rolling_popular_card,
+.rolling_recent_card {
+  display: flex;
+  gap: 20px;
+}
+
+.rolling_popular h3 {
+  margin-top: 50px;
+}
+
+.action_profile {
+  display: none;
+}
