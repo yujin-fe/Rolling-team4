@@ -1,5 +1,6 @@
-import Profile from "./Profile";
 import "./Card.scss";
+
+import Profile from "./Profile";
 
 const Card = ({
   name,

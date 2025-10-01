@@ -1,7 +1,8 @@
-import Card from "../components/Card";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import "./List.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import Card from "../components/Card";
 
 const List = () => {
   const isActive = true;
@@ -40,9 +41,7 @@ const List = () => {
         );
         console.log("카드API 응답:", res.data);
         if (res.data && Array.isArray(res.data.results)) {
-          const reactionSort = res.data.results.sort(
-            (a, b) => b.reactionCount - a.reactionCount
-          );
+          res.data.results.sort((a, b) => b.reactionCount - a.reactionCount);
           setCard(res.data.results);
         } else {
           setCard([]);
