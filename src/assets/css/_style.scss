@@ -79,8 +79,20 @@
 }
 
 // font family
-.font-noto {
-  font-family: "Noto Sans KR";
+.font-noto-sans {
+  font-family: "Noto Sans", sans-serif;
+}
+
+.font-pretendard {
+  font-family: "Pretendard", sans-serif;
+}
+
+.font-nanum-myeongjo {
+  font-family: "Nanum Myeongjo", serif;
+}
+
+.font-nanum-handwriting {
+  font-family: "Nanum Pen Script";
 }
 
 /* input type */

@@ -1,5 +1,5 @@
-import React from "react";
 import "./Button.scss";
+import React from "react";
 
 function Button({ variant = "primary", size, icon, children, ...props }) {
   const classNames = ["btn", variant, size, icon ? "with-icon" : ""].join(" ");
