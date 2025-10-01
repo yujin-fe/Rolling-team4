@@ -75,6 +75,7 @@
   -webkit-text-size-adjust: none;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 html,
 body,
@@ -165,7 +166,9 @@ video {
   border: 0;
   letter-spacing: -0.01em;
   font-weight: 400;
-  font-family: "Pretendard", "Noto Sans KR", "맑은고딕", "굴림", gulim, helvetica, arial, sans-serif;
+  font-family:
+    "Pretendard", "Noto Sans KR", "맑은고딕", "굴림", gulim, helvetica, arial,
+    sans-serif;
   vertical-align: baseline;
   -webkit-text-size-adjust: none;
 }
@@ -321,25 +324,31 @@ html,
 body,
 #root {
   min-width: 320px;
-  height: 100%;
+  height: 100dvh;
 }
 #root {
   margin: 0 auto;
-  overflow: hidden;
 }
 
 #root .layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   width: 100%;
-  padding: 0 24px;
+  padding: 0px;
   box-sizing: border-box;
   max-width: 1248px;
+  height: 100%;
 }
 
 #root .container {
   width: 100%;
   height: 100%;
   margin: 0 auto;
+  display: flex;
+  // align-items: center;
+  justify-content: center;
 }
 #root main {
   position: relative;
@@ -407,14 +416,7 @@ select {
   appearance: none;
   -webkit-appearance: none;
   font-family:
-    Inter,
-    Noto Sans KR,
-    Malgun Gothic,
-    "맑은고딕",
-    "굴림",
-    gulim,
-    helvetica,
-    arial,
+    "Pretendard", "Noto Sans KR", "맑은고딕", "굴림", gulim, helvetica, arial,
     sans-serif;
   letter-spacing: -0.025em;
 }
@@ -578,6 +580,9 @@ input[type="date"]::-webkit-calendar-picker-indicator:focus,
 .mg-t15 {
   margin-top: 15px !important;
 }
+.mg-t24 {
+  margin-top: 24px !important;
+}
 .mg-t25 {
   margin-top: 25px !important;
 }
@@ -701,4 +706,23 @@ body.scroll-hidden {
   opacity: 1;
   border: 2px solid #38d !important;
   box-sizing: border-box;
+}
+
+/* 태블릿 */
+@media screen and (max-width: 1248px) {
+  #root .layout {
+    padding: 0 24px;
+  }
+  #root .container {
+    justify-content: unset;
+  }
+}
+/* 모바일 */
+@media screen and (max-width: 767px) {
+  #root .container {
+    height: auto;
+  }
+  #root .layout {
+    padding: 0 20px;
+  }
 }

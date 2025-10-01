@@ -1,3 +1,6 @@
+import "@/assets/css/_root.scss";
+import "@/assets/css/_reset.scss";
+import "@/assets/css/_style.scss";
 import React from "react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";

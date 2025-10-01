@@ -12,7 +12,7 @@ const List = () => {
     const fetchPopularCard = async () => {
       try {
         const res = await axios.get(
-          "https://rolling-api.vercel.app/4/recipients/?limit=4&offset=0"
+          "https://rolling-api.vercel.app/19-4/recipients/?limit=4&offset=0"
         );
         console.log("카드API 응답:", res.data);
         if (res.data && Array.isArray(res.data.results)) {
