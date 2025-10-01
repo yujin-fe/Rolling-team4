@@ -79,8 +79,25 @@
 }
 
 // font family
+<<<<<<< HEAD
 .font-noto {
   font-family: "Noto Sans KR";
+=======
+.font-noto-sans {
+  font-family: "Noto Sans", sans-serif;
+}
+
+.font-pretendard {
+  font-family: "Pretendard", sans-serif;
+}
+
+.font-nanum-myeongjo {
+  font-family: "Nanum Myeongjo", serif;
+}
+
+.font-nanum-handwriting {
+  font-family: "Nanum Pen Script";
+>>>>>>> main
 }
 
 /* input type */
@@ -143,6 +160,7 @@
       background: $gray-300;
       color: $white;
     }
+<<<<<<< HEAD
     &:hover:not(:disabled) {
       background: $purple-700;
     }
@@ -150,6 +168,15 @@
       background: $purple-800;
     }
     &:focus:not(:disabled) {
+=======
+    &:hover {
+      background: $purple-700;
+    }
+    &:active {
+      background: $purple-800;
+    }
+    &:focus {
+>>>>>>> main
       background: $purple-800;
       border: 2px solid $purple-900;
     }
@@ -162,17 +189,29 @@
       background: $gray-300;
       color: $white;
     }
+<<<<<<< HEAD
     &:hover:not(:disabled) {
+=======
+    &:hover {
+>>>>>>> main
       color: $purple-600;
       background: $purple-100;
       border: 1px solid $purple-700;
     }
+<<<<<<< HEAD
     &:active:not(:disabled) {
+=======
+    &:active {
+>>>>>>> main
       color: $purple-600;
       background: $purple-100;
       border: 1px solid $purple-700;
     }
+<<<<<<< HEAD
     &:focus:not(:disabled) {
+=======
+    &:focus {
+>>>>>>> main
       background: $white;
       color: #9747ff;
       border: 1px solid $purple-800;
@@ -186,17 +225,29 @@
       background: $gray-300;
       color: $white;
     }
+<<<<<<< HEAD
     &:hover:not(:disabled) {
+=======
+    &:hover {
+>>>>>>> main
       color: $gray-900;
       background: $gray-100;
       border: 1px solid $gray-300;
     }
+<<<<<<< HEAD
     &:active:not(:disabled) {
+=======
+    &:active {
+>>>>>>> main
       color: $gray-900;
       background: $gray-100;
       border: 1px solid $gray-300;
     }
+<<<<<<< HEAD
     &:focus:not(:disabled) {
+=======
+    &:focus {
+>>>>>>> main
       background: $white;
       color: $gray-900;
       border: 1px solid $gray-500;
@@ -242,6 +293,7 @@
     height: auto;
     padding: 6px 16px;
     min-height: 36px;
+<<<<<<< HEAD
     // ??
     .btn-icon {
       margin-right: 4px;
@@ -251,6 +303,11 @@
       width: 24px;
       height: 24px;
     }
+=======
+    .btn-icon {
+      margin-right: 4px;
+    }
+>>>>>>> main
   }
 }
 
