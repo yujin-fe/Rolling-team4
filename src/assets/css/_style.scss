@@ -142,22 +142,16 @@
     &:disabled {
       background: $gray-300;
       color: $white;
-      // disabled 일 때, hover 효과 끄기
-      // background: inherit; 하면 하얘져서 $gray-300 넣었습니다.
-      // 더 좋은 코드가 있다면 수정 부탁드립니다.
-      &:hover {
-        background: $gray-300;
-        cursor: default;
-      }
     }
-    &:hover {
+    &:hover:not(:disabled) {
       background: $purple-700;
     }
-    &:active {
+    &:active:not(:disabled) {
       background: $purple-800;
     }
-    &:focus {
+    &:focus:not(:disabled) {
       background: $purple-800;
+      border: 2px solid $purple-900;
     }
   }
   &.secondary {
@@ -166,20 +160,19 @@
     color: $purple-700;
     &:disabled {
       background: $gray-300;
-      border: none;
       color: $white;
     }
-    &:hover {
+    &:hover:not(:disabled) {
       color: $purple-600;
       background: $purple-100;
       border: 1px solid $purple-700;
     }
-    &:active {
+    &:active:not(:disabled) {
       color: $purple-600;
       background: $purple-100;
       border: 1px solid $purple-700;
     }
-    &:focus {
+    &:focus:not(:disabled) {
       background: $white;
       color: #9747ff;
       border: 1px solid $purple-800;
@@ -189,28 +182,26 @@
     background: $white;
     border: 1px solid $gray-300;
     color: $gray-900;
-
     &:disabled {
       background: $gray-300;
       color: $white;
     }
-    &:hover {
+    &:hover:not(:disabled) {
       color: $gray-900;
       background: $gray-100;
       border: 1px solid $gray-300;
     }
-    &:active {
+    &:active:not(:disabled) {
       color: $gray-900;
       background: $gray-100;
       border: 1px solid $gray-300;
     }
-    &:focus {
+    &:focus:not(:disabled) {
       background: $white;
       color: $gray-900;
       border: 1px solid $gray-500;
     }
   }
-
   &.add {
     width: 56px;
     height: 56px;
@@ -218,7 +209,6 @@
     background: url("@/assets/imgs/add_ico.svg") no-repeat 50%/24px auto;
     background-color: $gray-500;
   }
-
   &.full {
     width: 100%;
     height: 56px;
@@ -252,17 +242,14 @@
     height: auto;
     padding: 6px 16px;
     min-height: 36px;
+    // ??
     .btn-icon {
       margin-right: 4px;
-      width: 24px; // 아이콘 이미지 크기
-      height: 24px;
     }
-  }
-  // 아이콘만 있을 때 마진 없애기
-  // 아이콘만 있는 버튼 2개가 패딩 값이 달라서 애매합나디....
-  &.icon-only {
-    .btn-icon {
-      margin-right: 0;
+    img {
+      margin-right: 4px;
+      width: 24px;
+      height: 24px;
     }
   }
 }

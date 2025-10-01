@@ -1,37 +1,24 @@
 /*
     <Button
-    variant="primary"     //  primary / secondary / outlined
-    size="lg"      //  full / lg / wd / md / sm 
-    onClick={}
-    disabled={false}   // true / false
-    icon={import한 이미지}
+      icon={icon}            // 있다면 icon 이미지 임포트해서 쓰기
+      variant="primary"      // primary / secondary / outlined  
+      size="full"            // full / lg / wd / md / sm
+      onClick={}             // onClick 함수 
+      disabled={isDisabled}  // disabled 조건 함수
     >
-    추가하기  
+      생성하기
     </Button>
 */
 
-function Button({
-  variant = "primary",
-  size,
-  icon,
-  isDisabled,
-  children,
-  ...props
-}) {
-  const hasChildren = !!children; // children 존재 여부
-  const classNames = [
-    "btn",
-    variant,
-    size,
-    icon ? "has-icon" : "", // 아이콘 존재 여부
-    !isDisabled ? "no-hover" : "", // isDisabled 상태일 때 no-hover클래스 추가
-    !hasChildren && icon ? "icon-only" : "", // 아이콘만 있을 때 스타일
-  ].join(" ");
+import "../assets/css/_style.scss";
+
+function Button({ variant = "primary", size, icon, children, ...props }) {
+  const classNames = ["btn", variant, size, icon ? "has-icon" : ""].join(" ");
 
   return (
     <button className={classNames} {...props}>
-      {icon && <img src={icon} alt="" className="btn-icon" />}
-      {hasChildren && children}
+      {icon && <img src={icon} alt="" className="has-icon" />}
+      {children}
     </button>
   );
 }
