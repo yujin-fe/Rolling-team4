@@ -3,8 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { ModalProvider } from "./contexts/ModalContext";
 import { ToastProvider } from "./contexts/ToastContext";
 import Layout from "./layouts/Layout";
-import PostApiLayout from "./layouts/PostApiLayout";
-import PostDetailLayout from "./layouts/PostDetailLayout";
+import PostLayout from "./layouts/PostLayout";
 import Home from "./pages/Home";
 import List from "./pages/List";
 import Post from "./pages/Post";
@@ -21,16 +20,12 @@ function App() {
             <Route index element={<Home />} />
             <Route path="post" element={<Post />} />
             <Route path="list" element={<List />} />
-
-            {/* message 데이터 api만 담당하는 레이아웃 -> post/{id}가 필요한 페이지에 사용됨 */}
-            <Route path="/post/:id" element={<PostApiLayout />}>
-              {/* postId와 postIdEdit의 UI를 담당하는 레이아웃 */}
-              <Route element={<PostDetailLayout />}>
-                <Route index element={<PostId />} />
-                <Route path="edit" element={<PostIdEdit />} />
-              </Route>
-              <Route path="message" element={<PostIdMessage />} />
+            {/* postId와 postIdEdit의 UI를 담당하는 레이아웃 */}
+            <Route element={<PostLayout />}>
+              <Route index element={<PostId />} />
+              <Route path="edit" element={<PostIdEdit />} />
             </Route>
+            <Route path="message" element={<PostIdMessage />} />
           </Route>
         </Routes>
       </ToastProvider>
