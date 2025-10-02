@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import BackgroundList from "./BackgroundList";
+import Toggle from "./Toggle";
 
 import axios from "@/api/axios";
 
@@ -37,20 +38,12 @@ const BackgroundSelect = ({ tab, setTab, background, setBackground }) => {
       </p>
 
       <nav className="tab mg-t24">
-        <button
-          type="button"
-          className={`tab-btn txt-16  ${tab === "color" ? "active" : ""}`}
-          onClick={() => setTab("color")}
-        >
-          컬러
-        </button>
-        <button
-          type="button"
-          className={`tab-btn txt-16  ${tab === "image" ? "active" : ""}`}
-          onClick={() => setTab("image")}
-        >
-          이미지
-        </button>
+        <Toggle
+          leftText="컬러"
+          rightText="이미지"
+          value={tab}
+          onChange={setTab}
+        />
       </nav>
 
       <BackgroundList

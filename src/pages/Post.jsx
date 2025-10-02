@@ -2,6 +2,7 @@ import "./Post.scss";
 import { useState } from "react";
 
 import BackgroundSelect from "../components/BackgroundSelect";
+import Button from "../components/Button";
 import InputPost from "../components/InputPost";
 
 import axios from "@/api/axios";
@@ -41,14 +42,10 @@ const Post = () => {
           setBackground={setBackground}
         />
       </div>
-      <button
-        type="button"
-        className="btn full"
-        onClick={handleGenerate}
-        disabled={isDisabled}
-      >
+
+      <Button size="full" onClick={handleGenerate} disabled={isDisabled}>
         생성하기
-      </button>
+      </Button>
     </div>
   );
 };
