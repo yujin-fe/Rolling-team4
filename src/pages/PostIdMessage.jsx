@@ -158,7 +158,7 @@ const PostIdMessage = () => {
                 { id: 4, content: "나눔손글씨 손편지체" },
               ]}
               value={font}
-              handleSelectChange={setRelation}
+              handleSelectChange={setFont}
             />
           </div>
         </section>
