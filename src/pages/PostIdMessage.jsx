@@ -14,8 +14,8 @@ const PostIdMessage = () => {
   const [sender, setSender] = useState("");
   const [profileImg, setProfileImg] = useState([]);
   const [selectProfile, setselectProfile] = useState("");
-  const [relation, setRelation] = useState("지인");
-  const [font, setFont] = useState("noto-sans");
+  const [relation, setRelation] = useState("");
+  const [font, setFont] = useState("");
   const [content, setContent] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();

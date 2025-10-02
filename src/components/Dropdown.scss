@@ -35,6 +35,10 @@
     border: 1px, solid $gray-300;
   }
 
+  .errored-btn{
+    border: 1px, solid #DC3A3A;
+  }
+
   .selected-title{
     color: $gray-400;
   }
@@ -43,6 +47,11 @@
   cursor: pointer;
   }
 
+  .err-message{
+    color:#DC3A3A;
+    position: static;
+    display: block;
+  }
   .title{
     flex:1;
   }
