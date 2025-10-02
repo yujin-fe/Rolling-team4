@@ -21,7 +21,7 @@ function App() {
             <Route path="post" element={<Post />} />
             <Route path="list" element={<List />} />
             {/* postId와 postIdEdit의 UI를 담당하는 레이아웃 */}
-            <Route element={<PostLayout />}>
+            <Route path="post/:id" element={<PostLayout />}>
               <Route index element={<PostId />} />
               <Route path="edit" element={<PostIdEdit />} />
             </Route>
