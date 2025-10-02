@@ -8,6 +8,8 @@
   display: flex;
   flex-direction: column;
   gap:5px;
+  position:relative;
+  z-index: 1;
   
   .title-wrapper{
   width:100%;
