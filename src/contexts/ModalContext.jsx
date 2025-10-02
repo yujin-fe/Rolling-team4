@@ -1,5 +1,12 @@
 import "./Modal.scss";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import ReactDOM from "react-dom";
 
 const ModalContext = createContext();
@@ -11,13 +18,18 @@ export const ModalProvider = ({ children }) => {
     content: null,
   });
 
-  const openModal = (content) => {
+  const openModal = useCallback((content) => {
     setModalState({ isOpen: true, content });
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setModalState({ isOpen: false, content: null });
-  };
+  }, []);
+
+  const value = useMemo(
+    () => ({ openModal, closeModal }),
+    [openModal, closeModal]
+  );
 
   useEffect(() => {
     if (modalState.isOpen) {
@@ -25,10 +37,13 @@ export const ModalProvider = ({ children }) => {
     } else {
       document.body.classList.remove("modal-open");
     }
+    return () => {
+      document.body.classList.remove("modal-open");
+    };
   }, [modalState.isOpen]);
 
   return (
-    <ModalContext.Provider value={{ openModal, closeModal }}>
+    <ModalContext.Provider value={value}>
       {children}
       {modalState.isOpen &&
         ReactDOM.createPortal(

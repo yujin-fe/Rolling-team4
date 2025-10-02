@@ -1,0 +1,42 @@
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 1;
+  height: 64px;
+  transform: translate(-50%, 20px);
+  max-width: 524px;
+  width: calc(100% - 40px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+  &:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: url("@/assets/imgs/popup/url_check_ico.svg") no-repeat 50%/24px auto;
+  }
+}
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.toast.hide {
+  opacity: 0;
+  transform: translate(-50%, 20px);
+}
+.toast-close {
+  background: url("@/assets/imgs/popup/pop_close.svg") no-repeat 50%/24px auto;
+  width: 24px;
+  height: 24px;
+  margin-left: auto;
+}

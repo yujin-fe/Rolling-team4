@@ -1,13 +1,8 @@
 import "./MessageModal.scss";
 
-const MessageModal = ({
-  profileImageURL,
-  sender,
-  relationship,
-  createdAt,
-  content,
-  onClose,
-}) => {
+const MessageModal = ({ data, onClose }) => {
+  const { profileImageURL, sender, relationship, createdAt, content } = data;
+
   return (
     <div className="message-modal">
       <div className="message-header">
