@@ -10,8 +10,6 @@
     </Button>
 */
 
-import "../assets/css/_style.scss";
-
 function Button({ variant = "primary", size, icon, children, ...props }) {
   const classNames = ["btn", variant, size, icon ? "has-icon" : ""].join(" ");
 
