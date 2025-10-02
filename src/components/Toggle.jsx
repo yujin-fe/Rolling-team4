@@ -1,24 +1,17 @@
 import "./Toggle.scss";
-import { useState } from "react";
 
-const Toggle = ({ leftText, rightText }) => {
-  const [active, setActive] = useState("left");
-
-  const onChangeToggle = (value) => {
-    setActive(value);
-  };
-
+const Toggle = ({ leftText, rightText, value, onChange }) => {
   return (
     <div className="Toggle">
       <button
-        className={`Toggle_btn ${active === "left" ? "active" : ""}`}
-        onClick={() => onChangeToggle("left")}
+        className={`Toggle_btn ${value === "color" ? "active" : ""}`}
+        onClick={() => onChange("color")}
       >
         {leftText}
       </button>
       <button
-        className={`Toggle_btn ${active === "right" ? "active" : ""}`}
-        onClick={() => onChangeToggle("right")}
+        className={`Toggle_btn ${value === "image" ? "active" : ""}`}
+        onClick={() => onChange("image")}
       >
         {rightText}
       </button>
