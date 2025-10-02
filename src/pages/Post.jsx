@@ -10,7 +10,6 @@ const Post = () => {
   const [receiver, setReceiver] = useState("");
   const [background, setBackground] = useState("");
   const [tab, setTab] = useState("color");
-
   const isDisabled =
     !receiver.trim() ||
     (tab === "color" && !background) ||
