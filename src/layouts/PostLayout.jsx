@@ -8,19 +8,19 @@ import ActionBar from "../components/ActionBar"
 
 const PostLayout = () => {
   const params = useParams();
-  const [recipientData, setRecipientData] = useState({})
+  const [messagesData, setMessagesData] = useState({})
 
   useEffect(()=>{
-    const getRecipientData = async () => {
-      const res = await instance.get(`/19-4/recipients/${params.id}/`)
-      setRecipientData(res.data)
+    const getMessageData = async () => {
+      const MessageRes = await instance.get(`/19-4/recipients/${params.id}/messages/`)
+      setMessagesData(MessageRes.data);
     }
-    getRecipientData();
+    getMessageData();
   },[params.id])
   
   return (
     <div className="PostLayout">
-      <ActionBar data={recipientData}/>
+      <ActionBar messagesData={messagesData} recipientId={params.id}/>
       <Outlet/>
     </div>
   );

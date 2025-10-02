@@ -2,13 +2,42 @@
   width:100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
-  .recipient-name{
 
-  }
-  
   .menu-wrapper{
     display: flex;
+    gap:28px;
+    align-items: center;
+  }
 
+  .profile-wrapper{
+    display: flex;
+    gap: 11px;
+    align-items: center;
+  }
+
+  .reaction-wrapper{
+    display: flex;
+    .badges{
+      display: flex;
+      gap:8px;
+    }
+
+    button{
+      width:36px;
+    }
+  }
+
+  .btn-wrapper{
+    display: flex;
+    gap:13px;
+    align-items: center;
+  }
+
+  .divider{
+    width:1px;
+    height: 28px;
+    background-color: $gray-200;
   }
 }
