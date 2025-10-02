@@ -24,7 +24,6 @@ function App() {
             <Route path="post/:id" element={<PostLayout />}>
               <Route index element={<PostId />} />
               <Route path="edit" element={<PostIdEdit />} />
-              {/* path수정 */}
               <Route path="message" element={<PostIdMessage />} />
             </Route>
           </Route>
