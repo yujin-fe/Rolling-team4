@@ -15,6 +15,7 @@ const MessageModal = ({ data, onClose }) => {
           <span className="relationship">{relationship}</span>
         </div>
         <span className="createdAt txt-14">
+          {/* 임시 날짜 포멧팅 */}
           {new Date(createdAt).toLocaleDateString("ko-KR")}
         </span>
       </div>
