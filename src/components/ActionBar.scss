@@ -1,8 +1,12 @@
 .ActionBar{
   width:100%;
+  height: 68px;
+  padding: 13px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid #EDEDED;
+  border-bottom: 1px solid #EDEDED;
 
 
   .menu-wrapper{
@@ -19,13 +23,33 @@
 
   .reaction-wrapper{
     display: flex;
+    flex-wrap: wrap;
+    position: relative;
     .badges{
       display: flex;
       gap:8px;
     }
 
-    button{
+    .reaction-window-btn{
       width:36px;
+      cursor: pointer;
+    }
+
+    .reaction-window{
+      max-width: 312px;
+      padding:24px;
+      background-color: #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      grid-template-rows: repeat(2, 1fr) auto;
+      gap:10px;
+      
+      border:1px solid #B6B6B6;
+      border-radius: 8px;
+
+      position: absolute;
+      top:40px;
     }
   }
 
