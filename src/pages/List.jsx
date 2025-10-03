@@ -6,22 +6,23 @@ import axios from "axios";
 import Button from "../components/Button";
 import Listcard from "../components/Listcard";
 
+import list_arrow from "./../assets/imgs/list_arrow.svg";
+
 const List = () => {
   const isActive = true;
   const [card, setCard] = useState([]);
   const [profileImages, setProfileImages] = useState([]);
+  const [reactions, setReactions] = useState({});
 
   useEffect(() => {
     const fetchPopularCard = async () => {
       try {
         const res = await axios.get(
-          "https://rolling-api.vercel.app/4/recipients/?limit=4&offset=0"
+          "https://rolling-api.vercel.app/19-4/recipients/?limit=4&offset=0"
         );
         console.log("카드API 응답:", res.data);
         if (res.data && Array.isArray(res.data.results)) {
-          const reactionSort = res.data.results.sort(
-            (a, b) => b.reactionCount - a.reactionCount
-          );
+          res.data.results.sort((a, b) => b.reactionCount - a.reactionCount);
           setCard(res.data.results);
         } else {
           setCard([]);
@@ -79,6 +80,29 @@ const List = () => {
     fetchProfileImages();
   }, []);
 
+  useEffect(() => {
+    const fetchReactions = async (recipientId) => {
+      try {
+        const res = await axios.get(
+          `https://rolling-api.vercel.app/19-4/recipients/${recipientId}/reactions/?limit=3&offset=0`
+        );
+        console.log("리액션API 응답:", res.data);
+        if (res.data && Array.isArray(res.data.results)) {
+          setReactions((prev) => ({
+            ...prev,
+            [recipientId]: res.data.results,
+          }));
+        }
+      } catch (error) {
+        console.error("리액션 불러오기 실패:", error);
+      }
+    };
+
+    if (card.length > 0) {
+      card.forEach((c) => fetchReactions(c.id));
+    }
+  }, [card]);
+
   return (
     <div className="rolling_list">
       <div className="rolling_popular">
@@ -87,17 +111,25 @@ const List = () => {
         </h3>
         <div className="rolling_popular_card">
           {card.map((c) => (
-            <Listcard
-              key={c.id}
-              name={c.name}
-              messageCount={c.messageCount}
-              backgroundColor={c.backgroundColor}
-              backgroundImageURL={c.backgroundImageURL}
-              reactionCount={c.reactionCount}
-              profileImages={profileImages}
-              createdAt={c.createdAt}
-            />
+            <Link key={c.id} to={`/post/${c.id}`}>
+              <Listcard
+                name={c.name}
+                messageCount={c.messageCount}
+                backgroundColor={c.backgroundColor}
+                backgroundImageURL={c.backgroundImageURL}
+                reactionCount={c.reactionCount}
+                profileImages={profileImages}
+                createdAt={c.createdAt}
+                reaction={c.reaction}
+              />
+            </Link>
           ))}
+          <Button className="next_icon icon">
+            <img src={list_arrow} alt="리스트 다음 버튼" />
+          </Button>
+          <Button className="prev_icon icon">
+            <img src={list_arrow} alt="리스트 이전 버튼" />
+          </Button>
         </div>
       </div>
       <div className="rolling_recent">
@@ -106,17 +138,24 @@ const List = () => {
         </h3>
         <div className="rolling_recent_card">
           {card.map((c) => (
-            <Listcard
-              key={c.id}
-              name={c.name}
-              messageCount={c.messageCount}
-              backgroundColor={c.backgroundColor}
-              backgroundImageURL={c.backgroundImageURL}
-              reactionCount={c.reactionCount}
-              profileImages={profileImages}
-              createdAt={c.createdAt}
-            />
+            <Link key={c.id} to={`/post/${c.id}`}>
+              <Listcard
+                name={c.name}
+                messageCount={c.messageCount}
+                backgroundColor={c.backgroundColor}
+                backgroundImageURL={c.backgroundImageURL}
+                reactionCount={c.reactionCount}
+                profileImages={profileImages}
+                reactions={reactions[c.id]}
+              />
+            </Link>
           ))}
+          <Button className="next_icon icon">
+            <img src={list_arrow} alt="리스트 다음 버튼" />
+          </Button>
+          <Button className="prev_icon icon">
+            <img src={list_arrow} alt="리스트 이전 버튼" />
+          </Button>
         </div>
       </div>
       <div className="listpage_btn_area">

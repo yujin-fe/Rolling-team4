@@ -1,11 +1,14 @@
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
+
+import MessageCard from "../components/MessageCard";
 
 const PostId = () => {
   const params = useParams();
-
   return (
-    <div>{params.id}번 페이지</div>
-  )
-}
+    <>
+      <MessageCard recipientId={params.id} />
+    </>
+  );
+};
 
 export default PostId;

@@ -1,5 +1,5 @@
 .Toggle {
-  width: 244px;
+  max-width: 244px;
 }
 
 .Toggle .Toggle_btn {
@@ -9,7 +9,7 @@
   padding: 7px 16px;
   border-radius: 6px;
   background: rgb(240, 240, 240);
-  color: $gray-90;
+  color: $gray-900;
   white-space: nowrap;
 }
 

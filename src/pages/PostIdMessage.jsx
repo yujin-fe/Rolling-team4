@@ -2,8 +2,10 @@ import "./PostIdMessage.scss";
 import "quill/dist/quill.snow.css";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill-new";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
+import Button from "../components/Button";
+import Dropdown from "../components/Dropdown";
 import InputPost from "../components/InputPost";
 
 import axios from "@/api/axios";
@@ -12,17 +14,30 @@ const PostIdMessage = () => {
   const [sender, setSender] = useState("");
   const [profileImg, setProfileImg] = useState([]);
   const [selectProfile, setselectProfile] = useState("");
-  const [relation, setRelation] = useState("acquaintance");
+  const [relation, setRelation] = useState("지인");
   const [font, setFont] = useState("noto-sans");
   const [content, setContent] = useState("");
   const { id } = useParams();
+  const navigate = useNavigate();
 
-  const isDisabled = !sender.trim() || !selectProfile || content || font;
+  const getValiedText = (html) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
+  };
+
+  const isDisabled =
+    !sender.trim() ||
+    !selectProfile ||
+    !relation ||
+    !getValiedText(content).trim() ||
+    !font;
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("sender", sender);
+
       const { data } = await axios.get("/profile-images/");
-      console.log("data", data);
       setProfileImg(data.imageUrls);
     };
     fetchData();
@@ -33,8 +48,7 @@ const PostIdMessage = () => {
   };
   const handleGenerate = async () => {
     const payload = {
-      team: "19-4",
-      recipientId: id,
+      sender: sender,
       profileImageURL: selectProfile || profileImg[0],
       relationship: relation,
       content,
@@ -42,16 +56,23 @@ const PostIdMessage = () => {
     };
 
     try {
-      const res = await axios.post("/messages/", payload);
-      console.log("등록 성공:", res.data);
+      const res = await axios.post(`/19-4/recipients/${id}/messages/`, payload);
+      console.log("등록 성공:", res.data, "sender", sender);
+      navigate(`/post/${id}`);
     } catch (err) {
       console.error("등록 실패:", err);
     }
   };
+
   return (
     <div className="post-messase-wrap">
       <div className="post-message-container">
-        <InputPost title="To." value={sender} onChange={setSender} />
+        <InputPost
+          title="From."
+          value={sender}
+          onChange={setSender}
+          placeholder="이름을 입력해 주세요."
+        />
         <div className="profile-wrap">
           <p className="tit txt-24-b mg-b12">프로필 이미지</p>
           <div className="profile-imgs">
@@ -82,22 +103,30 @@ const PostIdMessage = () => {
 
         <section className="form-section mg-t50">
           <div className="form-group">
-            <label htmlFor="relation" className="tit txt-24-b mg-b12">
-              상대와의 관계
-            </label>
-            <select
+            <p className="tit txt-24-b mg-b12">상대와의 관계</p>
+            {/* <select
               id="relation"
               name="relation"
               value={relation}
               onChange={(e) => setRelation(e.target.value)}
             >
-              <option value="acquaintance">지인</option>
-              <option value="colleague">동료</option>
-              <option value="family">가족</option>
-              <option value="friend">친구</option>
-            </select>
+              <option value="지인">지인</option>
+              <option value="동료">동료</option>
+              <option value="가족">가족</option>
+              <option value="친구">친구</option>
+            </select> */}
+            <Dropdown
+              title="관계를 선택하세요"
+              data={[
+                { id: 1, content: "지인" },
+                { id: 2, content: "동료" },
+                { id: 3, content: "가족" },
+                { id: 4, content: "친구" },
+              ]}
+              value={relation}
+              handleSelectChange={setRelation}
+            />
           </div>
-
           <div className="form-group">
             <label htmlFor="content" className="tit txt-24-b mg-b12">
               내용을 입력해 주세요
@@ -105,38 +134,38 @@ const PostIdMessage = () => {
             <div className="editor">
               <ReactQuill theme="snow" value={content} onChange={setContent} />
             </div>
-            <div
-              className="preview"
-              dangerouslySetInnerHTML={{ __html: content }}
-            />
           </div>
 
           <div className="form-group">
-            <label htmlFor="font" className="tit txt-24-b mg-b12">
-              폰트 선택
-            </label>
-            <select
+            <p className="tit txt-24-b mg-b12">폰트 선택</p>
+            {/* <select
               id="font"
               name="font"
               value={font}
               onChange={(e) => setFont(e.target.value)}
             >
-              <option value="noto-sans">Noto Sans</option>
-              <option value="pretendard">Pretendard</option>
-              <option value="nanum-myeongjo">나눔명조</option>
-              <option value="nanum-handwriting">나눔손글씨 손편지체</option>
-            </select>
+              <option value="Noto Sans">Noto Sans</option>
+              <option value="Pretendard">Pretendard</option>
+              <option value="Nanum Myeongjo">나눔명조</option>
+              <option value="나눔손글씨 손편지체">나눔손글씨 손편지체</option>
+            </select> */}
+            <Dropdown
+              title="폰트를 선택하세요."
+              data={[
+                { id: 1, content: "Noto Sans" },
+                { id: 2, content: "Pretendard" },
+                { id: 3, content: "나눔명조" },
+                { id: 4, content: "나눔손글씨 손편지체" },
+              ]}
+              value={font}
+              handleSelectChange={setFont}
+            />
           </div>
         </section>
       </div>
-      <button
-        type="button"
-        className="btn full"
-        onClick={handleGenerate}
-        disabled={isDisabled}
-      >
+      <Button size="full" onClick={handleGenerate} disabled={isDisabled}>
         생성하기
-      </button>
+      </Button>
     </div>
   );
 };

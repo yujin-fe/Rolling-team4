@@ -1,53 +1,3 @@
-// .card {
-//   width: 275px;
-//   height: 260px;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   padding: 30px 24px 20px 24px;
-//   border: 1px solid #0000001a;
-//   border-radius: 16px;
-// }
-
-// .card_name {
-//   margin-bottom: 12px;
-// }
-
-// .message_count {
-//   margin-top: 12px;
-// }
-
-// .popular_card--purple {
-//   background-color: #f8f0ff; // $purple-100
-// }
-// .popular_card--beige {
-//   background-color: #fff0d6; // $beige-100
-// }
-// .popular_card--blue {
-//   background-color: #e2f5ff; // $blue-100
-// }
-// .popular_card--green {
-//   background-color: #e4fbdc; // $green-100
-// }
-
-// .popular_reaction {
-//   display: flex;
-//   gap: 10px;
-//   border-top: 1px solid #0000001f;
-//   padding-top: 17px;
-// }
-
-// .popular_reaction span {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   gap: 2px;
-//   padding: 8px 12px;
-//   background-color: #0000008a;
-//   border-radius: 32px;
-//   white-space: nowrap;
-// }
-
 .card {
   width: 275px;
   height: 260px;
@@ -64,6 +14,16 @@
 
   .message_count {
     margin-top: 12px;
+  }
+
+  .card_name.has-bg {
+    color: $white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  .message_count.has-bg {
+    color: $gray-200;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   }
 }
 
