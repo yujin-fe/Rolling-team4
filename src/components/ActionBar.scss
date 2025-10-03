@@ -1,8 +1,12 @@
 .ActionBar{
   width:100%;
+  height: 68px;
+  padding: 13px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid #EDEDED;
+  border-bottom: 1px solid #EDEDED;
 
 
   .menu-wrapper{
@@ -19,13 +23,16 @@
 
   .reaction-wrapper{
     display: flex;
+    flex-wrap: wrap;
+    position: relative;
     .badges{
       display: flex;
       gap:8px;
     }
 
-    button{
+    .reaction-window-btn{
       width:36px;
+      cursor: pointer;
     }
   }
 
