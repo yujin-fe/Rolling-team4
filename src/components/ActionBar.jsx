@@ -1,7 +1,11 @@
 import "./ActionBar.scss";
 import { useEffect, useState } from "react";
 
+<<<<<<< HEAD
 import { getReactions, getRecipient } from "../api/apis.js";
+=======
+import {getReactions, getRecipient} from "../api/apis.js";
+>>>>>>> 8433c69 (fix:api 함수  파일 분리)
 import arrowBtn from "../assets/icons/btn_arrow.svg";
 import emojiAdd from "../assets/icons/emoji-add.png";
 import shareBtn from "../assets/icons/Union.svg";
@@ -16,7 +20,11 @@ const LOAD_MORE_LIMIT = 8;
 
 const ActionBar = ({ recipientId, messagesData }) => {
   const [recipientData, setRecipientData] = useState({});
+<<<<<<< HEAD
   const [reactionsData, setReactionsData] = useState({ results: [] });
+=======
+  const [reactionsData, setReactionsData] = useState({results:[]});
+>>>>>>> 8433c69 (fix:api 함수  파일 분리)
   const [isOpened, setIsOpened] = useState(false);
   const [offset, setOffset] = useState(0);
 
@@ -24,6 +32,7 @@ const ActionBar = ({ recipientId, messagesData }) => {
     messagesData?.results?.map((message) => message.profileImageURL) ?? [];
 
   const getInitReactions = async () => {
+<<<<<<< HEAD
     try {
       const reactionsResData = await getReactions({
         recipientId,
@@ -46,6 +55,20 @@ const ActionBar = ({ recipientId, messagesData }) => {
       console.log(e.message);
       alert("오류가 발생했습니다.");
     }
+=======
+    const reactionsResData = await getReactions({
+      recipientId,
+      limit: INITIAL_LIMIT,
+      offset:0,
+    });
+    setReactionsData(reactionsResData);
+    setOffset(INITIAL_LIMIT);
+>>>>>>> 8433c69 (fix:api 함수  파일 분리)
+  };
+
+  const getRecipientData = async () => {
+    const recipientResData = await getRecipient(recipientId);
+    setRecipientData(recipientResData);
   };
 
   useEffect(() => {
@@ -54,13 +77,18 @@ const ActionBar = ({ recipientId, messagesData }) => {
   }, [recipientId]);
 
   const onClickGetReactions = () => {
+<<<<<<< HEAD
     setIsOpened((prev) => !prev);
+=======
+    setIsOpened(prev => !prev);
+>>>>>>> 8433c69 (fix:api 함수  파일 분리)
     if (Number(reactionsData?.results.length) > 11) {
       getInitReactions();
     }
   };
 
   const onClickLoadMore = async () => {
+<<<<<<< HEAD
     try {
       const loadMoreRes = await getReactions({
         recipientId,
@@ -76,6 +104,19 @@ const ActionBar = ({ recipientId, messagesData }) => {
       console.log(e.message);
       alert("오류가 발생했습니다.");
     }
+=======
+    const loadMoreRes = await getReactions({
+      recipientId,
+      limit:LOAD_MORE_LIMIT,
+      offset
+    })
+    setOffset((prev) => prev + LOAD_MORE_LIMIT);
+    setReactionsData({
+      ...reactionsData,
+      results: [...reactionsData.results, ...loadMoreRes.results],
+    });
+    console.log(loadMoreRes);
+>>>>>>> 8433c69 (fix:api 함수  파일 분리)
   };
 
   return (
