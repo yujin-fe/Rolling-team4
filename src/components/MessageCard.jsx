@@ -1,14 +1,13 @@
 import "./MessageCard.scss";
 import { useEffect, useState } from "react";
-import Button from "../components/Button";
-import { getMessages } from "../api/message";
-import icon from "../assets/icons/deleted.png";
-import { useModal } from "../contexts/ModalContext";
 import { Link } from "react-router-dom";
+
+import { getMessages } from "../api/message";
+import Button from "../components/Button";
+import { useModal } from "../contexts/ModalContext";
+
 import Badge from "./Badge";
 import MessageModal from "./MessageModal";
-
-import plus from "../assets/icons/plus.png";
 
 const relationMap = {
   친구: "friend",
