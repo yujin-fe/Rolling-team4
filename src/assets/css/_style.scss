@@ -170,6 +170,7 @@
     background: $white;
     border: 1px solid $purple-600;
     color: $purple-700;
+    transition: background-color 0.25s ease;
     &:hover {
       color: $purple-600;
       background: $purple-100;
@@ -194,6 +195,7 @@
     background: $white;
     border: 1px solid $gray-300;
     color: $gray-900;
+    transition: background-color 0.25s ease;
     &:hover {
       color: $gray-900;
       background: $gray-100;
@@ -220,6 +222,16 @@
     border-radius: 50%;
     background: url("@/assets/imgs/add_ico.svg") no-repeat 50%/24px auto;
     background-color: $gray-500;
+    transition: background-color 0.25s ease;
+    &:hover {
+      background-color: $gray-600;
+    }
+    &:active {
+      background-color: $gray-700;
+    }
+    &:focus {
+      background-color: $gray-800;
+    }
   }
   &.full {
     width: 100%;
