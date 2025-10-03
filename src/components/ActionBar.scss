@@ -34,23 +34,6 @@
       width:36px;
       cursor: pointer;
     }
-
-    .reaction-window{
-      max-width: 312px;
-      padding:24px;
-      background-color: #fff;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      grid-template-rows: repeat(2, 1fr) auto;
-      gap:10px;
-      
-      border:1px solid #B6B6B6;
-      border-radius: 8px;
-
-      position: absolute;
-      top:40px;
-    }
   }
 
   .btn-wrapper{

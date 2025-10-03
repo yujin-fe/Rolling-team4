@@ -2,9 +2,9 @@ import "./ActionBar.scss";
 import { useEffect, useState } from "react";
 
 import instance from "../api/axios";
+import arrowBtn from "../assets/icons/btn_arrow.svg";
 import emojiAdd from "../assets/icons/emoji-add.png";
 import shareBtn from "../assets/icons/Union.svg";
-import arrowBtn from "../assets/imgs/btn_arrow.svg";
 
 import Button from "./Button";
 import Emoji from "./Emoji";
@@ -22,6 +22,14 @@ const ActionBar = ({ recipientId, messagesData }) => {
   const images =
     messagesData?.results?.map((message) => message.profileImageURL) ?? [];
 
+  const getReactionsData = async () => {
+    const reactionsRes = await instance.get(
+      `/19-4/recipients/${recipientId}/reactions/?limit=${INITIAL_LIMIT}&offset=0`
+    );
+    setReactionsData(reactionsRes.data);
+    setOffset(INITIAL_LIMIT);
+  };
+
   useEffect(() => {
     const getRecipientData = async () => {
       const recipientRes = await instance.get(
@@ -29,29 +37,27 @@ const ActionBar = ({ recipientId, messagesData }) => {
       );
       setRecipientData(recipientRes.data);
     };
-    const getReactionsData = async () => {
-      const reactionsRes = await instance.get(
-        `/19-4/recipients/${recipientId}/reactions/?limit=${INITIAL_LIMIT}&offset=0`
-      );
-      setReactionsData(reactionsRes.data);
-      setOffset(INITIAL_LIMIT);
-    };
-
     getRecipientData();
     getReactionsData();
   }, [recipientId]);
 
-  const onClickReactions = () => {
+  const onClickGetReactions = () => {
     setIsOpened(!isOpened);
+    if (reactionsData.results.length > 11) {
+      getReactionsData();
+    }
   };
 
   const onClickLoadMore = async () => {
     const loadMoreRes = await instance.get(
       `/19-4/recipients/${recipientId}/reactions/?limit=${LOAD_MORE_LIMIT}&offset=${offset}`
     );
-    setOffset(prev => prev+LOAD_MORE_LIMIT)
-    setReactionsData({...reactionsData, results:[...reactionsData.results,...loadMoreRes.data.results]})
-    console.log(loadMoreRes.data)
+    setOffset((prev) => prev + LOAD_MORE_LIMIT);
+    setReactionsData({
+      ...reactionsData,
+      results: [...reactionsData.results, ...loadMoreRes.data.results],
+    });
+    console.log(loadMoreRes.data);
   };
 
   return (
@@ -72,7 +78,7 @@ const ActionBar = ({ recipientId, messagesData }) => {
               <Emoji key={emoji.id} emoji={emoji.emoji} count={emoji.count} />
             ))}
           </div>
-          <button className="reaction-window-btn" onClick={onClickReactions}>
+          <button className="reaction-window-btn" onClick={onClickGetReactions}>
             <img
               src={arrowBtn}
               style={{
@@ -84,6 +90,7 @@ const ActionBar = ({ recipientId, messagesData }) => {
             <ReactionWindow
               data={reactionsData}
               onClickLoadMore={onClickLoadMore}
+              onClickGetReactions={onClickGetReactions}
             />
           )}
         </div>

@@ -1,8 +1,8 @@
 import "./Dropdown.scss";
 import { useRef, useState } from "react";
 
-import btn_arrow from "./../assets/imgs/btn_arrow.svg";
-import btn_arrow_gray from "./../assets/imgs/btn_arrow_gray.svg";
+import btn_arrow from "./../assets/icons/btn_arrow.svg";
+import btn_arrow_gray from "./../assets/icons/btn_arrow_gray.svg";
 
 const Dropdown = ({ title, data, handleSelectChange, value, errMessage }) => {
   const countRef = useRef(0);
