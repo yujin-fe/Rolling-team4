@@ -1,7 +1,7 @@
 import "./ActionBar.scss";
 import { useEffect, useState } from "react";
 
-import {getReactions, getRecipient} from "../api/apis.js";
+import { getReactions, getRecipient } from "../api/apis.js";
 import arrowBtn from "../assets/icons/btn_arrow.svg";
 import emojiAdd from "../assets/icons/emoji-add.png";
 import shareBtn from "../assets/icons/Union.svg";
@@ -16,7 +16,7 @@ const LOAD_MORE_LIMIT = 8;
 
 const ActionBar = ({ recipientId, messagesData }) => {
   const [recipientData, setRecipientData] = useState({});
-  const [reactionsData, setReactionsData] = useState({results:[]});
+  const [reactionsData, setReactionsData] = useState({ results: [] });
   const [isOpened, setIsOpened] = useState(false);
   const [offset, setOffset] = useState(0);
 
@@ -24,18 +24,28 @@ const ActionBar = ({ recipientId, messagesData }) => {
     messagesData?.results?.map((message) => message.profileImageURL) ?? [];
 
   const getInitReactions = async () => {
-    const reactionsResData = await getReactions({
-      recipientId,
-      limit: INITIAL_LIMIT,
-      offset:0,
-    });
-    setReactionsData(reactionsResData);
-    setOffset(INITIAL_LIMIT);
+    try {
+      const reactionsResData = await getReactions({
+        recipientId,
+        limit: INITIAL_LIMIT,
+        offset: 0,
+      });
+      setReactionsData(reactionsResData);
+      setOffset(INITIAL_LIMIT);
+    } catch (e) {
+      console.log(e.message);
+      alert("오류가 발생했습니다.");
+    }
   };
 
   const getRecipientData = async () => {
-    const recipientResData = await getRecipient(recipientId);
-    setRecipientData(recipientResData);
+    try {
+      const recipientResData = await getRecipient(recipientId);
+      setRecipientData(recipientResData);
+    } catch (e) {
+      console.log(e.message);
+      alert("오류가 발생했습니다.");
+    }
   };
 
   useEffect(() => {
@@ -44,24 +54,28 @@ const ActionBar = ({ recipientId, messagesData }) => {
   }, [recipientId]);
 
   const onClickGetReactions = () => {
-    setIsOpened(prev => !prev);
+    setIsOpened((prev) => !prev);
     if (Number(reactionsData?.results.length) > 11) {
       getInitReactions();
     }
   };
 
   const onClickLoadMore = async () => {
-    const loadMoreRes = await getReactions({
-      recipientId,
-      limit:LOAD_MORE_LIMIT,
-      offset
-    })
-    setOffset((prev) => prev + LOAD_MORE_LIMIT);
-    setReactionsData({
-      ...reactionsData,
-      results: [...reactionsData.results, ...loadMoreRes.results],
-    });
-    console.log(loadMoreRes);
+    try {
+      const loadMoreRes = await getReactions({
+        recipientId,
+        limit: LOAD_MORE_LIMIT,
+        offset,
+      });
+      setOffset((prev) => prev + LOAD_MORE_LIMIT);
+      setReactionsData({
+        ...reactionsData,
+        results: [...reactionsData.results, ...loadMoreRes.results],
+      });
+    } catch (e) {
+      console.log(e.message);
+      alert("오류가 발생했습니다.");
+    }
   };
 
   return (
