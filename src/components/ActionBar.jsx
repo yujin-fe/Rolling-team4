@@ -1,7 +1,7 @@
 import "./ActionBar.scss";
 import { useEffect, useState } from "react";
 
-import instance from "../api/axios";
+import {getReactions, getRecipient} from "../api/apis.js";
 import arrowBtn from "../assets/icons/btn_arrow.svg";
 import emojiAdd from "../assets/icons/emoji-add.png";
 import shareBtn from "../assets/icons/Union.svg";
@@ -11,63 +11,67 @@ import Emoji from "./Emoji";
 import Profile from "./Profile";
 import ReactionWindow from "./ReactionWindow";
 
+const INITIAL_LIMIT = 11;
+const LOAD_MORE_LIMIT = 8;
+
 const ActionBar = ({ recipientId, messagesData }) => {
   const [recipientData, setRecipientData] = useState({});
-  const [reactionsData, setReactionsData] = useState({});
+  const [reactionsData, setReactionsData] = useState({results:[]});
   const [isOpened, setIsOpened] = useState(false);
   const [offset, setOffset] = useState(0);
-  const INITIAL_LIMIT = 11;
-  const LOAD_MORE_LIMIT = 8;
 
   const images =
     messagesData?.results?.map((message) => message.profileImageURL) ?? [];
 
-  const getReactionsData = async () => {
-    const reactionsRes = await instance.get(
-      `/19-4/recipients/${recipientId}/reactions/?limit=${INITIAL_LIMIT}&offset=0`
-    );
-    setReactionsData(reactionsRes.data);
+  const getInitReactions = async () => {
+    const reactionsResData = await getReactions({
+      recipientId,
+      limit: INITIAL_LIMIT,
+      offset:0,
+    });
+    setReactionsData(reactionsResData);
     setOffset(INITIAL_LIMIT);
   };
 
+  const getRecipientData = async () => {
+    const recipientResData = await getRecipient(recipientId);
+    setRecipientData(recipientResData);
+  };
+
   useEffect(() => {
-    const getRecipientData = async () => {
-      const recipientRes = await instance.get(
-        `/19-4/recipients/${recipientId}/`
-      );
-      setRecipientData(recipientRes.data);
-    };
     getRecipientData();
-    getReactionsData();
+    getInitReactions();
   }, [recipientId]);
 
   const onClickGetReactions = () => {
-    setIsOpened(!isOpened);
-    if (reactionsData.results.length > 11) {
-      getReactionsData();
+    setIsOpened(prev => !prev);
+    if (Number(reactionsData?.results.length) > 11) {
+      getInitReactions();
     }
   };
 
   const onClickLoadMore = async () => {
-    const loadMoreRes = await instance.get(
-      `/19-4/recipients/${recipientId}/reactions/?limit=${LOAD_MORE_LIMIT}&offset=${offset}`
-    );
+    const loadMoreRes = await getReactions({
+      recipientId,
+      limit:LOAD_MORE_LIMIT,
+      offset
+    })
     setOffset((prev) => prev + LOAD_MORE_LIMIT);
     setReactionsData({
       ...reactionsData,
-      results: [...reactionsData.results, ...loadMoreRes.data.results],
+      results: [...reactionsData.results, ...loadMoreRes.results],
     });
-    console.log(loadMoreRes.data);
+    console.log(loadMoreRes);
   };
 
   return (
     <div className="ActionBar">
-      <h2 className="recipient-name txt-28-b">To. {recipientData.name}</h2>
+      <h2 className="recipient-name txt-28-b">To. {recipientData?.name}</h2>
       <div className="menu-wrapper">
         <div className="profile-wrapper">
           <Profile images={images} />
           <div className="txt-18">
-            <span className="txt-18-b">{messagesData.count}</span>명이
+            <span className="txt-18-b">{messagesData?.count}</span>명이
             작성했어요!
           </div>
         </div>

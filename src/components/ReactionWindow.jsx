@@ -22,7 +22,7 @@ const ReactionWindow = ({ data, onClickLoadMore, onClickGetReactions }) => {
       <button
         onClick={() => {
           onClickLoadMore();
-          if (data.results.length === data.count) {
+          if (data?.results?.length === data?.count) {
             onClickGetReactions();
           }
         }}
