@@ -1,7 +1,9 @@
 import "./Post.scss";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import BackgroundSelect from "../components/BackgroundSelect";
+import Button from "../components/Button";
 import InputPost from "../components/InputPost";
 
 import axios from "@/api/axios";
@@ -10,6 +12,7 @@ const Post = () => {
   const [receiver, setReceiver] = useState("");
   const [background, setBackground] = useState("");
   const [tab, setTab] = useState("color");
+  const navigate = useNavigate();
   const isDisabled =
     !receiver.trim() ||
     (tab === "color" && !background) ||
@@ -23,8 +26,8 @@ const Post = () => {
       backgroundImageURL: tab === "image" ? background : null,
     };
     try {
-      const res = await axios.post("/4/recipients/", payload);
-      console.log("등록성공", res.data);
+      const res = await axios.post("/19-4/recipients/", payload);
+      navigate(`/post/${res.data.id}`);
     } catch (error) {
       console.log(error);
     }
@@ -41,14 +44,10 @@ const Post = () => {
           setBackground={setBackground}
         />
       </div>
-      <button
-        type="button"
-        className="btn full"
-        onClick={handleGenerate}
-        disabled={isDisabled}
-      >
+
+      <Button size="full" onClick={handleGenerate} disabled={isDisabled}>
         생성하기
-      </button>
+      </Button>
     </div>
   );
 };
