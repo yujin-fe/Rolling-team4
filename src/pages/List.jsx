@@ -9,7 +9,6 @@ import Listcard from "../components/Listcard";
 import list_arrow from "./../assets/imgs/list_arrow.svg";
 
 const List = () => {
-  const isActive = true;
   const [card, setCard] = useState([]);
   const [profileImages, setProfileImages] = useState([]);
   const [reactions, setReactions] = useState({});
@@ -106,9 +105,7 @@ const List = () => {
   return (
     <div className="rolling_list">
       <div className="rolling_popular">
-        <h3 className={`txt-24-b ${isActive ? "active" : ""}`}>
-          인기 롤링 페이퍼 🔥
-        </h3>
+        <h3 className="txt-24-b">인기 롤링 페이퍼 🔥</h3>
         <div className="rolling_popular_card">
           {card.map((c) => (
             <Link key={c.id} to={`/post/${c.id}`}>
@@ -133,9 +130,7 @@ const List = () => {
         </div>
       </div>
       <div className="rolling_recent">
-        <h3 className={`txt-24-b ${isActive ? "active" : ""}`}>
-          최근에 만든 롤링 페이퍼 ✨
-        </h3>
+        <h3 className="txt-24-b">최근에 만든 롤링 페이퍼 ✨</h3>
         <div className="rolling_recent_card">
           {card.map((c) => (
             <Link key={c.id} to={`/post/${c.id}`}>

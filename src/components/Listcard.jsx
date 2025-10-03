@@ -3,15 +3,13 @@ import "./Listcard.scss";
 import Profile from "./Profile";
 
 const ListCard = ({
+  reaction,
   name,
   messageCount,
   backgroundColor,
   profileImages,
   backgroundImageURL,
-  reactions = [],
 }) => {
-  const isActive = true;
-
   return (
     <div
       className="card"
@@ -36,17 +34,10 @@ const ListCard = ({
       </div>
 
       <div className="popular_reaction">
-        {reactions.length > 0 ? (
-          reactions.map((r) => (
-            <span
-              key={r.id}
-              className={`reaction_count font-wh ${isActive ? "active" : ""}`}
-            >
-              {r.emoji} {r.count}
-            </span>
-          ))
-        ) : (
-          <span className="reaction_none">리액션 없음</span>
+        {reaction && (
+          <span className="reaction_count font-wh">
+            {reaction.emoji} {reaction.count}
+          </span>
         )}
       </div>
     </div>
