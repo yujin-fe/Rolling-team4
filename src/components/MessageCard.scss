@@ -1,0 +1,53 @@
+.message-card-wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3열 */
+  padding: 60px 0 60px;
+  gap: 20px;
+
+  .message-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 24px;
+    background-color: $white;
+    border-radius: 16px;
+    max-width: 384px;
+    max-height: 280px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    &.add-message-card {
+      justify-content: center;
+      align-items: center;
+    }
+
+    .message-card-top {
+      display: flex;
+      gap: 14px;
+      border-bottom: 1px solid $gray-200;
+      padding-bottom: 16px;
+      .sender {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: flex-start;
+      }
+    }
+    .content {
+      width: 336px;
+      height: 106px;
+      letter-spacing: -1%;
+      color: $gray-600;
+      margin: 16px 0 16px;
+    }
+    .profile-img {
+      width: 56px;
+      height: 56px;
+      border-radius: 50px;
+      border: 1.5px solid #fff;
+    }
+    .date {
+      color: $gray-400;
+    }
+  }
+}
