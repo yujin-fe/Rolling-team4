@@ -1,8 +1,10 @@
 import "./List.scss";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
-import Card from "../components/Card";
+import Button from "../components/Button";
+import Listcard from "../components/Listcard";
 
 const List = () => {
   const isActive = true;
@@ -13,7 +15,7 @@ const List = () => {
     const fetchPopularCard = async () => {
       try {
         const res = await axios.get(
-          "https://rolling-api.vercel.app/19-4/recipients/?limit=4&offset=0"
+          "https://rolling-api.vercel.app/4/recipients/?limit=4&offset=0"
         );
         console.log("카드API 응답:", res.data);
         if (res.data && Array.isArray(res.data.results)) {
@@ -37,7 +39,7 @@ const List = () => {
     const fetchRecentCard = async () => {
       try {
         const res = await axios.get(
-          "https://rolling-api.vercel.app/19-4/recipients/?limit=4&offset=0"
+          "https://rolling-api.vercel.app/19-4/recipients/?limit=4&offset=1"
         );
         console.log("카드API 응답:", res.data);
         if (res.data && Array.isArray(res.data.results)) {
@@ -85,7 +87,7 @@ const List = () => {
         </h3>
         <div className="rolling_popular_card">
           {card.map((c) => (
-            <Card
+            <Listcard
               key={c.id}
               name={c.name}
               messageCount={c.messageCount}
@@ -104,7 +106,7 @@ const List = () => {
         </h3>
         <div className="rolling_recent_card">
           {card.map((c) => (
-            <Card
+            <Listcard
               key={c.id}
               name={c.name}
               messageCount={c.messageCount}
@@ -116,6 +118,13 @@ const List = () => {
             />
           ))}
         </div>
+      </div>
+      <div className="listpage_btn_area">
+        <Link to="/post">
+          <Button className="list_btn btn primary lg txt-18-b">
+            나도 만들어보기
+          </Button>
+        </Link>
       </div>
     </div>
   );

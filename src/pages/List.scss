@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .rolling_popular_card,
@@ -24,4 +24,28 @@
 
 .action_profile {
   display: none;
+}
+
+.listpage_btn_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list_btn {
+  font-family: "Pretendard";
+  min-width: 280px;
+  border-radius: 12px;
+  margin-bottom: 194px;
+  padding: 14px 60px;
+}
+
+.list_prev_btn {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  padding: 12px;
+  border: 1px solid #dadcdf;
+  background-color: $white;
+  color: #101010;
 }

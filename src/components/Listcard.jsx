@@ -1,8 +1,8 @@
-import "./Card.scss";
+import "./Listcard.scss";
 
 import Profile from "./Profile";
 
-const Card = ({
+const ListCard = ({
   name,
   messageCount,
   backgroundColor,
@@ -45,4 +45,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default ListCard;

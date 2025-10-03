@@ -5,6 +5,7 @@ import home_image1 from "../assets/imgs/home_image1.png";
 import home_image2 from "../assets/imgs/home_image2.png";
 import home_image3 from "../assets/imgs/home_image3.png";
 import home_image4 from "../assets/imgs/home_image4.png";
+import Button from "../components/Button";
 
 const Home = () => {
   const isActive = true;
@@ -47,9 +48,10 @@ const Home = () => {
         </div>
       </section>
       <Link to="/list">
-        <button className={`home_btn txt-18-b ${isActive ? "active" : ""}`}>
+        {/* <button className={`home_btn txt-18-b ${isActive ? "active" : ""}`}>
           구경해보기
-        </button>
+        </button> */}
+        <Button className="home_btn btn primary lg txt-18-b">구경해보기</Button>
       </Link>
     </div>
   );
