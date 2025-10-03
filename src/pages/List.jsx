@@ -100,7 +100,7 @@ const List = () => {
 
     if (card.length > 0) {
       card.forEach((c) => fetchReactions(c.id));
-    }
+    } // 물어보기
   }, [card]);
 
   return (
