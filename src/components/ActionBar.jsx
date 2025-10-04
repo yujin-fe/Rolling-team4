@@ -37,7 +37,7 @@ const ActionBar = ({ recipientId, messagesData }) => {
   const [offset, setOffset] = useState(0);
 
   const images =
-    messagesData?.results?.map((message) => message.profileImageURL) ?? [];
+    messagesData?.results?.map((message) => message?.profileImageURL) ?? [];
 
   const getInitReactions = async () => {
 <<<<<<< HEAD
