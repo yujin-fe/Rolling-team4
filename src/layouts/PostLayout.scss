@@ -1,3 +1,12 @@
 .PostLayout{
   flex:1;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 50%;              /* 부모 중앙 기준 이동 */
+  margin-left: -50vw; 
+}
+
+@media screen and (max-width:1248px) {
+  
 }
