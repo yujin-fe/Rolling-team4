@@ -9,13 +9,14 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .rolling_popular_card,
 .rolling_recent_card {
   display: flex;
   gap: 20px;
+  position: relative;
 }
 
 .rolling_popular h3 {
@@ -24,4 +25,46 @@
 
 .action_profile {
   display: none;
+}
+
+.listpage_btn_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list_btn {
+  font-family: "Pretendard";
+  min-width: 280px;
+  border-radius: 12px;
+  margin-bottom: 194px;
+  padding: 14px 60px;
+}
+
+.next_icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(50%);
+  right: 0;
+  width: 40px;
+  height: 40px;
+  padding: 12px;
+  border: 1px solid #dadcdf;
+  border-radius: 50px;
+  background-color: $white;
+  color: #101010;
+}
+
+.prev_icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%) rotate(-180deg);
+  left: 0;
+  width: 40px;
+  height: 40px;
+  padding: 12px;
+  border: 1px solid #dadcdf;
+  border-radius: 50px;
+  background-color: $white;
+  color: #101010;
 }

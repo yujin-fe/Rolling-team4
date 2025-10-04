@@ -16,6 +16,7 @@ const PostIdMessage = () => {
   const [selectProfile, setselectProfile] = useState("");
   const [relation, setRelation] = useState("지인");
   const [font, setFont] = useState("Noto Sans");
+
   const [content, setContent] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ const PostIdMessage = () => {
           onChange={setSender}
           placeholder="이름을 입력해 주세요."
         />
-        <div className="profile-wrap">
+        <div className="profile-wrap mg-b50">
           <p className="tit txt-24-b mg-b12">프로필 이미지</p>
           <div className="profile-imgs">
             {profileImg.length > 0 && (
@@ -101,10 +102,9 @@ const PostIdMessage = () => {
           </div>
         </div>
 
-        <section className="form-section mg-t50">
-          <div className="form-group">
-            <p className="tit txt-24-b mg-b12">상대와의 관계</p>
-            {/* <select
+        <div className="form-group mg-b50">
+          <p className="tit txt-24-b mg-b12">상대와의 관계</p>
+          {/* <select
               id="relation"
               name="relation"
               value={relation}
@@ -115,30 +115,30 @@ const PostIdMessage = () => {
               <option value="가족">가족</option>
               <option value="친구">친구</option>
             </select> */}
-            <Dropdown
-              title="관계를 선택하세요"
-              data={[
-                { id: 1, content: "지인" },
-                { id: 2, content: "동료" },
-                { id: 3, content: "가족" },
-                { id: 4, content: "친구" },
-              ]}
-              value={relation}
-              handleSelectChange={setRelation}
-            />
+          <Dropdown
+            title="관계를 선택하세요"
+            data={[
+              { id: 1, content: "지인" },
+              { id: 2, content: "동료" },
+              { id: 3, content: "가족" },
+              { id: 4, content: "친구" },
+            ]}
+            value={relation}
+            handleSelectChange={setRelation}
+          />
+        </div>
+        <div className="form-group mg-b50">
+          <label htmlFor="content" className="tit txt-24-b mg-b12">
+            내용을 입력해 주세요
+          </label>
+          <div className="editor">
+            <ReactQuill theme="snow" value={content} onChange={setContent} />
           </div>
-          <div className="form-group">
-            <label htmlFor="content" className="tit txt-24-b mg-b12">
-              내용을 입력해 주세요
-            </label>
-            <div className="editor">
-              <ReactQuill theme="snow" value={content} onChange={setContent} />
-            </div>
-          </div>
+        </div>
 
-          <div className="form-group">
-            <p className="tit txt-24-b mg-b12">폰트 선택</p>
-            {/* <select
+        <div className="form-group mg-b50">
+          <p className="tit txt-24-b mg-b12">폰트 선택</p>
+          {/* <select
               id="font"
               name="font"
               value={font}
@@ -149,19 +149,18 @@ const PostIdMessage = () => {
               <option value="Nanum Myeongjo">나눔명조</option>
               <option value="나눔손글씨 손편지체">나눔손글씨 손편지체</option>
             </select> */}
-            <Dropdown
-              title="폰트를 선택하세요."
-              data={[
-                { id: 1, content: "Noto Sans" },
-                { id: 2, content: "Pretendard" },
-                { id: 3, content: "나눔명조" },
-                { id: 4, content: "나눔손글씨 손편지체" },
-              ]}
-              value={font}
-              handleSelectChange={setFont}
-            />
-          </div>
-        </section>
+          <Dropdown
+            title="폰트를 선택하세요."
+            data={[
+              { id: 1, content: "Noto Sans" },
+              { id: 2, content: "Pretendard" },
+              { id: 3, content: "나눔명조" },
+              { id: 4, content: "나눔손글씨 손편지체" },
+            ]}
+            value={font}
+            handleSelectChange={setFont}
+          />
+        </div>
       </div>
       <Button size="full" onClick={handleGenerate} disabled={isDisabled}>
         생성하기
