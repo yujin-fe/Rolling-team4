@@ -1,7 +1,7 @@
 import "./ActionBar.scss";
 import { useEffect, useState } from "react";
 
-import { getReactions, getRecipient } from "../api/apis.js";
+import {getReactions, getRecipient} from "../api/apis.js";
 import arrowBtn from "../assets/icons/btn_arrow.svg";
 import emojiAdd from "../assets/icons/emoji-add.png";
 import shareBtn from "../assets/icons/Union.svg";
@@ -16,7 +16,9 @@ const LOAD_MORE_LIMIT = 8;
 
 const ActionBar = ({ recipientId, messagesData }) => {
   const [recipientData, setRecipientData] = useState({});
+
   const [reactionsData, setReactionsData] = useState({ results: [] });
+
   const [isOpened, setIsOpened] = useState(false);
   const [offset, setOffset] = useState(0);
 
@@ -54,7 +56,7 @@ const ActionBar = ({ recipientId, messagesData }) => {
   }, [recipientId]);
 
   const onClickGetReactions = () => {
-    setIsOpened((prev) => !prev);
+    setIsOpened(prev => !prev);
     if (Number(reactionsData?.results.length) > 11) {
       getInitReactions();
     }
@@ -80,44 +82,46 @@ const ActionBar = ({ recipientId, messagesData }) => {
 
   return (
     <div className="ActionBar">
-      <h2 className="recipient-name txt-28-b">To. {recipientData?.name}</h2>
-      <div className="menu-wrapper">
-        <div className="profile-wrapper">
-          <Profile images={images} />
-          <div className="txt-18">
-            <span className="txt-18-b">{messagesData?.count}</span>명이
-            작성했어요!
+      <div className="action-bar-container">
+        <h2 className="recipient-name txt-28-b">To. {recipientData?.name}</h2>
+        <div className="menu-wrapper">
+          <div className="profile-wrapper">
+            <Profile images={images} />
+            <div className="txt-18">
+              <span className="txt-18-b">{messagesData?.count}</span>명이
+              작성했어요!
+            </div>
           </div>
-        </div>
-        <div className="divider"></div>
-        <div className="reaction-wrapper">
-          <div className="badges">
-            {recipientData?.topReactions?.map((emoji) => (
-              <Emoji key={emoji.id} emoji={emoji.emoji} count={emoji.count} />
-            ))}
-          </div>
-          <button className="reaction-window-btn" onClick={onClickGetReactions}>
-            <img
-              src={arrowBtn}
-              style={{
-                transform: isOpened ? "rotate(0deg)" : "rotate(180deg)",
-              }}
-            />
-          </button>
-          {isOpened && (
-            <ReactionWindow
-              data={reactionsData}
-              onClickLoadMore={onClickLoadMore}
-              onClickGetReactions={onClickGetReactions}
-            />
-          )}
-        </div>
-        <div className="btn-wrapper">
-          <Button icon={emojiAdd} size="sm" variant="outlined">
-            추가
-          </Button>
           <div className="divider"></div>
-          <Button icon={shareBtn} size="sm" variant="outlined" />
+          <div className="reaction-wrapper">
+            <div className="badges">
+              {recipientData?.topReactions?.map((emoji) => (
+                <Emoji key={emoji.id} emoji={emoji.emoji} count={emoji.count} />
+              ))}
+            </div>
+            <button className="reaction-window-btn" onClick={onClickGetReactions}>
+              <img
+                src={arrowBtn}
+                style={{
+                  transform: isOpened ? "rotate(0deg)" : "rotate(180deg)",
+                }}
+              />
+            </button>
+            {isOpened && (
+              <ReactionWindow
+                data={reactionsData}
+                onClickLoadMore={onClickLoadMore}
+                onClickGetReactions={onClickGetReactions}
+              />
+            )}
+          </div>
+          <div className="btn-wrapper">
+            <Button icon={emojiAdd} size="sm" variant="outlined">
+              추가
+            </Button>
+            <div className="divider"></div>
+            <Button icon={shareBtn} size="sm" variant="outlined" />
+          </div>
         </div>
       </div>
     </div>
