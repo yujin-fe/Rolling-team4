@@ -1,5 +1,4 @@
 import "./Listcard.scss";
-
 import Profile from "./Profile";
 
 const ListCard = ({
@@ -27,7 +26,9 @@ const ListCard = ({
         </h1>
         <Profile images={profileImages} />
         <div
-          className={`message_count txt-14-b ${backgroundImageURL ? "has-bg" : ""}`}
+          className={`message_count txt-14-b ${
+            backgroundImageURL ? "has-bg" : ""
+          }`}
         >
           {messageCount}명이 작성했어요!
         </div>

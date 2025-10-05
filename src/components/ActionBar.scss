@@ -1,50 +1,64 @@
 .ActionBar{
-  width:100%;
-  height: 68px;
-  padding: 13px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-top: 1px solid #EDEDED;
   border-bottom: 1px solid #EDEDED;
+  display: flex;
+  justify-content: center;
 
 
-  .menu-wrapper{
+  .action-bar-container{
+    width:100%;
+    max-width: 1248px;
+    height: 68px;
+    padding: 13px 0;
     display: flex;
-    gap:28px;
+    justify-content: space-between;
     align-items: center;
-  }
+    margin: 0 auto;
 
-  .profile-wrapper{
-    display: flex;
-    gap: 11px;
-    align-items: center;
-  }
 
-  .reaction-wrapper{
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-    .badges{
+    .menu-wrapper{
       display: flex;
-      gap:8px;
+      gap:28px;
+      align-items: center;
     }
 
-    .reaction-window-btn{
-      width:36px;
-      cursor: pointer;
+    .profile-wrapper{
+      display: flex;
+      gap: 11px;
+      align-items: center;
+    }
+
+    .reaction-wrapper{
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      .badges{
+        display: flex;
+        gap:8px;
+      }
+
+      .reaction-window-btn{
+        width:36px;
+        cursor: pointer;
+      }
+    }
+
+    .btn-wrapper{
+      display: flex;
+      gap:13px;
+      align-items: center;
+    }
+
+    .divider{
+      width:1px;
+      height: 28px;
+      background-color: $gray-200;
     }
   }
+}
 
-  .btn-wrapper{
-    display: flex;
-    gap:13px;
-    align-items: center;
-  }
-
-  .divider{
-    width:1px;
-    height: 28px;
-    background-color: $gray-200;
+@media screen and (max-width:1248px) {
+  .ActionBar .action-bar-container {
+    padding: 13px 24px;
   }
 }

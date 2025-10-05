@@ -1,18 +1,15 @@
 import "./Dropdown.scss";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import btn_arrow from "./../assets/icons/btn_arrow.svg";
 import btn_arrow_gray from "./../assets/icons/btn_arrow_gray.svg";
 
-const Dropdown = ({ title, data, handleSelectChange, value, errMessage }) => {
-  const countRef = useRef(0);
+const Dropdown = ({ title, data, handleSelectChange, value }) => {
   const [isOpened, setIsOpend] = useState(false);
   const isFinished = !!value && !isOpened;
-  const isErr = !value && !isOpened && countRef.current;
 
   const onClickTitle = () => {
     setIsOpend(!isOpened);
-    countRef.current++;
   };
 
   const onClickItem = (e) => {
@@ -42,17 +39,14 @@ const Dropdown = ({ title, data, handleSelectChange, value, errMessage }) => {
         className={`title-wrapper 
           ${isOpened ? "" : "closed-btn"}
           ${isFinished ? "selected-btn" : ""}
-          ${isErr ? "errored-btn" : ""}
           `}
       >
         <div className={`title txt-16 ${isFinished ? "selected-title" : ""}`}>
           {/* title은, 기본으로 보여지는 화면에 필요한 문구. */}
-          {isFinished ? value : title}
+          {value || title}
         </div>
         {arrowIcon}
       </button>
-      {isErr ? <div className="err-message txt-12">{errMessage}</div> : ""}
-
       {isOpened && (
         <ul className="list">
           {data.map((item) => (
@@ -88,7 +82,6 @@ export default Dropdown;
 //   data={data} -> 선택될 리스트들이 담겨진 데이터
 //   handleSelectChange={handleSelectChange} -> 상태를 변경하는 함수, 선택된 값이 아규먼트로 전달됨
 //   value={selectedOpt} -> 선택된 상태, 선택이 끝난 후 드롭다운 박스에 표시됨
-//   errMessage="상대와의 관계를 선택하세요." 
 // />
 //
 

@@ -24,8 +24,9 @@ function App() {
             <Route path="post/:id" element={<PostLayout />}>
               <Route index element={<PostId />} />
               <Route path="edit" element={<PostIdEdit />} />
-              <Route path="message" element={<PostIdMessage />} />
-            </Route>
+              {/* 분리하는게 나을듯 */}
+            </Route>  
+            <Route path="/post/:id/message" element={<PostIdMessage />} /> 
           </Route>
         </Routes>
       </ToastProvider>

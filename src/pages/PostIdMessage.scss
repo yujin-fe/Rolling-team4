@@ -1,12 +1,11 @@
 .post-messase-wrap {
   max-width: 720px;
-  padding-top: 57px;
   height: 100%;
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 47px 0 62px;
   .post-message-container {
-    padding-bottom: 0px;
   }
   .tit {
     color: $gray-900;

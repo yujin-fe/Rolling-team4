@@ -15,6 +15,7 @@ const List = () => {
   const [profileImages, setProfileImages] = useState([]);
   const [reactions, setReactions] = useState({});
 
+  // 인기, 최신 카드 불러오기
   useEffect(() => {
     const fetchListCards = async () => {
       try {
@@ -31,6 +32,7 @@ const List = () => {
     fetchListCards();
   }, []);
 
+  // 프로필 이미지 불러오기
   useEffect(() => {
     const fetchProfileImages = async () => {
       try {
@@ -53,6 +55,7 @@ const List = () => {
     fetchProfileImages();
   }, []);
 
+  // 각 카드별 리액션 데이터 불러오기
   useEffect(() => {
     const fetchReactions = async (recipientId) => {
       try {
@@ -67,12 +70,14 @@ const List = () => {
         console.error("리액션 불러오기 실패:", error);
       }
     };
-    //인기,최신순 해당 카드의 리액션데이터 불러오기
+
+    // 인기 + 최신 카드 합쳐서 리액션 요청
     [...popularCard, ...recentCard].forEach((c) => {
       if (c.id) fetchReactions(c.id);
     });
   }, [popularCard, recentCard]);
 
+  // 카드 리스트 렌더링 함수
   const renderCardList = (cards) =>
     cards.map(({ id, ...rest }) => (
       <Link key={id} to={`/post/${id}`}>
@@ -98,6 +103,7 @@ const List = () => {
           </Button>
         </div>
       </div>
+
       <div className="rolling_recent">
         <h3 className="txt-24-b">최근에 만든 롤링 페이퍼 ✨</h3>
         <div className="rolling_recent_card">
@@ -110,6 +116,7 @@ const List = () => {
           </Button>
         </div>
       </div>
+
       <div className="listpage_btn_area">
         <Link to="/post">
           <Button className="list_btn btn primary lg txt-18-b">
