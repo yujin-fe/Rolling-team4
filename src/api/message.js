@@ -62,7 +62,6 @@ export const deleteMessage = async (messageId) => {
 export const getBackgroundData = async (recipientId) => {
   try {
     const res = await instance.get(`19-4/recipients/${recipientId}/`);
-    const { backgroundColor, backgroundImageURL } = res.data;
     return {
       backgroundColor: res.data.backgroundColor ?? "#ffffff",
       backgroundImage: res.data.backgroundImageURL ?? null,

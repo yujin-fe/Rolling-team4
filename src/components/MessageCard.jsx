@@ -1,13 +1,13 @@
 import "./MessageCard.scss";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import { getBackgroundData, getMessages } from "../api/message";
-import Button from "../components/Button";
 import { useModal } from "../contexts/ModalContext";
 
+import Button from "../components/Button";
 import Badge from "./Badge";
 import MessageModal from "./MessageModal";
+import AddMessageCard from "./AddMessageCard";
 
 const relationMap = {
   친구: "friend",
@@ -71,11 +71,7 @@ const MessageCard = ({ recipientId }) => {
       }}
     >
       <div className="message-cards">
-        <div className="message-card add-message-card">
-          <Link to="/post/:id/message">
-            <Button variant="add" />
-          </Link>
-        </div>
+        <AddMessageCard />
         {messages.map((msg) => (
           <div
             key={msg.id}
