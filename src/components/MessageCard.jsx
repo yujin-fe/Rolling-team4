@@ -60,9 +60,6 @@ const MessageCard = ({ recipientId }) => {
     fetchMessages();
   }, [recipientId]);
 
-  if (!messages || messages.length === 0)
-    return <div className="message-card">메시지가 없습니다.</div>;
-
   return (
     <div
       className="message-card-wrapper"
