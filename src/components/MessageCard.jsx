@@ -1,10 +1,8 @@
 import "./MessageCard.scss";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getBackgroundData, getMessages } from "../api/message";
 import { useModal } from "../contexts/ModalContext";
 
-import Button from "../components/Button";
 import Badge from "./Badge";
 import MessageModal from "./MessageModal";
 import AddMessageCard from "./AddMessageCard";
