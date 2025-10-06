@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { getReactions } from "../api/apis.js";
+import { getReactions, postReaction } from "../api/apis.js";
 import shareBtn from "../assets/icons/Union.svg";
 
 import Button from "./Button";
@@ -10,9 +10,10 @@ import ReactionBtn from "./ReactionBtn"
 const INITIAL_LIMIT = 11;
 const LOAD_MORE_LIMIT = 8;
 
-const ActionBarBtnsGropus = ({ recipientId, recipientData }) => {
+const ActionBarBtnsGropus = ({ recipientId, recipientData, getRecipientData }) => {
   const [reactionsData, setReactionsData] = useState({ results: [] });
   const [isReactionOpened, setIsReactionOpened] = useState(false);
+  const [isEmojiOpened, setIsEmojiOpened] = useState(false);
   const [offset, setOffset] = useState(0);
 
   const getInitReactions = async () => {
@@ -59,6 +60,26 @@ const ActionBarBtnsGropus = ({ recipientId, recipientData }) => {
     }
   };
 
+  const onClickAddBtn = () => {
+    setIsEmojiOpened(prev=>!prev)
+  }
+
+  const handleSelectEmoji = async (emoji) => {
+    try{
+      const data={
+        emoji,
+        type:"increase"
+      }
+      await postReaction(recipientId,data);
+      setIsEmojiOpened(prev => !prev)
+      getInitReactions();
+      getRecipientData();
+    }catch(e){
+      console.error(e.message)
+      alert("이모지 추가에 실패하셨습니다.")
+    }
+  }
+
   return (
     <div className="action-bar-btns-group">
       <ReactionBtn 
@@ -68,7 +89,11 @@ const ActionBarBtnsGropus = ({ recipientId, recipientData }) => {
         isOpened={isReactionOpened}
         onClickLoadMore={onClickLoadMore}/>
       <div className="btn-wrapper">
-        <EmojiAddBtn/>
+        <EmojiAddBtn 
+          recipientId={recipientId} 
+          handleSelectEmoji={handleSelectEmoji} 
+          isOpened={isEmojiOpened}
+          onClickAddBtn={onClickAddBtn}/>
         <div className="divider"></div>
         <Button icon={shareBtn} size="sm" variant="outlined" />
       </div>

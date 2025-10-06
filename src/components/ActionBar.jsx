@@ -42,6 +42,7 @@ const ActionBar = ({ recipientId, messagesData }) => {
           <ActionBarBtnsGroup 
             recipientId={recipientId} 
             recipientData={recipientData}
+            getRecipientData={getRecipientData}
           />
         </div>
       </div>

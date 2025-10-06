@@ -5,20 +5,27 @@ import emojiAdd from "../assets/icons/emoji-add.png";
 
 import Button from "./Button";
 
-const EmojiAddBtn = () => {
+const EmojiAddBtn = ({onClickAddBtn, handleSelectEmoji, isOpened}) => {
+  
   return (
     <div className="EmojiAddBtn">
-      <Button icon={emojiAdd} size="sm" variant="outlined">
+      <Button icon={emojiAdd} size="sm" variant="outlined" onClick={(e)=>{
+        onClickAddBtn();
+        e.currentTarget.blur();
+      }}>
         추가
       </Button>
-      <EmojiPicker.Root locale="ko" columns={8} onEmojiSelect={({ emoji }) => console.log(emoji)}>
+      {isOpened &&
+      (<EmojiPicker.Root locale="ko" columns={8} onEmojiSelect={({ emoji }) => handleSelectEmoji(emoji)}>
         <EmojiPicker.Search />
         <EmojiPicker.Viewport>
           <EmojiPicker.List />
         </EmojiPicker.Viewport>
-      </EmojiPicker.Root>
+      </EmojiPicker.Root>)
+      }
     </div>
   );
 };
 
 export default EmojiAddBtn;
+
