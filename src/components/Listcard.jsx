@@ -1,4 +1,5 @@
 import "./Listcard.scss";
+
 import Profile from "./Profile";
 
 const ListCard = ({
