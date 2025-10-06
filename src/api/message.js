@@ -8,7 +8,7 @@ export const getMessages = async (recipientId) => {
     const res = await instance.get(`19-4/recipients/${recipientId}/messages/`);
     return res.data?.results ?? [];
   } catch (err) {
-    // console.error("❌ 메시지 조회 실패:", err);
+    console.error("❌ 메시지 조회 실패:", err);
     throw err;
   }
 };
