@@ -14,7 +14,7 @@ const relationMap = {
   가족: "family",
 };
 
-const MessageCard = ({ recipientId }) => {
+const MessageCard = ({ recipientId, showAddCard = true }) => {
   const [messages, setMessages] = useState([]);
   const [bgColor, setBgColor] = useState();
   const [bgImage, setBgImage] = useState();
@@ -69,7 +69,9 @@ const MessageCard = ({ recipientId }) => {
       }}
     >
       <div className="message-cards">
-        <AddMessageCard />
+        {/* ✅ showAddCard가 true일 때만 렌더 */}
+        {showAddCard && <AddMessageCard />}
+
         {messages.map((msg) => (
           <div
             key={msg.id}
