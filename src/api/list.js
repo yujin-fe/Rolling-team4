@@ -7,7 +7,7 @@ const API = axios.create({
   },
 });
 
-export const getCards = async (limit = 4, offset = 0) => {
+export const getCards = async (offset = 0) => {
   const { data } = await API.get("/recipients/", {
     params: { limit: 50, offset },
   });
