@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^1.12.2",
+    "frimousse": "^0.3.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-quill-new": "^3.6.0",
