@@ -1,25 +1,31 @@
-import axios from "axios";
-
-const API = axios.create({
-  baseURL: "https://rolling-api.vercel.app/19-4",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+import instance from "./axios";
 
 /**
  * 메시지 조회 (특정 recipientId)
  */
 export const getMessages = async (recipientId) => {
-  const res = await API.get(`/recipients/${recipientId}/messages/`);
-  return res.data.results; // 메시지 배열만 반환
+  try {
+    const res = await instance.get(`19-4/recipients/${recipientId}/messages/`);
+    return res.data?.results ?? [];
+  } catch (err) {
+    console.error("❌ 메시지 조회 실패:", err);
+    return [];
+  }
 };
 /**
  * 메시지 작성
  */
 export const createMessage = async (recipientId, data) => {
-  const res = await API.post(`/recipients/${recipientId}/messages/`, data);
-  return res.data;
+  try {
+    const res = await instance.post(
+      `19-4/recipients/${recipientId}/messages/`,
+      data
+    );
+    return res.data;
+  } catch (err) {
+    console.error("❌ 메시지 작성 실패:", err);
+    throw err;
+  }
 };
 
 /**
@@ -27,8 +33,13 @@ export const createMessage = async (recipientId, data) => {
  * PATCH /messages/{id}/
  */
 // export const updateMessage = async (id, data) => {
-//   const res = await API.patch(`/messages/${id}/`, data);
-//   return res.data;
+//   try {
+//     const res = await instance.patch(`19-4/messages/${id}/`, data);
+//     return res.data;
+//   } catch (err) {
+//     console.error("❌ 메시지 수정 실패:", err);
+//     throw err;
+//   }
 // };
 
 /**
@@ -36,6 +47,11 @@ export const createMessage = async (recipientId, data) => {
  * DELETE /messages/{messageId}/
  */
 export const deleteMessage = async (messageId) => {
-  const res = await API.delete(`/messages/${messageId}/`);
-  return res.data;
+  try {
+    const res = await instance.delete(`19-4/messages/${messageId}/`);
+    return res.data;
+  } catch (err) {
+    console.error("❌ 메시지 삭제 실패:", err);
+    throw err;
+  }
 };

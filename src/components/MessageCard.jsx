@@ -17,7 +17,6 @@ const relationMap = {
 };
 
 const MessageCard = ({ recipientId }) => {
-  const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState([]);
   const { openModal, closeModal } = useModal();
   // 모달 오픈
@@ -26,15 +25,20 @@ const MessageCard = ({ recipientId }) => {
   };
 
   useEffect(() => {
-    // recipientId가 변경될 때마다 메시지 불러오기
-    getMessages(recipientId)
-      .then((data) => {
-        setMessages(data); // 서버에서 가져온 메시지 목록 저장
-      })
-      .finally(() => setLoading(false)); // 로딩 종료
+    if (!recipientId) return;
+
+    const fetchMessages = async () => {
+      try {
+        const data = await getMessages(recipientId);
+        setMessages(data);
+      } catch (err) {
+        console.error("❌ 메시지 불러오기 실패:", err);
+        setMessages([]); // 실패 시 안전하게 초기화
+      }
+    };
+    fetchMessages();
   }, [recipientId]);
 
-  if (loading) return <div className="message-card">Loading...</div>;
   if (!messages || messages.length === 0)
     return <div className="message-card">메시지가 없습니다.</div>;
 
