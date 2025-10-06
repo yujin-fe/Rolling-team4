@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { useParams } from "react-router-dom";
+
 import MessageCard from "../components/MessageCard";
 
 const PostId = () => {

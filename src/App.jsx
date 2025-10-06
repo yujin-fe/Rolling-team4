@@ -18,14 +18,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="post" element={<Post />} />
             <Route path="list" element={<List />} />
+            <Route path="post" element={<Post />} />
             {/* postId와 postIdEdit의 UI를 담당하는 레이아웃 */}
             <Route path="post/:id" element={<PostLayout />}>
               <Route index element={<PostId />} />
               <Route path="edit" element={<PostIdEdit />} />
-            </Route>
-            <Route path="message" element={<PostIdMessage />} />
+              {/* 분리하는게 나을듯 */}
+            </Route>  
+            <Route path="/post/:id/message" element={<PostIdMessage />} /> 
           </Route>
         </Routes>
       </ToastProvider>

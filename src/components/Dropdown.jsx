@@ -1,8 +1,8 @@
 import "./Dropdown.scss";
 import { useState } from "react";
 
-import btn_arrow from "./../assets/imgs/btn_arrow.svg";
-import btn_arrow_gray from "./../assets/imgs/btn_arrow_gray.svg";
+import btn_arrow from "./../assets/icons/btn_arrow.svg";
+import btn_arrow_gray from "./../assets/icons/btn_arrow_gray.svg";
 
 const Dropdown = ({ title, data, handleSelectChange, value }) => {
   const [isOpened, setIsOpend] = useState(false);
@@ -37,16 +37,16 @@ const Dropdown = ({ title, data, handleSelectChange, value }) => {
       <button
         onClick={onClickTitle}
         className={`title-wrapper 
-          ${!isOpened ? "closed-btn" : ""}
-          ${isFinished ? "selected-btn" : ""}`}
+          ${isOpened ? "" : "closed-btn"}
+          ${isFinished ? "selected-btn" : ""}
+          `}
       >
         <div className={`title txt-16 ${isFinished ? "selected-title" : ""}`}>
           {/* title은, 기본으로 보여지는 화면에 필요한 문구. */}
-          {isFinished ? value : title}
+          {value || title}
         </div>
         {arrowIcon}
       </button>
-
       {isOpened && (
         <ul className="list">
           {data.map((item) => (
@@ -84,3 +84,6 @@ export default Dropdown;
 //   value={selectedOpt} -> 선택된 상태, 선택이 끝난 후 드롭다운 박스에 표시됨
 // />
 //
+
+//오류처리
+//열렸는데 밸류가 없고 닫히면 오류
