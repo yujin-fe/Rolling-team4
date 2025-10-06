@@ -266,11 +266,12 @@
     height: auto;
     padding: 6px 16px;
     min-height: 36px;
+    display: inline-flex;
+    gap: 4px;
     .btn-icon {
       margin-right: 4px;
     }
     img {
-      margin-right: 4px;
       width: 24px;
       height: 24px;
     }
