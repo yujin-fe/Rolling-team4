@@ -47,8 +47,9 @@ const MessageCard = ({ recipientId }) => {
       className="message-card-wrapper"
       style={{ backgroundColor: "#fff8ff" }} // 임시 색상
     >
+      {/* <div className="message-cards"> */}
       <div className="message-card add-message-card">
-        <Link to="/message">
+        <Link to="/post/:id/message">
           <Button variant="add" />
         </Link>
       </div>
@@ -87,6 +88,7 @@ const MessageCard = ({ recipientId }) => {
           </small>
         </div>
       ))}
+      {/* </div> */}
     </div>
   );
 };

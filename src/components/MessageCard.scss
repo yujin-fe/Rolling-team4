@@ -5,8 +5,10 @@
   grid-template-columns: repeat(3, 1fr); /* 3열 */
   padding: 60px 0 60px;
   gap: 20px;
-
+  max-width: 1248px;
+  margin: 0 auto;
   .message-card {
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     width: 100%;
