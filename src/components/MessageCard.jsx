@@ -80,7 +80,7 @@ const MessageCard = ({ recipientId, showAddCard = true }) => {
     >
       <div className="message-cards">
         {/* ✅ showAddCard가 true일 때만 렌더 */}
-        {showAddCard && <AddMessageCard />}
+        {showAddCard && <AddMessageCard recipientId={recipientId} />}
 
         {messages.map((msg) => (
           <div
@@ -110,10 +110,12 @@ const MessageCard = ({ recipientId, showAddCard = true }) => {
             </div>
 
             {/* 내용 */}
-            <p
+            <div
               className={`content txt-18 ${fontMap[msg.font] || "font-noto-sans"}`}
-              dangerouslySetInnerHTML={{ __html: msg.content }}
-            />
+              // dangerouslySetInnerHTML={{ __html: msg.content }}
+            >
+              {msg.content.replace(/<[^>]+>/g, "")}
+            </div>
             {/* 생성일 */}
             <small className="date">
               {new Date(msg.createdAt).toLocaleDateString()}
