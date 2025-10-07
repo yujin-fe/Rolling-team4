@@ -21,7 +21,7 @@ const MessageModal = ({ data, onClose }) => {
       </div>
 
       <div className="body">
-        <p>{content}</p>
+        <div dangerouslySetInnerHTML={{ __html: content }} />
       </div>
 
       <div className="footer">
