@@ -55,7 +55,7 @@ const PostIdMessage = () => {
     };
 
     try {
-      const res = await axios.post(`/19-4/recipients/${id}/messages/`, payload);
+      await axios.post(`/19-4/recipients/${id}/messages/`, payload);
       navigate(`/post/${id}`);
     } catch (err) {
       console.error("등록 실패:", err);
