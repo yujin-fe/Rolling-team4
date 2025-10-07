@@ -80,7 +80,7 @@ const MessageCard = ({ recipientId, showAddCard = true }) => {
     >
       <div className="message-cards">
         {/* ✅ showAddCard가 true일 때만 렌더 */}
-        {showAddCard && <AddMessageCard />}
+        {showAddCard && <AddMessageCard recipientId={recipientId} />}
 
         {messages.map((msg) => (
           <div

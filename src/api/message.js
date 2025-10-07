@@ -55,7 +55,3 @@ export const deleteMessage = async (messageId) => {
     throw err;
   }
 };
-
-/**
- * 롤링페이퍼 배경 조회 (특정 recipientId)
- */
