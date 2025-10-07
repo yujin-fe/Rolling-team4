@@ -1,7 +1,8 @@
 import "./MessageCard.scss";
 import { useEffect, useState } from "react";
 
-import { getBackgroundData, getMessages } from "../api/message";
+import { getBackgroundData } from "../api/images";
+import { getMessages } from "../api/message";
 import { useModal } from "../contexts/ModalContext";
 
 import AddMessageCard from "./AddMessageCard";
