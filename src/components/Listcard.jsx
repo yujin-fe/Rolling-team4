@@ -3,7 +3,7 @@ import "./Listcard.scss";
 import Profile from "./Profile";
 
 const ListCard = ({
-  reaction,
+  reactions,
   name,
   messageCount,
   backgroundColor,
@@ -27,17 +27,23 @@ const ListCard = ({
         </h1>
         <Profile images={profileImages} />
         <div
-          className={`message_count txt-14-b ${backgroundImageURL ? "has-bg" : ""}`}
+          className={`message_count txt-14-b ${
+            backgroundImageURL ? "has-bg" : ""
+          }`}
         >
           {messageCount}명이 작성했어요!
         </div>
       </div>
 
       <div className="popular_reaction">
-        {reaction && (
-          <span className="reaction_count font-wh">
-            {reaction.emoji} {reaction.count}
-          </span>
+        {reactions && reactions.length > 0 ? (
+          reactions.slice(0, 3).map((r) => (
+            <span key={r.id} className="reaction_count font-wh">
+              {r.emoji} {r.count}
+            </span>
+          ))
+        ) : (
+          <span className="reaction_count font-wh">리액션 없음</span>
         )}
       </div>
     </div>

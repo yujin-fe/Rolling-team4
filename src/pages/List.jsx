@@ -3,60 +3,75 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import { getReactions } from "../api/apis";
+import { getCards } from "../api/list";
 import Button from "../components/Button";
 import Listcard from "../components/Listcard";
 
 import list_arrow from "./../assets/imgs/list_arrow.svg";
 
 const List = () => {
-  const [card, setCard] = useState([]);
+  const [allCards, setAllCards] = useState([]);
+  const [popularCard, setPopularCard] = useState([]);
+  const [recentCard, setRecentCard] = useState([]);
   const [profileImages, setProfileImages] = useState([]);
   const [reactions, setReactions] = useState({});
+  const [popularOffset, setPopularOffset] = useState(0);
+  const [recentOffset, setRecentOffset] = useState(0);
+
+  const limit = 4;
 
   useEffect(() => {
-    const fetchPopularCard = async () => {
+    const fetchPopularCards = async () => {
       try {
-        const res = await axios.get(
-          "https://rolling-api.vercel.app/19-4/recipients/?limit=4&offset=0"
-        );
-        console.log("카드API 응답:", res.data);
-        if (res.data && Array.isArray(res.data.results)) {
-          res.data.results.sort((a, b) => b.reactionCount - a.reactionCount);
-          setCard(res.data.results);
-        } else {
-          setCard([]);
-        }
+        const cards = await getCards(limit, popularOffset); //api로 받아온 getcards 를 4개씩 초기값0번째 부터 가져오는걸 cards에 저장
+        const sorted = [...cards].sort(
+          (a, b) => b.reactionCount - a.reactionCount
+        ); // 스프레드로  새배열을 만들고 리액션 높은순으로 정렬
+        setAllCards(sorted); // setAllCards에 정렬된거 저장
+        setPopularCard(sorted.slice(popularOffset, popularOffset + limit)); // 정렬 된 새 배열을 setPopularCard에 0부터 4까지 잘라서 화면상태에 저장
       } catch (error) {
-        console.error("카드 불러오기 실패:", error);
-        setCard([]);
+        console.error("인기 카드 불러오기 실패:", error);
       }
     };
 
-    fetchPopularCard();
-  }, []);
+    fetchPopularCards();
+  }, [popularOffset]);
 
   useEffect(() => {
-    const fetchRecentCard = async () => {
+    const fetchRecentCards = async () => {
       try {
-        const res = await axios.get(
-          "https://rolling-api.vercel.app/19-4/recipients/?limit=4&offset=1"
+        const cards = await getCards(limit, recentOffset); // 같은 함수 재활용
+        const sorted = [...cards].sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-        console.log("카드API 응답:", res.data);
-        if (res.data && Array.isArray(res.data.results)) {
-          res.data.results.sort((a, b) => b.reactionCount - a.reactionCount);
-          setCard(res.data.results);
-        } else {
-          setCard([]);
-        }
+        setAllCards(sorted);
+        setRecentCard(sorted.slice(recentOffset, recentOffset + limit));
       } catch (error) {
-        console.error("카드 불러오기 실패:", error);
-        setCard([]);
+        console.error("최신 카드 불러오기 실패:", error);
       }
     };
 
-    fetchRecentCard();
-  }, []);
+    fetchRecentCards();
+  }, [recentOffset]);
 
+  const onClickNextPopular = () => {
+    setPopularOffset((prev) => prev + limit);
+  };
+
+  const onClickPrevPopular = () => {
+    setPopularOffset((prev) => Math.max(prev - limit, 0));
+  };
+
+  const onClickNextRecent = () => {
+    setRecentOffset((prev) => prev + limit);
+  };
+
+  const onClickPrevRecnet = () => {
+    setRecentOffset((prev) => Math.max(prev - limit, 0));
+  };
+
+  // 프로필 이미지 불러오기
   useEffect(() => {
     const fetchProfileImages = async () => {
       try {
@@ -79,80 +94,84 @@ const List = () => {
     fetchProfileImages();
   }, []);
 
+  // 각 카드별 리액션 데이터 불러오기
   useEffect(() => {
     const fetchReactions = async (recipientId) => {
       try {
-        const res = await axios.get(
-          `https://rolling-api.vercel.app/19-4/recipients/${recipientId}/reactions/?limit=3&offset=0`
-        );
-        console.log("리액션API 응답:", res.data);
-        if (res.data && Array.isArray(res.data.results)) {
-          setReactions((prev) => ({
-            ...prev,
-            [recipientId]: res.data.results,
-          }));
-        }
+        const res = await getReactions({
+          recipientId,
+          limit: 3,
+          offset: 0,
+        });
+
+        console.log("리액션API 응답:", recipientId, res);
+
+        const results = res.results;
+
+        setReactions((prev) => ({
+          ...prev,
+          [recipientId]: results,
+        }));
       } catch (error) {
         console.error("리액션 불러오기 실패:", error);
       }
     };
 
-    if (card.length > 0) {
-      card.forEach((c) => fetchReactions(c.id));
-    } // 물어보기
-  }, [card]);
+    // ✅ 인기 + 최신 카드 합쳐서 리액션 요청
+    [...popularCard, ...recentCard].forEach((c) => {
+      fetchReactions(c.id);
+    });
+  }, [popularCard, recentCard]);
+
+  // 카드 리스트 렌더링 함수
+  const renderCardList = (cards) =>
+    cards.map(({ id, ...rest }) => (
+      <Link key={id} to={`/post/${id}`}>
+        <Listcard
+          {...rest}
+          profileImages={profileImages}
+          reactions={reactions[id]}
+        />
+      </Link>
+    ));
 
   return (
     <div className="rolling_list">
       <div className="rolling_popular">
         <h3 className="txt-24-b">인기 롤링 페이퍼 🔥</h3>
         <div className="rolling_popular_card">
-          {card.map((c) => (
-            <Link key={c.id} to={`/post/${c.id}`}>
-              <Listcard
-                name={c.name}
-                messageCount={c.messageCount}
-                backgroundColor={c.backgroundColor}
-                backgroundImageURL={c.backgroundImageURL}
-                reactionCount={c.reactionCount}
-                profileImages={profileImages}
-                createdAt={c.createdAt}
-                reaction={c.reaction}
-              />
-            </Link>
-          ))}
-          <Button className="next_icon icon">
-            <img src={list_arrow} alt="리스트 다음 버튼" />
-          </Button>
-          <Button className="prev_icon icon">
-            <img src={list_arrow} alt="리스트 이전 버튼" />
-          </Button>
+          {renderCardList(popularCard)}
+          {popularOffset + limit < allCards.length && (
+            <Button className="next_icon icon" onClick={onClickNextPopular}>
+              <img src={list_arrow} alt="리스트 다음 버튼" />
+            </Button>
+          )}
+
+          {popularOffset > 0 && (
+            <Button className="prev_icon icon" onClick={onClickPrevPopular}>
+              <img src={list_arrow} alt="리스트 이전 버튼" />
+            </Button>
+          )}
         </div>
       </div>
+
       <div className="rolling_recent">
         <h3 className="txt-24-b">최근에 만든 롤링 페이퍼 ✨</h3>
         <div className="rolling_recent_card">
-          {card.map((c) => (
-            <Link key={c.id} to={`/post/${c.id}`}>
-              <Listcard
-                name={c.name}
-                messageCount={c.messageCount}
-                backgroundColor={c.backgroundColor}
-                backgroundImageURL={c.backgroundImageURL}
-                reactionCount={c.reactionCount}
-                profileImages={profileImages}
-                reactions={reactions[c.id]}
-              />
-            </Link>
-          ))}
-          <Button className="next_icon icon">
-            <img src={list_arrow} alt="리스트 다음 버튼" />
-          </Button>
-          <Button className="prev_icon icon">
-            <img src={list_arrow} alt="리스트 이전 버튼" />
-          </Button>
+          {renderCardList(recentCard)}
+          {recentOffset + limit < allCards.length && (
+            <Button className="next_icon icon" onClick={onClickNextRecent}>
+              <img src={list_arrow} alt="리스트 다음 버튼" />
+            </Button>
+          )}
+          {recentOffset > 0 && (
+            <Button className="prev_icon icon" onClick={onClickPrevRecnet}>
+              <img src={list_arrow} alt="리스트 이전 버튼" />
+            </Button>
+          )}
         </div>
       </div>
+
       <div className="listpage_btn_area">
         <Link to="/post">
           <Button className="list_btn btn primary lg txt-18-b">
