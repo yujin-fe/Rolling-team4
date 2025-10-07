@@ -1,7 +1,4 @@
 .message-card-wrapper {
-  width: 100%;
-  height: 100%;
-
   .message-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3열 */
