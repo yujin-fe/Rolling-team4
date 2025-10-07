@@ -4,7 +4,6 @@
   display: flex;
   justify-content: center;
 
-
   .action-bar-container{
     width:100%;
     max-width: 1248px;
@@ -27,28 +26,29 @@
       gap: 11px;
       align-items: center;
     }
-
-    .reaction-wrapper{
+    .action-bar-btns-group{
       display: flex;
-      flex-wrap: wrap;
-      position: relative;
-      .badges{
+      .reaction-wrapper{
         display: flex;
-        gap:8px;
+        flex-wrap: wrap;
+        position: relative;
+        .badges{
+          display: flex;
+          gap:8px;
+        }
+
+        .reaction-window-btn{
+          width:36px;
+          cursor: pointer;
+        }
       }
 
-      .reaction-window-btn{
-        width:36px;
-        cursor: pointer;
+      .btn-wrapper{
+        display: flex;
+        gap:13px;
+        align-items: center;
       }
     }
-
-    .btn-wrapper{
-      display: flex;
-      gap:13px;
-      align-items: center;
-    }
-
     .divider{
       width:1px;
       height: 28px;

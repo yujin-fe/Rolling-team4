@@ -8,7 +8,7 @@
   border-radius: 8px;
 
   position: absolute;
-  top:40px;
+  top:45px;
 
   display: flex;
   flex-direction: column;
@@ -16,7 +16,8 @@
   .badge-grid{
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    grid-template-rows: repeat(2, 1fr) auto;
+    grid-template-rows: repeat(2
+    , 1fr) auto;
     gap:10px;
     padding-bottom: 10px;
   }

@@ -16,4 +16,9 @@ const getRecipient = async (recipientId) => {
   return recipientRes.data
 };
 
-export { getReactions, getRecipient };
+const postReaction = async (recipientId, data) => {
+  const reactionPostRes = await instance.post(`/19-4/recipients/${recipientId}/reactions/`,data)
+  return reactionPostRes.data
+}
+
+export { getReactions, getRecipient, postReaction };
