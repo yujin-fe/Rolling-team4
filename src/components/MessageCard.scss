@@ -45,8 +45,12 @@
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        -webkit-line-clamp: 4; /* 3줄까지만 표시 */
+        -webkit-line-clamp: 4; /* 4줄까지만 표시 */
         text-overflow: ellipsis; /* 끝에 ... 표시 */
+        * {
+          font-family: inherit;
+          line-height: 1.4;
+        }
       }
       .profile-img {
         width: 56px;
