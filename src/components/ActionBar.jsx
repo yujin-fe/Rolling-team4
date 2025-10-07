@@ -1,9 +1,9 @@
 import "./ActionBar.scss";
 import { useEffect, useState } from "react";
 
-import { getRecipient } from "../api/apis.js";
+import { getRecipient } from "../api/recipients.js";
 
-import ActionBarBtnsGroup from "./ActionBarBtnsGroup.jsx"
+import ActionBarBtnsGroup from "./ActionBarBtnsGroup.jsx";
 import Profile from "./Profile";
 
 const ActionBar = ({ recipientId, messagesData }) => {
@@ -39,8 +39,8 @@ const ActionBar = ({ recipientId, messagesData }) => {
             </div>
           </div>
           <div className="divider"></div>
-          <ActionBarBtnsGroup 
-            recipientId={recipientId} 
+          <ActionBarBtnsGroup
+            recipientId={recipientId}
             recipientData={recipientData}
             getRecipientData={getRecipientData}
           />
