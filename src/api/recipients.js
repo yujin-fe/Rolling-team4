@@ -13,12 +13,23 @@ const getReactions = async (params) => {
 //id별 recipient 각각에 대한 데이터
 const getRecipient = async (recipientId) => {
   const recipientRes = await instance.get(`/19-4/recipients/${recipientId}/`);
-  return recipientRes.data
+  return recipientRes.data;
 };
 
 const postReaction = async (recipientId, data) => {
-  const reactionPostRes = await instance.post(`/19-4/recipients/${recipientId}/reactions/`,data)
-  return reactionPostRes.data
-}
+  const reactionPostRes = await instance.post(
+    `/19-4/recipients/${recipientId}/reactions/`,
+    data
+  );
+  return reactionPostRes.data;
+};
 
-export { getReactions, getRecipient, postReaction };
+const getCards = async (offset = 0) => {
+  const { data } = await instance.get("19-4/recipients/", {
+    params: { limit: 50, offset },
+  });
+
+  return data.results;
+};
+
+export { getCards, getReactions, getRecipient, postReaction };

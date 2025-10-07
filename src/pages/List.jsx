@@ -1,10 +1,10 @@
 import "./List.scss";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
-import { getReactions } from "../api/apis";
-import { getCards } from "../api/list";
+import { getProfileImages } from "../api/images";
+import { getReactions } from "../api/recipients";
+import { getCards } from "../api/recipients";
 import Button from "../components/Button";
 import Listcard from "../components/Listcard";
 
@@ -74,23 +74,9 @@ const List = () => {
   // 프로필 이미지 불러오기
   useEffect(() => {
     const fetchProfileImages = async () => {
-      try {
-        const res = await axios.get(
-          "https://rolling-api.vercel.app/profile-images/"
-        );
-        console.log("프로필API 응답:", res.data);
-
-        if (res.data && Array.isArray(res.data.imageUrls)) {
-          setProfileImages(res.data.imageUrls);
-        } else {
-          setProfileImages([]);
-        }
-      } catch (error) {
-        console.error("프로필 이미지 불러오기 실패:", error);
-        setProfileImages([]);
-      }
+      const profileImages = await getProfileImages();
+      setProfileImages(profileImages);
     };
-
     fetchProfileImages();
   }, []);
 
