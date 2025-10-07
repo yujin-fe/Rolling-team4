@@ -100,7 +100,7 @@ const ActionBarBtnsGropus = ({
           onClickAddBtn={onClickAddBtn}
         />
         <div className="divider"></div>
-        <ShareBtn/>
+        <ShareBtn recipientData={recipientData}/>
       </div>
     </div>
   );
