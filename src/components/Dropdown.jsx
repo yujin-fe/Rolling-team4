@@ -2,11 +2,9 @@ import "./Dropdown.scss";
 import { useState } from "react";
 
 import btn_arrow from "./../assets/icons/btn_arrow.svg";
-import btn_arrow_gray from "./../assets/icons/btn_arrow_gray.svg";
 
 const Dropdown = ({ title, data, handleSelectChange, value }) => {
   const [isOpened, setIsOpend] = useState(false);
-  const isFinished = !!value && !isOpened;
 
   const onClickTitle = () => {
     setIsOpend(!isOpened);
@@ -17,35 +15,22 @@ const Dropdown = ({ title, data, handleSelectChange, value }) => {
     setIsOpend(!isOpened);
   };
 
-  const arrowIcon = isFinished ? (
-    <img
-      className={`title-arrow`}
-      src={btn_arrow_gray}
-      alt={"드롭다운 방향키"}
-    />
-  ) : (
-    <img
-      className={`title-arrow`}
-      src={btn_arrow}
-      alt={"드롭다운 방향키"}
-      style={{ transform: isOpened ? "rotate(0deg)" : "rotate(180deg)" }}
-    />
-  );
-
   return (
     <div className={`Dropdown`}>
       <button
         onClick={onClickTitle}
-        className={`title-wrapper 
-          ${isOpened ? "" : "closed-btn"}
-          ${isFinished ? "selected-btn" : ""}
-          `}
+        className={`title-wrapper ${isOpened ? "" : "closed-btn"}`}
       >
-        <div className={`title txt-16 ${isFinished ? "selected-title" : ""}`}>
+        <div className={`title txt-16 ${isOpened ? "" : "closed-title"}`}>
           {/* title은, 기본으로 보여지는 화면에 필요한 문구. */}
           {value || title}
         </div>
-        {arrowIcon}
+        <img
+          className={`title-arrow`}
+          src={btn_arrow}
+          alt={"드롭다운 방향키"}
+          style={{ transform: isOpened ? "rotate(0deg)" : "rotate(180deg)" }}
+        />
       </button>
       {isOpened && (
         <ul className="list">
