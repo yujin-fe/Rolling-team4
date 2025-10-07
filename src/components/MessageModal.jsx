@@ -1,7 +1,16 @@
 import "./MessageModal.scss";
 
+const fontMap = {
+  "Noto Sans": "font-noto-sans",
+  Pretendard: "font-pretendard",
+  나눔명조: "font-nanum-myeongjo",
+  "나눔손글씨 손편지체": "font-nanum-handwriting",
+};
+
 const MessageModal = ({ data, onClose }) => {
-  const { profileImageURL, sender, relationship, createdAt, content } = data;
+  const { profileImageURL, sender, relationship, createdAt, content, font } =
+    data;
+  console.log("datas", data);
 
   return (
     <div className="message-modal">
@@ -21,7 +30,10 @@ const MessageModal = ({ data, onClose }) => {
       </div>
 
       <div className="body">
-        <p>{content}</p>
+        <div
+          className={`txt-18 ${fontMap[font]}`}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
       </div>
 
       <div className="footer">
