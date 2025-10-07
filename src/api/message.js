@@ -55,3 +55,19 @@ export const deleteMessage = async (messageId) => {
     throw err;
   }
 };
+
+/**
+ * 롤링페이퍼 배경 조회 (특정 recipientId)
+ */
+export const getBackgroundData = async (recipientId) => {
+  try {
+    const res = await instance.get(`19-4/recipients/${recipientId}/`);
+    return {
+      backgroundColor: res.data.backgroundColor ?? "#ffffff",
+      backgroundImage: res.data.backgroundImageURL ?? null,
+    };
+  } catch (err) {
+    console.error("❌ 배경 데이터 조회 실패:", err);
+    throw err;
+  }
+};

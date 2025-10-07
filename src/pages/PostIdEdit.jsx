@@ -1,11 +1,16 @@
-import { useParams } from "react-router-dom"
+import { Suspense } from "react";
+import { useParams } from "react-router-dom";
+
+import MessageCard from "../components/MessageCard";
 
 const PostIdEdit = () => {
   const params = useParams();
 
   return (
-    <div>{params.id}번 수정페이지</div>
-  )
-}
+    <Suspense fallback={<div>Loading...</div>}>
+      <MessageCard recipientId={params.id} />
+    </Suspense>
+  );
+};
 
 export default PostIdEdit;

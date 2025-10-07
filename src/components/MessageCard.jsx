@@ -1,13 +1,11 @@
 import "./MessageCard.scss";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
-import { getMessages } from "../api/message";
-import Button from "../components/Button";
+import { getBackgroundData, getMessages } from "../api/message";
 import { useModal } from "../contexts/ModalContext";
 
 import Badge from "./Badge";
 import MessageModal from "./MessageModal";
+import AddMessageCard from "./AddMessageCard";
 
 const relationMap = {
   친구: "friend",
@@ -16,14 +14,35 @@ const relationMap = {
   가족: "family",
 };
 
-const MessageCard = ({ recipientId }) => {
+const MessageCard = ({ recipientId, showAddCard = true }) => {
   const [messages, setMessages] = useState([]);
+  const [bgColor, setBgColor] = useState();
+  const [bgImage, setBgImage] = useState();
   const { openModal, closeModal } = useModal();
   // 모달 오픈
   const handleOpen = (msg) => {
     openModal(<MessageModal data={msg} onClose={closeModal} />);
   };
 
+  // 배경 데이터 가져오기
+  useEffect(() => {
+    const fetchBackground = async () => {
+      if (!recipientId) return;
+
+      try {
+        const { backgroundImage, backgroundColor } =
+          await getBackgroundData(recipientId);
+        setBgImage(backgroundImage);
+        setBgColor(backgroundColor);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchBackground();
+  }, [recipientId]);
+
+  // 메시지 가져오기
   useEffect(() => {
     if (!recipientId) return;
 
@@ -39,56 +58,57 @@ const MessageCard = ({ recipientId }) => {
     fetchMessages();
   }, [recipientId]);
 
-  if (!messages || messages.length === 0)
-    return <div className="message-card">메시지가 없습니다.</div>;
-
   return (
     <div
       className="message-card-wrapper"
-      style={{ backgroundColor: "#fff8ff" }} // 임시 색상
+      style={{
+        backgroundImage: bgImage ? `url(${bgImage})` : "none",
+        backgroundColor: bgColor ?? "$white",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      {/* <div className="message-cards"> */}
-      <div className="message-card add-message-card">
-        <Link to="/post/:id/message">
-          <Button variant="add" />
-        </Link>
-      </div>
-      {messages.map((msg) => (
-        <div
-          key={msg.id}
-          className={`message-card ${msg.font}`}
-          onClick={() => handleOpen(msg)}
-        >
-          <div className="message-card-top">
-            {/* 프로필 이미지 */}
-            <img
-              className="profile-img"
-              src={msg.profileImageURL}
-              alt={msg.sender}
-            />
-            {/* 보낸 사람 + 관계 */}
-            <div className="sender txt-20">
-              <div>
-                From. <span className="sender-name txt-20-b">{msg.sender}</span>
-              </div>
-              <Badge
-                className="sender-relation"
-                text={msg.relationship}
-                relationType={relationMap[msg.relationship] || "other"}
+      <div className="message-cards">
+        {/* ✅ showAddCard가 true일 때만 렌더 */}
+        {showAddCard && <AddMessageCard />}
+
+        {messages.map((msg) => (
+          <div
+            key={msg.id}
+            className={`message-card ${msg.font}`}
+            onClick={() => handleOpen(msg)}
+          >
+            <div className="message-card-top">
+              {/* 프로필 이미지 */}
+              <img
+                className="profile-img"
+                src={msg.profileImageURL}
+                alt={msg.sender}
               />
+              {/* 보낸 사람 + 관계 */}
+              <div className="sender txt-20">
+                <div>
+                  From.{" "}
+                  <span className="sender-name txt-20-b">{msg.sender}</span>
+                </div>
+                <Badge
+                  className="sender-relation"
+                  text={msg.relationship}
+                  relationType={relationMap[msg.relationship] || "other"}
+                />
+              </div>
             </div>
+
+            {/* 내용 */}
+            <p className="content txt-18">{msg.content}</p>
+
+            {/* 생성일 */}
+            <small className="date">
+              {new Date(msg.createdAt).toLocaleDateString()}
+            </small>
           </div>
-
-          {/* 내용 */}
-          <p className="content txt-18">{msg.content}</p>
-
-          {/* 생성일 */}
-          <small className="date">
-            {new Date(msg.createdAt).toLocaleDateString()}
-          </small>
-        </div>
-      ))}
-      {/* </div> */}
+        ))}
+      </div>
     </div>
   );
 };
