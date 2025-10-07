@@ -1,10 +1,19 @@
 import "./MessageModal.scss";
 
+import Badge from "./Badge";
+
 const fontMap = {
   "Noto Sans": "font-noto-sans",
   Pretendard: "font-pretendard",
   나눔명조: "font-nanum-myeongjo",
   "나눔손글씨 손편지체": "font-nanum-handwriting",
+};
+
+const relationMap = {
+  친구: "friend",
+  동료: "coworker",
+  지인: "acquaintance",
+  가족: "family",
 };
 
 const MessageModal = ({ data, onClose }) => {
@@ -21,7 +30,12 @@ const MessageModal = ({ data, onClose }) => {
             <span className="txt-20">From.</span>
             <span className="txt-20-b"> {sender}</span>
           </div>
-          <span className="relationship">{relationship}</span>
+          {/* <span className="relationship">{relationship}</span> */}
+          <Badge
+            className="relationship"
+            text={relationship}
+            relationType={relationMap[relationship] || ""}
+          />
         </div>
         <span className="createdAt txt-14">
           {/* 임시 날짜 포멧팅 */}
@@ -31,7 +45,7 @@ const MessageModal = ({ data, onClose }) => {
 
       <div className="body">
         <div
-          className={`txt-18 ${fontMap[font]}`}
+          className={`txt-18 ${fontMap[font] || ""}`}
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
