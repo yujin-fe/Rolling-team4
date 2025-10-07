@@ -339,7 +339,6 @@ body.modal-open {
   width: 100%;
   padding: 0px;
   box-sizing: border-box;
-  max-width: 1248px;
   height: 100%;
 }
 
@@ -716,9 +715,6 @@ body.scroll-hidden {
 
 /* 태블릿 */
 @media screen and (max-width: 1248px) {
-  #root .layout {
-    padding: 0 24px;
-  }
   #root .container {
     justify-content: unset;
   }
@@ -727,8 +723,5 @@ body.scroll-hidden {
 @media screen and (max-width: 767px) {
   #root .container {
     height: auto;
-  }
-  #root .layout {
-    padding: 0 20px;
   }
 }
