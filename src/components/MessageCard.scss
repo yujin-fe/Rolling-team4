@@ -19,6 +19,7 @@
       background-color: $white;
       border-radius: 16px;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+
       &.add-message-card {
         justify-content: center;
         align-items: center;
@@ -39,9 +40,13 @@
       .content {
         width: 336px;
         height: 106px;
-        letter-spacing: -1%;
         color: $gray-600;
         margin: 16px 0 16px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 4; /* 3줄까지만 표시 */
+        text-overflow: ellipsis; /* 끝에 ... 표시 */
       }
       .profile-img {
         width: 56px;

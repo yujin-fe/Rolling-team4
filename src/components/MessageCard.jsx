@@ -1,11 +1,12 @@
 import "./MessageCard.scss";
 import { useEffect, useState } from "react";
+
 import { getBackgroundData, getMessages } from "../api/message";
 import { useModal } from "../contexts/ModalContext";
 
+import AddMessageCard from "./AddMessageCard";
 import Badge from "./Badge";
 import MessageModal from "./MessageModal";
-import AddMessageCard from "./AddMessageCard";
 
 const relationMap = {
   친구: "friend",
@@ -14,11 +15,19 @@ const relationMap = {
   가족: "family",
 };
 
+const fontMap = {
+  "Noto Sans": "font-noto-sans",
+  Pretendard: "font-pretendard",
+  나눔명조: "font-nanum-myeongjo",
+  "나눔손글씨 손편지체": "font-nanum-handwriting",
+};
+
 const MessageCard = ({ recipientId, showAddCard = true }) => {
   const [messages, setMessages] = useState([]);
   const [bgColor, setBgColor] = useState();
   const [bgImage, setBgImage] = useState();
   const { openModal, closeModal } = useModal();
+
   // 모달 오픈
   const handleOpen = (msg) => {
     openModal(<MessageModal data={msg} onClose={closeModal} />);
@@ -63,7 +72,7 @@ const MessageCard = ({ recipientId, showAddCard = true }) => {
       className="message-card-wrapper"
       style={{
         backgroundImage: bgImage ? `url(${bgImage})` : "none",
-        backgroundColor: bgColor ?? "$white",
+        backgroundColor: bgColor ? `var(--${bgColor}-200)` : "white",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -75,7 +84,7 @@ const MessageCard = ({ recipientId, showAddCard = true }) => {
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className={`message-card ${msg.font}`}
+            className={`message-card message-card`}
             onClick={() => handleOpen(msg)}
           >
             <div className="message-card-top">
@@ -100,8 +109,10 @@ const MessageCard = ({ recipientId, showAddCard = true }) => {
             </div>
 
             {/* 내용 */}
-            <p className="content txt-18">{msg.content}</p>
-
+            <p
+              className={`content txt-18 ${fontMap[msg.font] || "font-noto-sans"}`}
+              dangerouslySetInnerHTML={{ __html: msg.content }}
+            />
             {/* 생성일 */}
             <small className="date">
               {new Date(msg.createdAt).toLocaleDateString()}
