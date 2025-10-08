@@ -2,12 +2,16 @@ import "./MessageCard.scss";
 import { useEffect, useState } from "react";
 
 import { getBackgroundData } from "../api/images";
-import { getMessages } from "../api/message";
+import { getMessages, deleteMessage } from "../api/message";
+import { deleteRecipient } from "../api/recipients";
 import { useModal } from "../contexts/ModalContext";
-
+import { useNavigate } from "react-router-dom";
 import AddMessageCard from "./AddMessageCard";
 import Badge from "./Badge";
+import Button from "./Button";
 import MessageModal from "./MessageModal";
+
+import bin from "../assets/icons/deleted.png";
 
 const relationMap = {
   친구: "friend",
@@ -23,12 +27,17 @@ const fontMap = {
   "나눔손글씨 손편지체": "font-nanum-handwriting",
 };
 
-const MessageCard = ({ recipientId, showAddCard = true }) => {
+const MessageCard = ({
+  recipientId,
+  showAddCard = true,
+  showDeleteCardBtn = false,
+  showDeletePaperBtn = false,
+}) => {
   const [messages, setMessages] = useState([]);
   const [bgColor, setBgColor] = useState();
   const [bgImage, setBgImage] = useState();
   const { openModal, closeModal } = useModal();
-
+  const navigate = useNavigate();
   // 모달 오픈
   const handleOpen = (msg) => {
     openModal(<MessageModal data={msg} onClose={closeModal} />);
@@ -68,20 +77,62 @@ const MessageCard = ({ recipientId, showAddCard = true }) => {
     fetchMessages();
   }, [recipientId]);
 
+  // 메시지 삭제하기
+  const handleDeleteMessage = async (msgId) => {
+    try {
+      await deleteMessage(msgId); // API 호출
+      setMessages((prev) => prev.filter((msg) => msg.id !== msgId)); // UI에서 제거
+    } catch (err) {
+      console.error("❌ 메시지 삭제 실패:", err);
+    }
+  };
+
+  // 롤링페이퍼 삭제하기
+  const handleDeletePaper = async () => {
+    if (!window.confirm("정말로 롤링페이퍼를 삭제하시겠습니까?")) return;
+
+    try {
+      await deleteRecipient(recipientId);
+      alert("롤링페이퍼가 삭제되었습니다!");
+      navigate("/list"); // ✅ 리스트 페이지로 이동
+      setMessages([]);
+    } catch (err) {
+      console.error("❌ 롤링페이퍼 삭제 실패:", err);
+    }
+  };
+
   return (
     <div
       className="message-card-wrapper"
       style={{
-        backgroundImage: bgImage ? `url(${bgImage})` : "none",
-        backgroundColor: bgColor ? `var(--${bgColor}-200)` : "white",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        background: bgImage
+          ? `url(${bgImage}) center/cover no-repeat`
+          : bgColor
+            ? `var(--${bgColor}-200)`
+            : "white",
       }}
     >
+      {/* 롤링페이퍼 삭제 버튼 */}
+      {showDeletePaperBtn && (
+        <div className="delete-paper-btn">
+          <Button
+            style={{
+              fontSize: "16px",
+              fontWeight: "400",
+              padding: "9px 16px 9px",
+            }}
+            onClick={() => handleDeletePaper()}
+          >
+            롤링페이퍼 삭제하기
+          </Button>
+        </div>
+      )}
+
       <div className="message-cards">
-        {/* ✅ showAddCard가 true일 때만 렌더 */}
+        {/* 메시지 카드 추가 버튼 */}
         {showAddCard && <AddMessageCard recipientId={recipientId} />}
 
+        {/* 메시지 카드*/}
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -97,9 +148,8 @@ const MessageCard = ({ recipientId, showAddCard = true }) => {
               />
               {/* 보낸 사람 + 관계 */}
               <div className="sender txt-20">
-                <div>
-                  From.{" "}
-                  <span className="sender-name txt-20-b">{msg.sender}</span>
+                <div className="sender-name">
+                  From. <span className="txt-20-b">{msg.sender}</span>
                 </div>
                 <Badge
                   className="sender-relation"
@@ -107,6 +157,20 @@ const MessageCard = ({ recipientId, showAddCard = true }) => {
                   relationType={relationMap[msg.relationship] || "other"}
                 />
               </div>
+              {/* 메시지 카드 삭제 버튼 */}
+              {showDeleteCardBtn && (
+                <div>
+                  <Button
+                    icon={bin}
+                    variant="outlined"
+                    style={{ padding: "6px" }}
+                    onClick={(e) => {
+                      e.stopPropagation(); // 카드 클릭 이벤트 방지
+                      handleDeleteMessage(msg.id);
+                    }}
+                  />
+                </div>
+              )}
             </div>
 
             {/* 내용 */}
