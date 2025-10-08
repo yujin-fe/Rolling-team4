@@ -1,17 +1,17 @@
 import "./MessageCard.scss";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { getBackgroundData } from "../api/images";
-import { getMessages, deleteMessage } from "../api/message";
+import { deleteMessage, getMessages } from "../api/message";
 import { deleteRecipient } from "../api/recipients";
+import bin from "../assets/icons/deleted.png";
 import { useModal } from "../contexts/ModalContext";
-import { useNavigate } from "react-router-dom";
+
 import AddMessageCard from "./AddMessageCard";
 import Badge from "./Badge";
 import Button from "./Button";
 import MessageModal from "./MessageModal";
-
-import bin from "../assets/icons/deleted.png";
 
 const relationMap = {
   친구: "friend",
@@ -68,7 +68,7 @@ const MessageCard = ({
     const fetchMessages = async () => {
       try {
         const data = await getMessages(recipientId);
-        setMessages(data);
+        setMessages(data.results);
       } catch (err) {
         console.error("❌ 메시지 불러오기 실패:", err);
         setMessages([]); // 실패 시 안전하게 초기화
