@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { getReactions, postReaction } from "../api/recipients.js";
 
@@ -15,11 +15,10 @@ const ActionBarBtnsGropus = ({
   getRecipientData,
 }) => {
   const [reactionsData, setReactionsData] = useState({ results: [] });
-  const [isReactionOpened, setIsReactionOpened] = useState(false);
-  const [isEmojiOpened, setIsEmojiOpened] = useState(false);
+  const [openMenu, setOpenMenu] = useState(null);
   const [offset, setOffset] = useState(0);
 
-  const getInitReactions = async () => {
+  const getInitReactions = useCallback ( async () => {
     try {
       const reactionsResData = await getReactions({
         recipientId,
@@ -32,18 +31,11 @@ const ActionBarBtnsGropus = ({
       console.log(e.message);
       alert("오류가 발생했습니다.");
     }
-  };
+  },[recipientId])
 
   useEffect(() => {
     getInitReactions();
-  }, [recipientId]);
-
-  const handleReactions = () => {
-    setIsReactionOpened((prev) => !prev);
-    if (Number(reactionsData?.results.length) > 11) {
-      getInitReactions();
-    }
-  };
+  }, [getInitReactions]);
 
   const onClickLoadMore = async () => {
     try {
@@ -53,18 +45,14 @@ const ActionBarBtnsGropus = ({
         offset,
       });
       setOffset((prev) => prev + LOAD_MORE_LIMIT);
-      setReactionsData({
-        ...reactionsData,
-        results: [...reactionsData.results, ...loadMoreRes.results],
-      });
+      setReactionsData(prev =>({
+        ...prev,
+        results: [...prev.results, ...loadMoreRes.results],
+      }));
     } catch (e) {
       console.log(e.message);
       alert("오류가 발생했습니다.");
     }
-  };
-
-  const onClickAddBtn = () => {
-    setIsEmojiOpened((prev) => !prev);
   };
 
   const handleSelectEmoji = async (emoji) => {
@@ -74,33 +62,45 @@ const ActionBarBtnsGropus = ({
         type: "increase",
       };
       await postReaction(recipientId, data);
-      setIsEmojiOpened((prev) => !prev);
-      getInitReactions();
-      getRecipientData();
+      setOpenMenu((prev) => (prev === "emoji" ? null : "emoji"))
+      await Promise.all([getInitReactions(), getRecipientData()]);
     } catch (e) {
       console.error(e.message);
       alert("이모지 추가에 실패하셨습니다.");
     }
   };
 
+  const handleButtons = (menu) =>{
+    const validMenus = ["reaction", "emoji", "share"];
+    if (!validMenus.includes(menu)) return;
+
+    setOpenMenu(prev=>(prev === menu ? null : menu))
+    if(menu==="reaction" && Number(reactionsData?.results.length) > 11){
+      getInitReactions();
+    }
+  }
   return (
     <div className="action-bar-btns-group">
       <ReactionBtn
         recipientData={recipientData}
         reactionsData={reactionsData}
-        handleReactions={handleReactions}
-        isOpened={isReactionOpened}
+        handleReactions={()=>handleButtons("reaction")}
+        isOpened={openMenu==="reaction"}
         onClickLoadMore={onClickLoadMore}
       />
       <div className="btn-wrapper">
         <EmojiAddBtn
           recipientId={recipientId}
           handleSelectEmoji={handleSelectEmoji}
-          isOpened={isEmojiOpened}
-          onClickAddBtn={onClickAddBtn}
+          isOpened={openMenu==="emoji"}
+          onClickAddBtn={()=>handleButtons("emoji")}
         />
         <div className="divider"></div>
-        <ShareBtn recipientData={recipientData}/>
+        <ShareBtn
+          recipientData={recipientData}
+          isOpened={openMenu==="share"}
+          onClickShareBtn={()=>handleButtons("share")}
+        />
       </div>
     </div>
   );

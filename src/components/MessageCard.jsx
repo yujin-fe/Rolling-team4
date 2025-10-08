@@ -59,7 +59,7 @@ const MessageCard = ({ recipientId, showAddCard = true }) => {
     const fetchMessages = async () => {
       try {
         const data = await getMessages(recipientId);
-        setMessages(data);
+        setMessages(data.results);
       } catch (err) {
         console.error("❌ 메시지 불러오기 실패:", err);
         setMessages([]); // 실패 시 안전하게 초기화
