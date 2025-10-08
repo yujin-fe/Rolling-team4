@@ -32,6 +32,7 @@ const MessageCard = ({
   showAddCard = true,
   showDeleteCardBtn = false,
   showDeletePaperBtn = false,
+  className = "",
 }) => {
   const [messages, setMessages] = useState([]);
   const [bgColor, setBgColor] = useState();
@@ -115,20 +116,13 @@ const MessageCard = ({
       {/* 롤링페이퍼 삭제 버튼 */}
       {showDeletePaperBtn && (
         <div className="delete-paper-btn">
-          <Button
-            style={{
-              fontSize: "16px",
-              fontWeight: "400",
-              padding: "9px 16px 9px",
-            }}
-            onClick={() => handleDeletePaper()}
-          >
+          <Button onClick={() => handleDeletePaper()}>
             롤링페이퍼 삭제하기
           </Button>
         </div>
       )}
 
-      <div className="message-cards">
+      <div className={`message-cards ${className}`}>
         {/* 메시지 카드 추가 버튼 */}
         {showAddCard && <AddMessageCard recipientId={recipientId} />}
 
