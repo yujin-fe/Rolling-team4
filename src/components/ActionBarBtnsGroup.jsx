@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { getReactions, postReaction } from "../api/recipients.js";
-import shareBtn from "../assets/icons/Union.svg";
 
-import Button from "./Button";
 import EmojiAddBtn from "./EmojiAddBtn";
 import ReactionBtn from "./ReactionBtn";
+import ShareBtn from "./ShareBtn.jsx";
 
 const INITIAL_LIMIT = 11;
 const LOAD_MORE_LIMIT = 8;
@@ -101,7 +100,7 @@ const ActionBarBtnsGropus = ({
           onClickAddBtn={onClickAddBtn}
         />
         <div className="divider"></div>
-        <Button icon={shareBtn} size="sm" variant="outlined" />
+        <ShareBtn recipientData={recipientData}/>
       </div>
     </div>
   );

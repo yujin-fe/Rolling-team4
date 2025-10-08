@@ -2,8 +2,9 @@ import "./Dropdown.scss";
 import { useState } from "react";
 
 import btn_arrow from "./../assets/icons/btn_arrow.svg";
+import Button from "./Button"
 
-const Dropdown = ({ title, data, handleSelectChange, value }) => {
+const Dropdown = ({ title, data, handleSelectChange, value, titleSize, icon, ...btn }) => {
   const [isOpened, setIsOpend] = useState(false);
 
   const onClickTitle = () => {
@@ -16,8 +17,14 @@ const Dropdown = ({ title, data, handleSelectChange, value }) => {
   };
 
   return (
-    <div className={`Dropdown`}>
-      <button
+    <div className={`Dropdown ${titleSize}`}>
+      {icon?(<Button 
+        icon={icon} 
+        {...btn} 
+        onClick={(e)=> {
+          onClickTitle()
+          e.currentTarget.blur();
+        }}/>):(<button
         onClick={onClickTitle}
         className={`title-wrapper ${isOpened ? "" : "closed-btn"}`}
       >
@@ -31,7 +38,7 @@ const Dropdown = ({ title, data, handleSelectChange, value }) => {
           alt={"드롭다운 방향키"}
           style={{ transform: isOpened ? "rotate(0deg)" : "rotate(180deg)" }}
         />
-      </button>
+      </button>)}
       {isOpened && (
         <ul className="list">
           {data.map((item) => (

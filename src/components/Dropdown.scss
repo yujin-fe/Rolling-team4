@@ -93,3 +93,16 @@
 .Dropdown .list .list-item:hover{
   background-color: #F6F6F6;
 }
+
+.Dropdown.sm{
+  display: block;
+  height: auto;
+  position: relative;
+
+  .list{
+    position: absolute;
+    top:45px;
+    right:0px;
+    min-width: 140px;
+  }
+}
