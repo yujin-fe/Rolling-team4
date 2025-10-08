@@ -2,6 +2,16 @@
   width: 100%;
   min-height: 100vh;
 
+  .delete-paper-btn {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    max-width: 1248px;
+    margin: 0 auto;
+    /* 위치 임시 설정 */
+    position: relative;
+    top: 45px;
+  }
   .message-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3열 */
@@ -30,11 +40,20 @@
         gap: 14px;
         border-bottom: 1px solid $gray-200;
         padding-bottom: 16px;
+
         .sender {
           display: flex;
           flex-direction: column;
           justify-content: space-around;
           align-items: flex-start;
+          flex: 1; /* 남은 공간만큼 확장 */
+          min-width: 0; /* 텍스트 오버플로 방지 */
+          .sender-name {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+          }
         }
       }
       .content {
@@ -47,6 +66,8 @@
         overflow: hidden;
         -webkit-line-clamp: 4; /* 4줄까지만 표시 */
         text-overflow: ellipsis; /* 끝에 ... 표시 */
+        white-space: normal; /* 줄바꿈 허용 */
+
         * {
           font-family: inherit;
           line-height: 1.4;
