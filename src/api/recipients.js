@@ -51,4 +51,8 @@ const deleteRecipient = async (recipientId) => {
   }
 };
 
+<<<<<<< HEAD
 export { deleteRecipient, getCards, getReactions, getRecipient, postReaction };
+=======
+export { deleteRecipient,getCards, getReactions, getRecipient, postReaction };
+>>>>>>> 2b17f0a (Feat: 헤더 반응형 적용)

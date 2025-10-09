@@ -1,6 +1,5 @@
 .ActionBar{
   border-top: 1px solid #EDEDED;
-  border-bottom: 1px solid #EDEDED;
   display: flex;
   justify-content: center;
 
@@ -31,7 +30,6 @@
       align-items: center;
       .reaction-wrapper{
         display: flex;
-        flex-wrap: wrap;
         position: relative;
         .badges{
           display: flex;
@@ -64,5 +62,28 @@
 @media screen and (max-width:1248px) {
   .ActionBar .action-bar-container {
     padding: 13px 24px;
+    
+    .profile-wrapper,
+    .menu-wrapper > .divider{
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .recipient-name{
+    display: none;
+  }
+
+  .ActionBar .action-bar-container{
+    padding: 8px 20px;
+    display: block;
+    height: auto;
+    .menu-wrapper{
+      display: block;
+      .action-bar-btns-group{
+        justify-content: space-between;
+      }
+    }
   }
 }
