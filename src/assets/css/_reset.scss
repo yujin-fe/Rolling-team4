@@ -322,7 +322,6 @@ html,
 body,
 #root {
   min-width: 320px;
-  height: 100dvh;
 }
 body.modal-open {
   overflow: hidden;
@@ -339,17 +338,13 @@ body.modal-open {
   width: 100%;
   padding: 0px;
   box-sizing: border-box;
-  max-width: 1248px;
   height: 100%;
 }
 
 #root .container {
   width: 100%;
-  // height: 100%;
-  min-height: 100%;
   margin: 0 auto;
   display: flex;
-  // align-items: center;
   justify-content: center;
 }
 #root main {
@@ -716,9 +711,6 @@ body.scroll-hidden {
 
 /* 태블릿 */
 @media screen and (max-width: 1248px) {
-  #root .layout {
-    padding: 0 24px;
-  }
   #root .container {
     justify-content: unset;
   }
@@ -727,8 +719,5 @@ body.scroll-hidden {
 @media screen and (max-width: 767px) {
   #root .container {
     height: auto;
-  }
-  #root .layout {
-    padding: 0 20px;
   }
 }

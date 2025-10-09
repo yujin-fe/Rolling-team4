@@ -32,4 +32,15 @@ const getCards = async (offset = 0) => {
   return data.results;
 };
 
-export { getCards, getReactions, getRecipient, postReaction };
+// 롤링페이퍼(Recipient) 삭제
+const deleteRecipient = async (recipientId) => {
+  try {
+    const res = await instance.delete(`/19-4/recipients/${recipientId}/`);
+    return res.data;
+  } catch (err) {
+    console.error("❌ 롤링페이퍼 삭제 실패:", err);
+    throw err;
+  }
+};
+
+export { deleteRecipient, getCards, getReactions, getRecipient, postReaction };

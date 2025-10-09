@@ -36,8 +36,6 @@ const PostIdMessage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("sender", sender);
-
       const { data } = await axios.get("/profile-images/");
       setProfileImg(data.imageUrls);
     };
@@ -57,8 +55,7 @@ const PostIdMessage = () => {
     };
 
     try {
-      const res = await axios.post(`/19-4/recipients/${id}/messages/`, payload);
-      console.log("등록 성공:", res.data, "sender", sender);
+      await axios.post(`/19-4/recipients/${id}/messages/`, payload);
       navigate(`/post/${id}`);
     } catch (err) {
       console.error("등록 실패:", err);

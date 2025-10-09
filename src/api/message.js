@@ -6,7 +6,7 @@ import instance from "./axios";
 export const getMessages = async (recipientId) => {
   try {
     const res = await instance.get(`19-4/recipients/${recipientId}/messages/`);
-    return res.data?.results ?? [];
+    return res?.data ?? [];
   } catch (err) {
     console.error("❌ 메시지 조회 실패:", err);
     throw err;
@@ -55,7 +55,3 @@ export const deleteMessage = async (messageId) => {
     throw err;
   }
 };
-
-/**
- * 롤링페이퍼 배경 조회 (특정 recipientId)
- */

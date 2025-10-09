@@ -8,19 +8,19 @@ const ReactionBtn = ({ reactionsData, recipientData, handleReactions, isOpened, 
   
   return (
     <div className="reaction-wrapper">
-      <div className="badges">
+      <div className={`badges  ${reactionsData?.count<=3?"no-more-reaction":""}`}>
         {recipientData?.topReactions?.map((emoji) => (
           <Emoji key={emoji.id} emoji={emoji.emoji} count={emoji.count} />
         ))}
       </div>
-      <button className="reaction-window-btn" onClick={handleReactions}>
+      {reactionsData?.count>3?(<button className={`reaction-window-btn`} onClick={handleReactions}>
         <img
           src={arrowBtn}
           style={{
             transform: isOpened ? "rotate(180deg)" : "rotate(0deg)",
           }}
         />
-      </button>
+      </button>):null}
       {isOpened && (
         <div className="reaction-window">
           <div className="badge-grid">

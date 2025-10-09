@@ -28,6 +28,7 @@
     }
     .action-bar-btns-group{
       display: flex;
+      align-items: center;
       .reaction-wrapper{
         display: flex;
         flex-wrap: wrap;
@@ -35,6 +36,9 @@
         .badges{
           display: flex;
           gap:8px;
+        }
+        .badges.no-more-reaction{
+          padding-right: 10px;
         }
 
         .reaction-window-btn{
