@@ -8,18 +8,25 @@
     align-items: center;
     max-width: 1248px;
     margin: 0 auto;
-    /* 위치 임시 설정 */
-    position: relative;
-    top: 45px;
+    padding-top: 20px;
+    Button {
+      font-size: 16px;
+      font-weight: 400;
+      padding: 9px 16px 9px;
+    }
   }
   .message-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3열 */
+    justify-content: center; /* ✅ 가로 중앙 정렬 */
+    justify-items: center; /* ✅ 각 카드 자체도 중앙 정렬 */
     max-width: 1248px;
     gap: 20px;
     padding: 60px 0 60px;
     margin: 0 auto;
-
+    &.edit-page-card {
+      padding-top: 20px;
+    }
     .message-card {
       display: flex;
       flex-direction: column;
@@ -29,7 +36,7 @@
       background-color: $white;
       border-radius: 16px;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-
+      cursor: pointer;
       &.add-message-card {
         justify-content: center;
         align-items: center;
@@ -57,8 +64,9 @@
         }
       }
       .content {
-        width: 336px;
+        width: 100%;
         height: 106px;
+        line-height: 26.5px;
         color: $gray-600;
         margin: 16px 0 16px;
         display: -webkit-box;
@@ -81,6 +89,46 @@
       }
       .date {
         color: $gray-400;
+      }
+    }
+  }
+  @media screen and (max-width: 1248px) {
+    .message-cards {
+      grid-template-columns: repeat(2, 1fr);
+      justify-content: center; /* ✅ 가로 중앙 정렬 */
+      justify-items: center; /* ✅ 각 카드 자체도 중앙 정렬 */
+      padding: 60px 20px 60px;
+      .message-card {
+        width: 100%;
+        min-width: 352px;
+      }
+    }
+    .delete-paper-btn {
+      position: fixed; /* ✅ 하단 고정 */
+      bottom: 0;
+      left: 0;
+      width: 100%; /* ✅ 화면 전체 가로 */
+      padding: 15px 20px; /* 여백 */
+      justify-content: center; /* 중앙 정렬 */
+      z-index: 10; /* 카드 위로 */
+      Button {
+        width: 100%;
+        height: 55px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .message-cards {
+      grid-template-columns: repeat(1, 1fr);
+      justify-content: center; /* ✅ 한 줄일 때 중앙 정렬 유지 */
+      justify-items: center;
+      padding: 60px 20px 60px;
+      .message-card {
+        width: 100%;
+        min-width: 320px;
       }
     }
   }
