@@ -11,7 +11,6 @@ import Listcard from "../components/Listcard";
 import list_arrow from "./../assets/imgs/list_arrow.svg";
 
 const List = () => {
-  const [allCards, setAllCards] = useState([]);
   const [popularCard, setPopularCard] = useState([]);
   const [recentCard, setRecentCard] = useState([]);
   const [profileImages, setProfileImages] = useState({});
@@ -19,45 +18,43 @@ const List = () => {
   const [reactions, setReactions] = useState({});
   const [popularOffset, setPopularOffset] = useState(0);
   const [recentOffset, setRecentOffset] = useState(0);
+  const [popularTotal, setPopularTotal] = useState(0);
+  const [recentTotal, setRecentTotal] = useState(0);
 
   const limit = 4;
 
-  const fetchCards = async (sortBy) => {
-    const cards = await getCards(0); //offset 0으로 전체 데이터 불러오기
-    const sorted =
-      sortBy === "reaction"
-        ? [...cards].sort((a, b) => b.reactionCount - a.reactionCount)
-        : [...cards].sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        );
-    return sorted;
-  };
-
-  /** 인기 카드 */
+  /**  인기 카드 */
   useEffect(() => {
     (async () => {
-      const sorted = await fetchCards("reaction");
-      setAllCards(sorted);
-      setPopularCard(sorted.slice(popularOffset, popularOffset + limit));
+      try {
+        const { results, count } = await getCards(limit, popularOffset, "like"); // 서버 정렬
+        setPopularCard(results);
+        setPopularTotal(count); // 전체 개수 저장
+      } catch (error) {
+        console.error("🔥 인기 카드 불러오기 실패:", error);
+      }
     })();
   }, [popularOffset]);
 
   /**  최신 카드 */
   useEffect(() => {
     (async () => {
-      const sorted = await fetchCards("date");
-      setAllCards(sorted);
-      setRecentCard(sorted.slice(recentOffset, recentOffset + limit));
+      try {
+        const { results, count } = await getCards(limit, recentOffset); // 기본 최신순
+        setRecentCard(results);
+        setRecentTotal(count); // 전체 개수 저장
+      } catch (error) {
+        console.error("🔥 최신 카드 불러오기 실패:", error);
+      }
     })();
   }, [recentOffset]);
 
   /**  중복 없는 카드만 추출 */
   const getUniqueCards = () => {
     const combined = [...popularCard, ...recentCard];
-    const unique = combined.filter(
+    return combined.filter(
       (card, index, self) => index === self.findIndex((c) => c.id === card.id)
     );
-    return unique;
   };
 
   /**  카드별 프로필 + 배경 + 리액션 (최소 호출 방식) */
@@ -65,13 +62,10 @@ const List = () => {
     const fetchDetails = async () => {
       try {
         const cards = getUniqueCards();
-
-        // 이미 데이터가 존재하는 카드 제외
         const cardsToFetch = cards.filter(
           (c) => !profileImages[c.id] || !backgrounds[c.id] || !reactions[c.id]
         );
 
-        // Promise.all로 병렬 요청 (필요한 카드만)
         await Promise.all(
           cardsToFetch.map(async (card) => {
             try {
@@ -98,12 +92,12 @@ const List = () => {
                 [card.id]: res?.results ?? [],
               }));
             } catch (err) {
-              console.warn(`카드(${card.id}) 불러오기 실패:`, err.message);
+              console.warn(`⚠️ 카드(${card.id}) 데이터 실패:`, err.message);
             }
           })
         );
       } catch (error) {
-        console.error("카드 세부 데이터 불러오기 실패:", error);
+        console.error("❌ 카드 세부 데이터 불러오기 실패:", error);
       }
     };
 
@@ -134,12 +128,14 @@ const List = () => {
 
   return (
     <div className="rolling_list">
-      {/* 인기 롤링페이퍼 */}
+      {/*  인기 롤링페이퍼 */}
       <div className="rolling_popular">
         <h3 className="txt-24-b">인기 롤링 페이퍼 🔥</h3>
         <div className="rolling_popular_card">
           {renderCardList(popularCard)}
-          {popularOffset + limit < allCards.length && (
+
+          {/* 버튼 표시 조건 수정 */}
+          {popularOffset + limit < popularTotal && (
             <Button className="next_icon icon" onClick={onClickNextPopular}>
               <img src={list_arrow} alt="다음" />
             </Button>
@@ -157,7 +153,8 @@ const List = () => {
         <h3 className="txt-24-b">최근에 만든 롤링 페이퍼 ✨</h3>
         <div className="rolling_recent_card">
           {renderCardList(recentCard)}
-          {recentOffset + limit < allCards.length && (
+
+          {recentOffset + limit < recentTotal && (
             <Button className="next_icon icon" onClick={onClickNextRecent}>
               <img src={list_arrow} alt="다음" />
             </Button>
