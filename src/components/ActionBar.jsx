@@ -2,32 +2,23 @@ import "./ActionBar.scss";
 import { useEffect, useState } from "react";
 
 import { getMessages } from "../api/message.js";
-import { getRecipient } from "../api/recipients.js";
 
 import ActionBarBtnsGroup from "./ActionBarBtnsGroup.jsx";
 import Profile from "./Profile";
 
-const ActionBar = ({ recipientId }) => {
-  const [recipientData, setRecipientData] = useState({});
+const ActionBar = ({ recipientId, recipientData, getRecipientData }) => {
   const [messagesData, setMessagesData] = useState({});
   const images =
     messagesData?.results?.map((message) => message.profileImageURL) ?? [];
 
-  const getRecipientData = async () => {
-    try {
-      const recipientResData = await getRecipient(recipientId);
-      setRecipientData(recipientResData);
-    } catch (e) {
-      console.log(e.message);
-      alert("오류가 발생했습니다.");
-    }
-  };
-
   useEffect(() => {
-    getRecipientData();
     const fetchMessages = async () => {
-      const messagesRes = await getMessages(recipientId);
-      setMessagesData(messagesRes);
+      try{
+        const messagesRes = await getMessages(recipientId);
+        setMessagesData(messagesRes);
+      }catch(e){
+        console.error(e.message)
+      }
     };
     fetchMessages();
   }, [recipientId]);

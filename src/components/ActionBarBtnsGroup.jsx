@@ -29,7 +29,6 @@ const ActionBarBtnsGropus = ({
       setOffset(INITIAL_LIMIT);
     } catch (e) {
       console.log(e.message);
-      alert("오류가 발생했습니다.");
     }
   }, [recipientId]);
 
@@ -51,7 +50,6 @@ const ActionBarBtnsGropus = ({
       }));
     } catch (e) {
       console.log(e.message);
-      alert("오류가 발생했습니다.");
     }
   };
 
@@ -66,7 +64,6 @@ const ActionBarBtnsGropus = ({
       await Promise.all([getInitReactions(), getRecipientData()]);
     } catch (e) {
       console.error(e.message);
-      alert("이모지 추가에 실패하셨습니다.");
     }
   };
 

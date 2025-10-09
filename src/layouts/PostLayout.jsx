@@ -8,14 +8,14 @@ import ActionBar from "../components/ActionBar";
 import useIsMobile from "../hooks/useIsMobile"
 
 const PostLayout = () => {
-  const [recipientName, setRecipientName] = useState('');
+  const [recipientData, setRecipientData] = useState({});
   const params = useParams();
   const isMobile = useIsMobile();
 
-  const getRecipientName = async () => {
+  const getRecipientData = async () => {
     try {
-      const recipientData = await getRecipient(params.id);
-      setRecipientName(recipientData.name)
+      const recipientResData = await getRecipient(params.id);
+      setRecipientData(recipientResData);
     } catch (e) {
       console.log(e.message);
       alert("오류가 발생했습니다.");
@@ -23,13 +23,16 @@ const PostLayout = () => {
   };
 
   useEffect(()=>{
-    getRecipientName();
-  },[])
+    getRecipientData();
+  },[params.id])
 
   return (
     <div className="PostLayout">
-      {isMobile && <header className="mobile-header txt-18-b">To. {recipientName}</header>}
-      <ActionBar recipientId={params.id}/>
+      {isMobile && <header className="mobile-header txt-18-b">To. {recipientData.name}</header>}
+      <ActionBar 
+        recipientId={params.id} 
+        recipientData={recipientData} 
+        getRecipientData={getRecipientData}/>
       <Outlet />
     </div>
   );
