@@ -17,8 +17,7 @@ const PostLayout = () => {
       const recipientResData = await getRecipient(params.id);
       setRecipientData(recipientResData);
     } catch (e) {
-      console.log(e.message);
-      alert("오류가 발생했습니다.");
+      console.error(e.message);
     }
   };
 
