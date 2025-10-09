@@ -2,7 +2,9 @@ import "./List.scss";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { getProfileImages } from "../api/images";
+// import { getProfileImages } from "../api/images";
+import { getBackgroundData } from "../api/images";
+import { getMessages } from "../api/message";
 import { getReactions } from "../api/recipients";
 import { getCards } from "../api/recipients";
 import Button from "../components/Button";
@@ -14,10 +16,11 @@ const List = () => {
   const [allCards, setAllCards] = useState([]);
   const [popularCard, setPopularCard] = useState([]);
   const [recentCard, setRecentCard] = useState([]);
-  const [profileImages, setProfileImages] = useState([]);
+  const [profileImages, setProfileImages] = useState({});
   const [reactions, setReactions] = useState({});
   const [popularOffset, setPopularOffset] = useState(0);
   const [recentOffset, setRecentOffset] = useState(0);
+  const [backgrounds, setBackgrounds] = useState({});
 
   const limit = 4;
 
@@ -74,11 +77,25 @@ const List = () => {
   // 프로필 이미지 불러오기
   useEffect(() => {
     const fetchProfileImages = async () => {
-      const profileImages = await getProfileImages();
-      setProfileImages(profileImages);
+      try {
+        const targetCards = [...popularCard, ...recentCard];
+        for (const card of targetCards) {
+          const messages = await getMessages(card.id);
+          const images = messages.map((msg) => msg.profileImageURL) ?? [];
+          setProfileImages((prev) => ({
+            ...prev,
+            [card.id]: images,
+          }));
+        }
+      } catch (error) {
+        console.error("프로필 이미지 불러오기 실패:", error);
+      }
     };
-    fetchProfileImages();
-  }, []);
+
+    if (popularCard.length > 0 || recentCard.length > 0) {
+      fetchProfileImages();
+    }
+  }, [popularCard, recentCard]);
 
   // 각 카드별 리액션 데이터 불러오기
   useEffect(() => {
@@ -109,13 +126,45 @@ const List = () => {
     });
   }, [popularCard, recentCard]);
 
+  useEffect(() => {
+    const fetchProfileAndBackground = async () => {
+      try {
+        const targetCards = [...popularCard, ...recentCard];
+
+        for (const card of targetCards) {
+          // ✅ 프로필 이미지 불러오기
+          const messages = await getMessages(card.id);
+          const images = messages.map((msg) => msg.profileImageURL) ?? [];
+          setProfileImages((prev) => ({
+            ...prev,
+            [card.id]: images,
+          }));
+
+          // ✅ 배경 불러오기
+          const backgroundData = await getBackgroundData(card.id);
+
+          setBackgrounds((prev) => ({
+            ...prev,
+            [card.id]: backgroundData, // { backgroundColor, backgroundImage }
+          }));
+        }
+      } catch (error) {
+        console.error("프로필 또는 배경 불러오기 실패:", error);
+      }
+    };
+
+    if (popularCard.length > 0 || recentCard.length > 0) {
+      fetchProfileAndBackground();
+    }
+  }, [popularCard, recentCard]);
+
   // 카드 리스트 렌더링 함수
   const renderCardList = (cards) =>
     cards.map(({ id, ...rest }) => (
       <Link key={id} to={`/post/${id}`}>
         <Listcard
           {...rest}
-          profileImages={profileImages}
+          profileImages={profileImages[id] ?? []}
           reactions={reactions[id]}
         />
       </Link>
