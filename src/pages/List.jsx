@@ -2,157 +2,166 @@ import "./List.scss";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { getProfileImages } from "../api/images";
-import { getReactions } from "../api/recipients";
-import { getCards } from "../api/recipients";
+import { getBackgroundData } from "../api/images";
+import { getMessages } from "../api/message";
+import { getCards, getReactions } from "../api/recipients";
 import Button from "../components/Button";
 import Listcard from "../components/Listcard";
 
 import list_arrow from "./../assets/imgs/list_arrow.svg";
 
 const List = () => {
-  const [allCards, setAllCards] = useState([]);
   const [popularCard, setPopularCard] = useState([]);
   const [recentCard, setRecentCard] = useState([]);
-  const [profileImages, setProfileImages] = useState([]);
+  const [profileImages, setProfileImages] = useState({});
+  const [backgrounds, setBackgrounds] = useState({});
   const [reactions, setReactions] = useState({});
   const [popularOffset, setPopularOffset] = useState(0);
   const [recentOffset, setRecentOffset] = useState(0);
+  const [popularTotal, setPopularTotal] = useState(0);
+  const [recentTotal, setRecentTotal] = useState(0);
 
   const limit = 4;
 
+  /**  인기 카드 */
   useEffect(() => {
-    const fetchPopularCards = async () => {
+    (async () => {
       try {
-        const cards = await getCards(limit, popularOffset); //api로 받아온 getcards 를 4개씩 초기값0번째 부터 가져오는걸 cards에 저장
-        const sorted = [...cards].sort(
-          (a, b) => b.reactionCount - a.reactionCount
-        ); // 스프레드로  새배열을 만들고 리액션 높은순으로 정렬
-        setAllCards(sorted); // setAllCards에 정렬된거 저장
-        setPopularCard(sorted.slice(popularOffset, popularOffset + limit)); // 정렬 된 새 배열을 setPopularCard에 0부터 4까지 잘라서 화면상태에 저장
+        const { results, count } = await getCards(limit, popularOffset, "like"); // 서버 정렬
+        setPopularCard(results);
+        setPopularTotal(count); // 전체 개수 저장
       } catch (error) {
-        console.error("인기 카드 불러오기 실패:", error);
+        console.error("🔥 인기 카드 불러오기 실패:", error);
       }
-    };
-
-    fetchPopularCards();
+    })();
   }, [popularOffset]);
 
+  /**  최신 카드 */
   useEffect(() => {
-    const fetchRecentCards = async () => {
+    (async () => {
       try {
-        const cards = await getCards(limit, recentOffset); // 같은 함수 재활용
-        const sorted = [...cards].sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        );
-        setAllCards(sorted);
-        setRecentCard(sorted.slice(recentOffset, recentOffset + limit));
+        const { results, count } = await getCards(limit, recentOffset); // 기본 최신순
+        setRecentCard(results);
+        setRecentTotal(count); // 전체 개수 저장
       } catch (error) {
-        console.error("최신 카드 불러오기 실패:", error);
+        console.error("🔥 최신 카드 불러오기 실패:", error);
       }
-    };
-
-    fetchRecentCards();
+    })();
   }, [recentOffset]);
 
-  const onClickNextPopular = () => {
-    setPopularOffset((prev) => prev + limit);
+  /**  중복 없는 카드만 추출 */
+  const getUniqueCards = () => {
+    const combined = [...popularCard, ...recentCard];
+    return combined.filter(
+      (card, index, self) => index === self.findIndex((c) => c.id === card.id)
+    );
   };
 
-  const onClickPrevPopular = () => {
-    setPopularOffset((prev) => Math.max(prev - limit, 0));
-  };
-
-  const onClickNextRecent = () => {
-    setRecentOffset((prev) => prev + limit);
-  };
-
-  const onClickPrevRecnet = () => {
-    setRecentOffset((prev) => Math.max(prev - limit, 0));
-  };
-
-  // 프로필 이미지 불러오기
+  /**  카드별 프로필 + 배경 + 리액션 (최소 호출 방식) */
   useEffect(() => {
-    const fetchProfileImages = async () => {
-      const profileImages = await getProfileImages();
-      setProfileImages(profileImages);
-    };
-    fetchProfileImages();
-  }, []);
-
-  // 각 카드별 리액션 데이터 불러오기
-  useEffect(() => {
-    const fetchReactions = async (recipientId) => {
+    const fetchDetails = async () => {
       try {
-        const res = await getReactions({
-          recipientId,
-          limit: 3,
-          offset: 0,
-        });
+        const cards = getUniqueCards();
+        const cardsToFetch = cards.filter(
+          (c) => !profileImages[c.id] || !backgrounds[c.id] || !reactions[c.id]
+        );
 
-        console.log("리액션API 응답:", recipientId, res);
+        await Promise.all(
+          cardsToFetch.map(async (card) => {
+            try {
+              // 메시지 (프로필)
+              const messages = await getMessages(card.id);
+              const messageArray = messages?.results ?? messages;
+              const images = Array.isArray(messageArray)
+                ? messageArray.map((msg) => msg.profileImageURL).filter(Boolean)
+                : [];
+              setProfileImages((prev) => ({ ...prev, [card.id]: images }));
 
-        const results = res.results;
+              // 배경
+              const bg = await getBackgroundData(card.id);
+              setBackgrounds((prev) => ({ ...prev, [card.id]: bg }));
 
-        setReactions((prev) => ({
-          ...prev,
-          [recipientId]: results,
-        }));
+              // 리액션
+              const res = await getReactions({
+                recipientId: card.id,
+                limit: 3,
+                offset: 0,
+              });
+              setReactions((prev) => ({
+                ...prev,
+                [card.id]: res?.results ?? [],
+              }));
+            } catch (err) {
+              console.warn(`⚠️ 카드(${card.id}) 데이터 실패:`, err.message);
+            }
+          })
+        );
       } catch (error) {
-        console.error("리액션 불러오기 실패:", error);
+        console.error("❌ 카드 세부 데이터 불러오기 실패:", error);
       }
     };
 
-    // ✅ 인기 + 최신 카드 합쳐서 리액션 요청
-    [...popularCard, ...recentCard].forEach((c) => {
-      fetchReactions(c.id);
-    });
+    fetchDetails();
   }, [popularCard, recentCard]);
 
-  // 카드 리스트 렌더링 함수
+  /** 페이지네이션 */
+  const onClickNextPopular = () => setPopularOffset((p) => p + limit);
+  const onClickPrevPopular = () =>
+    setPopularOffset((p) => Math.max(p - limit, 0));
+  const onClickNextRecent = () => setRecentOffset((p) => p + limit);
+  const onClickPrevRecent = () =>
+    setRecentOffset((p) => Math.max(p - limit, 0));
+
+  /** 카드 리스트 렌더링 */
   const renderCardList = (cards) =>
     cards.map(({ id, ...rest }) => (
       <Link key={id} to={`/post/${id}`}>
         <Listcard
           {...rest}
-          profileImages={profileImages}
+          profileImages={profileImages[id] ?? []}
           reactions={reactions[id]}
+          backgroundColor={backgrounds[id]?.backgroundColor}
+          backgroundImageURL={backgrounds[id]?.backgroundImage}
         />
       </Link>
     ));
 
   return (
     <div className="rolling_list">
+      {/*  인기 롤링페이퍼 */}
       <div className="rolling_popular">
         <h3 className="txt-24-b">인기 롤링 페이퍼 🔥</h3>
         <div className="rolling_popular_card">
           {renderCardList(popularCard)}
-          {popularOffset + limit < allCards.length && (
+
+          {/* 버튼 표시 조건 수정 */}
+          {popularOffset + limit < popularTotal && (
             <Button className="next_icon icon" onClick={onClickNextPopular}>
-              <img src={list_arrow} alt="리스트 다음 버튼" />
+              <img src={list_arrow} alt="다음" />
             </Button>
           )}
-
           {popularOffset > 0 && (
             <Button className="prev_icon icon" onClick={onClickPrevPopular}>
-              <img src={list_arrow} alt="리스트 이전 버튼" />
+              <img src={list_arrow} alt="이전" />
             </Button>
           )}
         </div>
       </div>
 
+      {/* 최신 롤링페이퍼 */}
       <div className="rolling_recent">
         <h3 className="txt-24-b">최근에 만든 롤링 페이퍼 ✨</h3>
         <div className="rolling_recent_card">
           {renderCardList(recentCard)}
-          {recentOffset + limit < allCards.length && (
+
+          {recentOffset + limit < recentTotal && (
             <Button className="next_icon icon" onClick={onClickNextRecent}>
-              <img src={list_arrow} alt="리스트 다음 버튼" />
+              <img src={list_arrow} alt="다음" />
             </Button>
           )}
           {recentOffset > 0 && (
-            <Button className="prev_icon icon" onClick={onClickPrevRecnet}>
-              <img src={list_arrow} alt="리스트 이전 버튼" />
+            <Button className="prev_icon icon" onClick={onClickPrevRecent}>
+              <img src={list_arrow} alt="이전" />
             </Button>
           )}
         </div>

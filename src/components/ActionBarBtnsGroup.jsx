@@ -18,7 +18,7 @@ const ActionBarBtnsGropus = ({
   const [openMenu, setOpenMenu] = useState(null);
   const [offset, setOffset] = useState(0);
 
-  const getInitReactions = useCallback ( async () => {
+  const getInitReactions = useCallback(async () => {
     try {
       const reactionsResData = await getReactions({
         recipientId,
@@ -31,7 +31,7 @@ const ActionBarBtnsGropus = ({
       console.log(e.message);
       alert("오류가 발생했습니다.");
     }
-  },[recipientId])
+  }, [recipientId]);
 
   useEffect(() => {
     getInitReactions();
@@ -45,7 +45,7 @@ const ActionBarBtnsGropus = ({
         offset,
       });
       setOffset((prev) => prev + LOAD_MORE_LIMIT);
-      setReactionsData(prev =>({
+      setReactionsData((prev) => ({
         ...prev,
         results: [...prev.results, ...loadMoreRes.results],
       }));
@@ -62,7 +62,7 @@ const ActionBarBtnsGropus = ({
         type: "increase",
       };
       await postReaction(recipientId, data);
-      setOpenMenu((prev) => (prev === "emoji" ? null : "emoji"))
+      setOpenMenu((prev) => (prev === "emoji" ? null : "emoji"));
       await Promise.all([getInitReactions(), getRecipientData()]);
     } catch (e) {
       console.error(e.message);
@@ -70,36 +70,36 @@ const ActionBarBtnsGropus = ({
     }
   };
 
-  const handleButtons = (menu) =>{
+  const handleButtons = (menu) => {
     const validMenus = ["reaction", "emoji", "share"];
     if (!validMenus.includes(menu)) return;
 
-    setOpenMenu(prev=>(prev === menu ? null : menu))
-    if(menu==="reaction" && Number(reactionsData?.results.length) > 11){
+    setOpenMenu((prev) => (prev === menu ? null : menu));
+    if (menu === "reaction" && Number(reactionsData?.results.length) > 11) {
       getInitReactions();
     }
-  }
+  };
   return (
     <div className="action-bar-btns-group">
       <ReactionBtn
         recipientData={recipientData}
         reactionsData={reactionsData}
-        handleReactions={()=>handleButtons("reaction")}
-        isOpened={openMenu==="reaction"}
+        handleReactions={() => handleButtons("reaction")}
+        isOpened={openMenu === "reaction"}
         onClickLoadMore={onClickLoadMore}
       />
       <div className="btn-wrapper">
         <EmojiAddBtn
           recipientId={recipientId}
           handleSelectEmoji={handleSelectEmoji}
-          isOpened={openMenu==="emoji"}
-          onClickAddBtn={()=>handleButtons("emoji")}
+          isOpened={openMenu === "emoji"}
+          onClickAddBtn={() => handleButtons("emoji")}
         />
         <div className="divider"></div>
         <ShareBtn
           recipientData={recipientData}
-          isOpened={openMenu==="share"}
-          onClickShareBtn={()=>handleButtons("share")}
+          isOpened={openMenu === "share"}
+          onClickShareBtn={() => handleButtons("share")}
         />
       </div>
     </div>

@@ -24,12 +24,20 @@ const postReaction = async (recipientId, data) => {
   return reactionPostRes.data;
 };
 
-const getCards = async (offset = 0) => {
-  const { data } = await instance.get("19-4/recipients/", {
-    params: { limit: 50, offset },
-  });
-
-  return data.results;
+const getCards = async (limit = 4, offset = 0, sort = "") => {
+  try {
+    const res = await instance.get("19-4/recipients/", {
+      params: {
+        limit,
+        offset,
+        ...(sort && { sort }),
+      },
+    });
+    return { results: res.data.results, count: res.data.count };
+  } catch (error) {
+    console.error("❌ getCards 실패:", error);
+    throw error;
+  }
 };
 
 // 롤링페이퍼(Recipient) 삭제
@@ -43,4 +51,4 @@ const deleteRecipient = async (recipientId) => {
   }
 };
 
-export { getCards, getReactions, getRecipient, postReaction, deleteRecipient };
+export { deleteRecipient, getCards, getReactions, getRecipient, postReaction };

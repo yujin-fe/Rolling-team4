@@ -1,15 +1,15 @@
 import "./ActionBar.scss";
 import { useEffect, useState } from "react";
 
-import {getMessages} from "../api/message.js"
+import { getMessages } from "../api/message.js";
 import { getRecipient } from "../api/recipients.js";
 
 import ActionBarBtnsGroup from "./ActionBarBtnsGroup.jsx";
 import Profile from "./Profile";
 
-const ActionBar = ({ recipientId}) => {
+const ActionBar = ({ recipientId }) => {
   const [recipientData, setRecipientData] = useState({});
-  const [messagesData, setMessagesData] = useState({})
+  const [messagesData, setMessagesData] = useState({});
   const images =
     messagesData?.results?.map((message) => message.profileImageURL) ?? [];
 
@@ -27,9 +27,9 @@ const ActionBar = ({ recipientId}) => {
     getRecipientData();
     const fetchMessages = async () => {
       const messagesRes = await getMessages(recipientId);
-      setMessagesData(messagesRes)
-    }
-    fetchMessages()
+      setMessagesData(messagesRes);
+    };
+    fetchMessages();
   }, [recipientId]);
 
   return (

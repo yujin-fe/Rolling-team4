@@ -7,7 +7,7 @@ const ListCard = ({
   name,
   messageCount,
   backgroundColor,
-  profileImages,
+  profileImages = [],
   backgroundImageURL,
 }) => {
   return (
