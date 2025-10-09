@@ -287,4 +287,9 @@
 }
 /* 모바일 */
 @media screen and (max-width: 768px) {
+  .btn {
+    &.has-icon {
+      padding: 6px 8px;
+    }
+  }
 }
