@@ -13,7 +13,7 @@ const EmojiAddBtn = ({onClickAddBtn, handleSelectEmoji, isOpened}) => {
         onClickAddBtn();
         e.currentTarget.blur();
       }}>
-        추가
+        <span>추가</span>
       </Button>
       {isOpened &&
       (<EmojiPicker.Root locale="ko" columns={8} onEmojiSelect={({ emoji }) => handleSelectEmoji(emoji)}>
