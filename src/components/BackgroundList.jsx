@@ -22,7 +22,15 @@ const ImageItem = ({ img, selected, onSelect }) => {
   );
 };
 
-const BackgroundList = ({ tab, selected, onSelect, colorsList, imageList }) => {
+const BackgroundList = ({
+  tab,
+  selected,
+  onSelect,
+  colorsList,
+  imageList,
+  onUpload,
+  uploadedUrl = { uploadedUrl },
+}) => {
   return (
     <div className="background-list">
       {tab === "color" &&
@@ -37,15 +45,53 @@ const BackgroundList = ({ tab, selected, onSelect, colorsList, imageList }) => {
           </div>
         ))}
 
-      {tab === "image" &&
-        imageList.map((img) => (
-          <ImageItem
-            key={img}
-            img={img}
-            selected={selected}
-            onSelect={onSelect}
-          />
-        ))}
+      {tab === "image" && (
+        <>
+          {/* API에서 이미지는3개만 나옴 */}
+          {imageList.map((img) => (
+            <ImageItem
+              key={img}
+              img={img}
+              selected={selected}
+              onSelect={onSelect}
+            />
+          ))}
+
+          {/* 4번째는 업로드용으로 전환 */}
+          <div
+            className={`item upload-item ${selected === uploadedUrl ? "active" : ""}`}
+            style={{
+              backgroundImage: uploadedUrl ? `url(${uploadedUrl})` : "none",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            onClick={() => {
+              if (uploadedUrl) {
+                // 클릭 시 선택 가능
+                onSelect(uploadedUrl);
+              } else {
+                // 업로드 전이면 파일선택
+                onUpload();
+              }
+            }}
+          >
+            {!uploadedUrl ? (
+              <span className="plus"></span>
+            ) : (
+              <button
+                className="edit-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onUpload();
+                }}
+              >
+                수정
+              </button>
+            )}
+            {selected === uploadedUrl && <span className="check"></span>}
+          </div>
+        </>
+      )}
     </div>
   );
 };
