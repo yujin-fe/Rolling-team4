@@ -36,15 +36,13 @@ const ListCard = ({
       </div>
 
       <div className="popular_reaction">
-        {reactions && reactions.length > 0 ? (
-          reactions.slice(0, 3).map((r) => (
+        {reactions && reactions.length > 0
+          ? reactions.slice(0, 3).map((r) => (
             <span key={r.id} className="reaction_count font-wh">
               {r.emoji} {r.count}
             </span>
           ))
-        ) : (
-          <span className="reaction_count font-wh">리액션 없음</span>
-        )}
+          : ""}
       </div>
     </div>
   );
