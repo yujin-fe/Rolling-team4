@@ -27,9 +27,9 @@ const List = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { results, count } = await getCards(limit, popularOffset, "like"); // 서버 정렬
+        const { results, count } = await getCards(limit, popularOffset, "like");
         setPopularCard(results);
-        setPopularTotal(count); // 전체 개수 저장
+        setPopularTotal(count);
       } catch (error) {
         console.error("🔥 인기 카드 불러오기 실패:", error);
       }
@@ -40,9 +40,9 @@ const List = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { results, count } = await getCards(limit, recentOffset); // 기본 최신순
+        const { results, count } = await getCards(limit, recentOffset);
         setRecentCard(results);
-        setRecentTotal(count); // 전체 개수 저장
+        setRecentTotal(count);
       } catch (error) {
         console.error("🔥 최신 카드 불러오기 실패:", error);
       }
@@ -57,7 +57,7 @@ const List = () => {
     );
   };
 
-  /**  카드별 프로필 + 배경 + 리액션 (최소 호출 방식) */
+  /**  카드별 프로필 + 배경 + 리액션 */
   useEffect(() => {
     const fetchDetails = async () => {
       try {
@@ -69,7 +69,6 @@ const List = () => {
         await Promise.all(
           cardsToFetch.map(async (card) => {
             try {
-              // 메시지 (프로필)
               const messages = await getMessages(card.id);
               const messageArray = messages?.results ?? messages;
               const images = Array.isArray(messageArray)
@@ -77,11 +76,9 @@ const List = () => {
                 : [];
               setProfileImages((prev) => ({ ...prev, [card.id]: images }));
 
-              // 배경
               const bg = await getBackgroundData(card.id);
               setBackgrounds((prev) => ({ ...prev, [card.id]: bg }));
 
-              // 리액션
               const res = await getReactions({
                 recipientId: card.id,
                 limit: 3,
@@ -126,6 +123,32 @@ const List = () => {
       </Link>
     ));
 
+  /** 🎡 가로 스크롤 (1200px 이상일 때만) */
+  useEffect(() => {
+    if (window.innerWidth < 1200) return;
+
+    const popular = document.querySelector(".rolling_popular_card");
+    const recent = document.querySelector(".rolling_recent_card");
+
+    const handleWheel = (e, el) => {
+      e.preventDefault();
+      el.scrollLeft += e.deltaY; // 세로 스크롤 → 가로로 이동
+    };
+
+    const onPopularWheel = (e) => handleWheel(e, popular);
+    const onRecentWheel = (e) => handleWheel(e, recent);
+
+    if (popular)
+      popular.addEventListener("wheel", onPopularWheel, { passive: false });
+    if (recent)
+      recent.addEventListener("wheel", onRecentWheel, { passive: false });
+
+    return () => {
+      if (popular) popular.removeEventListener("wheel", onPopularWheel);
+      if (recent) recent.removeEventListener("wheel", onRecentWheel);
+    };
+  }, []);
+
   return (
     <div className="rolling_list">
       {/*  인기 롤링페이퍼 */}
@@ -133,8 +156,6 @@ const List = () => {
         <h3 className="txt-24-b">인기 롤링 페이퍼 🔥</h3>
         <div className="rolling_popular_card">
           {renderCardList(popularCard)}
-
-          {/* 버튼 표시 조건 수정 */}
           {popularOffset + limit < popularTotal && (
             <Button className="next_icon icon" onClick={onClickNextPopular}>
               <img src={list_arrow} alt="다음" />
@@ -153,7 +174,6 @@ const List = () => {
         <h3 className="txt-24-b">최근에 만든 롤링 페이퍼 ✨</h3>
         <div className="rolling_recent_card">
           {renderCardList(recentCard)}
-
           {recentOffset + limit < recentTotal && (
             <Button className="next_icon icon" onClick={onClickNextRecent}>
               <img src={list_arrow} alt="다음" />
