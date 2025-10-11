@@ -1,20 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 import BackgroundList from "./BackgroundList";
 import Toggle from "./Toggle";
 
-import axios from "@/api/axios";
-
+const CLOUD_NAME = "dsonkljmp";
+const UPLOAD_PRESET = "rolling";
 const colorsList = ["beige", "purple", "blue", "green"];
 
 const BackgroundSelect = ({ tab, setTab, background, setBackground }) => {
   const [backgroundImg, setBackgroundImg] = useState([]);
+  const [uploadedUrl, setUploadedUrl] = useState(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("/background-images/");
-        setBackgroundImg(data.imageUrls);
+        const { data } = await axios.get(
+          "https://rolling-api.vercel.app/background-images/"
+        );
+        // api이미지 3개만 사용
+        setBackgroundImg(data.imageUrls.slice(0, 3));
       } catch (err) {
         console.error("fetch error", err);
       }
@@ -29,6 +35,37 @@ const BackgroundSelect = ({ tab, setTab, background, setBackground }) => {
       setBackground(backgroundImg[0]);
     }
   }, [tab, backgroundImg]);
+
+  /**
+   * Cloudinary 이미지 업로드하기
+   */
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", UPLOAD_PRESET);
+
+    try {
+      const { data } = await axios.post(
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+        formData
+      );
+
+      //업로드된 이미지 URL 저장
+      setUploadedUrl(data.secure_url);
+      setBackground(data.secure_url);
+    } catch (err) {
+      console.error("Cloudinary upload error", err);
+    } finally {
+      e.target.value = "";
+    }
+  };
+
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
 
   return (
     <div className="background-select">
@@ -52,6 +89,17 @@ const BackgroundSelect = ({ tab, setTab, background, setBackground }) => {
         onSelect={setBackground}
         colorsList={colorsList}
         imageList={backgroundImg}
+        onUpload={handleUploadClick}
+        uploadedUrl={uploadedUrl}
+      />
+
+      {/* 숨겨진 input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={handleFileChange}
       />
     </div>
   );
