@@ -101,6 +101,11 @@ const MessageCard = ({
       console.error("❌ 롤링페이퍼 삭제 실패:", err);
     }
   };
+  //HTML 태그를 텍스트로 변환
+  const decodeHtmlEntities = (str) => {
+    const doc = new DOMParser().parseFromString(String(str), "text/html");
+    return doc.documentElement.textContent;
+  };
 
   return (
     <div
@@ -170,9 +175,8 @@ const MessageCard = ({
             {/* 내용 */}
             <div
               className={`content txt-18 ${fontMap[msg.font] || "font-noto-sans"}`}
-              // dangerouslySetInnerHTML={{ __html: msg.content }}
             >
-              {msg.content.replace(/<[^>]+>/g, "")}
+              {decodeHtmlEntities(msg.content)}
             </div>
             {/* 생성일 */}
             <small className="date">
