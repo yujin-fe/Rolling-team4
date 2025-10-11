@@ -6,14 +6,13 @@
   height: 62px;
   padding: 11px 0px;
   box-sizing: border-box;
-  border-bottom: 1px solid #EDEDED;
-  
+  border-bottom: 1px solid #ededed;
 
-  .header-content{
+  .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width:100%;
+    width: 100%;
     max-width: 1248px;
   }
 
@@ -26,16 +25,19 @@
   }
 }
 
-
-
 @media screen and (max-width: 1248px) {
   .header-content {
     padding: 11px 24px;
   }
 }
 /* 모바일 */
+
 @media screen and (max-width: 768px) {
   .header_content {
     display: 12px 20px;
+  }
+
+  .header_area .header_btn {
+    width: 142px;
   }
 }
