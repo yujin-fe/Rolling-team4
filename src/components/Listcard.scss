@@ -47,6 +47,7 @@
   gap: 10px;
   border-top: 1px solid #0000001f;
   padding-top: 17px;
+  height: 53px;
 
   span {
     display: flex;
@@ -57,5 +58,30 @@
     background-color: #0000008a;
     border-radius: 32px;
     white-space: nowrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 208px;
+    height: 232px;
+    padding: 30px 22px 20px 24px;
+  }
+
+  .popular_reaction {
+    gap: 4px;
+    height: 49px;
+  }
+
+  .popular_reaction span {
+    width: 55px;
+    height: 32px;
+    gap: 1px;
+  }
+
+  .card_name.txt-24-b {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: $font-bold;
   }
 }

@@ -111,4 +111,19 @@
     scroll-snap-align: start; /* ✅ 각 카드가 정렬되게 */
     flex: 0 0 auto; /* ✅ 가로로만 나열 */
   }
+
+  .icon {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .rolling_list {
+    padding: 0;
+
+    h3,
+    .listpage_btn_area {
+      padding: 0 20px;
+    }
+  }
 }
