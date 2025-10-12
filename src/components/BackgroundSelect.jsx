@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
+
+import axios from "../api/axios";
 
 import BackgroundList from "./BackgroundList";
 import Toggle from "./Toggle";
@@ -16,9 +17,7 @@ const BackgroundSelect = ({ tab, setTab, background, setBackground }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(
-          "https://rolling-api.vercel.app/background-images/"
-        );
+        const { data } = await axios.get("/background-images/");
         // api이미지 3개만 사용
         setBackgroundImg(data.imageUrls.slice(0, 3));
       } catch (err) {
