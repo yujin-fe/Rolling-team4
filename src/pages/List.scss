@@ -68,7 +68,10 @@
   background-color: $white;
   color: #101010;
 }
-
+.swiper {
+  width: 100%;
+  padding-bottom: 16px;
+}
 @media (max-width: 1248px) {
   .rolling_list {
     padding: 0 24px;
