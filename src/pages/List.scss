@@ -126,4 +126,14 @@
       padding: 0 20px;
     }
   }
+
+  .rolling_popular_card > a:first-of-type {
+    margin-left: 24px;
+  }
+  .rolling_recent_card > a:first-of-type {
+    margin-left: 24px;
+  }
+  .rolling_popular_card {
+    scroll-padding-left: 24px; /* 첫 스냅 위치를 24px 안쪽으로 */
+  }
 }
