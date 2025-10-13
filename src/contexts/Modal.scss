@@ -19,3 +19,9 @@
   width: 100%;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
+
+@media screen and (max-width: 768px) {
+  .modal-content {
+    width: calc(100% - 40px);
+  }
+}
