@@ -50,4 +50,9 @@
       padding: 8px 16px;
     }
   }
+  @media screen and (max-width: 768px) {
+    .body {
+      height: 200px;
+    }
+  }
 }
