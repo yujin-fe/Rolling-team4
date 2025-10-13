@@ -169,11 +169,7 @@ const List = () => {
   /** 카드 리스트 렌더링 */
   const renderCardList = (cards) =>
     cards.map(({ id, ...rest }) => (
-      <Link
-        key={id}
-        to={`/post/${id}`}
-        // style={{ marginLeft: index === 0 ? "24px" : "0" }}
-      >
+      <Link key={id} to={`/post/${id}`}>
         <Listcard
           {...rest}
           profileImages={profileImages[id] ?? []}
