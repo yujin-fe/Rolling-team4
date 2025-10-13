@@ -8,7 +8,7 @@ const data=[
   { id: 2, content: "url 공유" },
 ]
 
-const ShareBtn = ({ recipientData, onClickShareBtn, isOpened }) => {
+const ShareBtn = ({ recipientData, recipientId, onClickShareBtn, isOpened }) => {
   const { showToast } = useToast();
 
   const shareKakao = () => {
@@ -21,16 +21,16 @@ const ShareBtn = ({ recipientData, onClickShareBtn, isOpened }) => {
           recipientData.backgroundImageURL ??
           `https://cdn.enewstoday.co.kr/news/photo/201706/1069327_235136_2726.jpg`,
         link: {
-          webUrl: window.location.href,
-          mobileWebUrl: window.location.href,
+          webUrl: `https://part2-team4-project.vercel.app/post/${recipientId}`,
+          mobileWebUrl: `https://part2-team4-project.vercel.app/post/${recipientId}`,
         },
       },
       buttons: [
         {
           title: "웹으로 이동",
           link: {
-            webUrl: window.location.href,
-            mobileWebUrl: window.location.href,
+            webUrl: `https://part2-team4-project.vercel.app/post/${recipientId}`,
+            mobileWebUrl: `https://part2-team4-project.vercel.app/post/${recipientId}`,
           },
         },
       ],
