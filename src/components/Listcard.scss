@@ -1,0 +1,87 @@
+.card {
+  width: 275px;
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 24px 20px 24px;
+  border: 1px solid #0000001a;
+  border-radius: 16px;
+
+  &_name {
+    margin-bottom: 12px;
+  }
+
+  .message_count {
+    margin-top: 12px;
+  }
+
+  .card_name.has-bg {
+    color: $white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  .message_count.has-bg {
+    color: $gray-200;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.popular_card {
+  &--purple {
+    background-color: $purple-100;
+  }
+  &--beige {
+    background-color: $beige-100;
+  }
+  &--blue {
+    background-color: $blue-100;
+  }
+  &--green {
+    background-color: $green-100;
+  }
+}
+
+.popular_reaction {
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid #0000001f;
+  padding-top: 17px;
+  height: 53px;
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 12px;
+    background-color: #0000008a;
+    border-radius: 32px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 208px;
+    height: 232px;
+    padding: 30px 22px 20px 24px;
+  }
+
+  .popular_reaction {
+    gap: 4px;
+    height: 49px;
+  }
+
+  .popular_reaction span {
+    width: 55px;
+    height: 32px;
+    gap: 1px;
+  }
+
+  .card_name.txt-24-b {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: $font-bold;
+  }
+}

@@ -1,0 +1,129 @@
+.rolling_list {
+  max-width: 1160px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.rolling_popular,
+.rolling_recent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.rolling_popular_card,
+.rolling_recent_card {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.rolling_popular h3 {
+  margin-top: 50px;
+}
+
+.action_profile {
+  display: none;
+}
+
+.listpage_btn_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list_btn {
+  font-family: "Pretendard";
+  // min-width: 280px;
+  border-radius: 12px;
+  margin-bottom: 194px;
+  padding: 14px 60px;
+}
+
+.next_icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(50%);
+  right: 0;
+  width: 40px;
+  height: 40px;
+  padding: 12px;
+  border: 1px solid #dadcdf;
+  border-radius: 50px;
+  background-color: $white;
+  color: #101010;
+}
+
+.prev_icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%) rotate(-180deg);
+  left: 0;
+  width: 40px;
+  height: 40px;
+  padding: 12px;
+  border: 1px solid #dadcdf;
+  border-radius: 50px;
+  background-color: $white;
+  color: #101010;
+}
+
+@media (max-width: 1248px) {
+  .rolling_list {
+    padding: 0 24px;
+  }
+
+  .listpage_btn_area {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .listpage_btn_area .list_btn.btn.lg {
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .icon {
+    display: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .rolling_popular_card {
+    display: flex;
+    overflow-x: auto; /* ✅ 가로 스크롤 활성화 */
+    scroll-snap-type: x mandatory; /* ✅ 카드별 스냅 효과 */
+    -webkit-overflow-scrolling: touch; /* ✅ 모바일 부드러운 스크롤 */
+    gap: 20px;
+    padding-bottom: 10px;
+  }
+
+  .rolling_popular_card::-webkit-scrollbar {
+    display: none; /* ✅ 스크롤바 숨김 */
+  }
+
+  .rolling_popular_card > * {
+    scroll-snap-align: start; /* ✅ 각 카드가 정렬되게 */
+    flex: 0 0 auto; /* ✅ 가로로만 나열 */
+  }
+
+  .icon {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .rolling_list {
+    padding: 0;
+
+    h3,
+    .listpage_btn_area {
+      padding: 0 20px;
+    }
+  }
+}

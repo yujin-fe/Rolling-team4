@@ -1,0 +1,32 @@
+.Badge {
+  display: inline-flex;
+  min-width: 41px;
+  height: 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  gap: 10px;
+  padding: 0px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+
+  &.friend {
+    background-color: $blue-100;
+    color: #00a2fe;
+  }
+
+  &.family {
+    background-color: $green-100;
+    color: #2ba600;
+  }
+  &.coworker {
+    background-color: $purple-100;
+    color: $purple-600;
+  }
+
+  &.acquaintance {
+    background-color: $beige-100;
+    color: $beige-500;
+  }
+}

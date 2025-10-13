@@ -1,0 +1,8 @@
+# 현재 디렉토리 전체 검사
+npx eslint . --fix
+
+# ESLint 검사 결과 에러가 있으면 커밋 중단
+if [ $? -ne 0 ]; then
+  echo "ESLint 오류가 있습니다. 커밋이 취소되었습니다."
+  exit 1
+fi

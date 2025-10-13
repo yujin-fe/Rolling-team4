@@ -1,0 +1,89 @@
+.ActionBar{
+  border-top: 1px solid #EDEDED;
+  display: flex;
+  justify-content: center;
+
+  .action-bar-container{
+    width:100%;
+    max-width: 1248px;
+    height: 68px;
+    padding: 13px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+
+
+    .menu-wrapper{
+      display: flex;
+      gap:28px;
+      align-items: center;
+    }
+
+    .profile-wrapper{
+      display: flex;
+      gap: 11px;
+      align-items: center;
+    }
+    .action-bar-btns-group{
+      display: flex;
+      align-items: center;
+      .reaction-wrapper{
+        display: flex;
+        position: relative;
+        .badges{
+          display: flex;
+          gap:8px;
+        }
+        .badges.no-more-reaction{
+          padding-right: 10px;
+        }
+
+        .reaction-window-btn{
+          width:36px;
+          cursor: pointer;
+        }
+      }
+
+      .btn-wrapper{
+        display: flex;
+        gap:13px;
+        align-items: center;
+      }
+    }
+    .divider{
+      width:1px;
+      height: 28px;
+      background-color: $gray-200;
+    }
+  }
+}
+
+@media screen and (max-width:1248px) {
+  .ActionBar .action-bar-container {
+    padding: 13px 24px;
+    
+    .profile-wrapper,
+    .menu-wrapper > .divider{
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .recipient-name{
+    display: none;
+  }
+
+  .ActionBar .action-bar-container{
+    padding: 8px 20px;
+    display: block;
+    height: auto;
+    .menu-wrapper{
+      display: block;
+      .action-bar-btns-group{
+        justify-content: space-between;
+      }
+    }
+  }
+}

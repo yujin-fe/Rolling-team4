@@ -1,0 +1,16 @@
+.Emoji {
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 32px;
+  background-color: rgba(0, 0, 0, 0.54);
+  box-sizing: border-box;
+  min-width: 56px; /* 최소 보장만 */
+  height: 36px;
+}
+
+.emoji_count {
+  color: $white;
+}

@@ -1,0 +1,22 @@
+.reaction-window{
+  max-width: 312px;
+  padding:24px 24px 5px 24px;
+  background-color: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+
+  border:1px solid #B6B6B6;
+  border-radius: 8px;
+
+  position: absolute;
+  top:45px;
+
+  display: flex;
+  flex-direction: column;
+
+  .badge-grid{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap:10px;
+    padding-bottom: 10px;
+  }
+}

@@ -1,0 +1,53 @@
+.message-modal {
+  .message-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 19px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid $gray-200;
+    .profile {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      margin-right: 16px;
+    }
+    .info {
+      flex: 1;
+      .sender {
+        margin-bottom: 6px;
+      }
+      .relationship {
+        color: $purple-600;
+        background: $purple-100;
+        padding: 0 8px;
+      }
+    }
+    .createdAt {
+      color: $gray-400;
+    }
+  }
+
+  .body {
+    height: 240px;
+    overflow-y: auto;
+    margin-bottom: 24px;
+    & > div * {
+      font-family: inherit;
+      line-height: 1.4;
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+
+    .btn-confirm {
+      background: $purple-600;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+    }
+  }
+}
