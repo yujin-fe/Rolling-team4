@@ -3,7 +3,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Navigation } from "swiper/modules";
+import { Mousewheel, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { getBackgroundData } from "../api/images";
@@ -234,11 +234,16 @@ const List = () => {
         <h3 className="txt-24-b">인기 롤링 페이퍼 🔥</h3>
 
         <Swiper
-          modules={[Navigation]}
+          modules={[Navigation, Mousewheel]}
           slidesPerView={isSmall ? 2.2 : 4}
           spaceBetween={16}
           navigation={!isSmall}
           grabCursor={true}
+          mousewheel={{
+            invert: false,
+            sensitivity: 1,
+            releaseOnEdges: true,
+          }}
           breakpoints={{
             768: { slidesPerView: 3 },
             1200: { slidesPerView: 4 },
@@ -277,11 +282,16 @@ const List = () => {
       <div className="rolling_recent">
         <h3 className="txt-24-b">최근에 만든 롤링 페이퍼 ✨</h3>
         <Swiper
-          modules={[Navigation]}
+          modules={[Navigation, Mousewheel]}
           slidesPerView={isSmall ? 2.2 : 4}
           spaceBetween={16}
           navigation={!isSmall}
           grabCursor={true}
+          mousewheel={{
+            invert: false,
+            sensitivity: 1,
+            releaseOnEdges: true,
+          }}
           breakpoints={{
             768: { slidesPerView: 3 },
             1200: { slidesPerView: 4 },
