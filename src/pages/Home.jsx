@@ -1,10 +1,10 @@
 import "./Home.scss";
 import { Link } from "react-router-dom";
 
-import home_image1 from "../assets/imgs/home_image1.png";
-import home_image2 from "../assets/imgs/home_image2.png";
-import home_image3 from "../assets/imgs/home_image3.png";
-import home_image4 from "../assets/imgs/home_image4.png";
+import home_image1 from "../assets/imgs/home_image1.svg";
+import home_image2 from "../assets/imgs/home_image2.svg";
+import home_image3 from "../assets/imgs/home_image3.svg";
+import home_image4 from "../assets/imgs/home_image4.svg";
 import Button from "../components/Button";
 
 const Home = () => {
