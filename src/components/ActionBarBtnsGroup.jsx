@@ -95,6 +95,7 @@ const ActionBarBtnsGropus = ({
         <div className="divider"></div>
         <ShareBtn
           recipientData={recipientData}
+          recipientId={recipientId}
           isOpened={openMenu === "share"}
           onClickShareBtn={() => handleButtons("share")}
         />
