@@ -1,7 +1,7 @@
 import "./Header.scss";
 import { Link } from "react-router-dom";
 
-import logo from "../assets/imgs/logo.png";
+import logo from "../assets/imgs/logo.svg";
 
 const Header = ({ hideButton }) => {
   return (
