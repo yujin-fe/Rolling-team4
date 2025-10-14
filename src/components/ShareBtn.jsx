@@ -21,16 +21,16 @@ const ShareBtn = ({ recipientData, recipientId, onClickShareBtn, isOpened }) => 
           recipientData.backgroundImageURL ??
           `https://cdn.enewstoday.co.kr/news/photo/201706/1069327_235136_2726.jpg`,
         link: {
-          webUrl: `https://part2-team4-project.vercel.app/post/${recipientId}`,
-          mobileWebUrl: `https://part2-team4-project.vercel.app/post/${recipientId}`,
+          webUrl: `https://rolling-team4.vercel.app//post/${recipientId}`,
+          mobileWebUrl: `https://rolling-team4.vercel.app/post/${recipientId}`,
         },
       },
       buttons: [
         {
           title: "웹으로 이동",
           link: {
-            webUrl: `https://part2-team4-project.vercel.app/post/${recipientId}`,
-            mobileWebUrl: `https://part2-team4-project.vercel.app/post/${recipientId}`,
+            webUrl: `https://rolling-team4.vercel.app/post/${recipientId}`,
+            mobileWebUrl: `https://rolling-team4.vercel.app/post/${recipientId}`,
           },
         },
       ],
