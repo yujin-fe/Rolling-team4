@@ -118,6 +118,9 @@ npm run dev
 
 ---
 
+👉 [서비스 바로가기](https://rolling-community.vercel.app)
+
+
 
 
 
