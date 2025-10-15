@@ -108,13 +108,19 @@ npm run dev
 
 ## 🖼️ 미리보기
 
-| 메인 페이지 | 롤링페이퍼 작성 |
+| 메인 페이지 | 롤링페이퍼 리스트 |
 | ------ | -------- |
-| <img width="588" height="420" alt="screencapture-rolling-team4-vercel-app-2025-10-15-12_07_42" src="https://github.com/user-attachments/assets/777d1d8d-03b2-4911-8468-4065d501e459" />  | <img width="588" height="420" alt="screencapture-rolling-team4-vercel-app-list-2025-10-15-12_07_50" src="https://github.com/user-attachments/assets/68fc2bd0-d65d-4f70-89c0-1e4111ff0452" />   |
+| <img width="588" height="420" alt="screencapture-rolling-team4-vercel-app-2025-10-15-12_07_42" src="https://github.com/user-attachments/assets/777d1d8d-03b2-4911-8468-4065d501e459" />  |  <img width="588" height="420" alt="screencapture-rolling-team4-vercel-app-list-2025-10-15-12_14_14" src="https://github.com/user-attachments/assets/babfa24f-20b0-48c2-b70b-87e00d98f0bd" />
+  |
 
-
+| 롤링페이퍼 | 메시지 카드 작성 |
+| ------ | -------- |
+| <img width="588" height="420" alt="screencapture-rolling-team4-vercel-app-post-13966-2025-10-15-12_10_14" src="https://github.com/user-attachments/assets/23cbde82-25f0-4f54-a846-c56378cf6a51" />
+ |  <img width="588" height="470" alt="screencapture-rolling-team4-vercel-app-post-14316-message-2025-10-15-12_15_51" src="https://github.com/user-attachments/assets/8043094e-732c-41a1-b2bf-561c3ae9e963" />
+  |
 
 ---
+
 
 
 
