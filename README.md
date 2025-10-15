@@ -110,8 +110,11 @@ npm run dev
 
 | 메인 페이지 | 롤링페이퍼 작성 |
 | ------ | -------- |
-| (이미지)  | (이미지)    |
+| <img width="294" height="210.8" alt="screencapture-rolling-team4-vercel-app-2025-10-15-12_07_42" src="https://github.com/user-attachments/assets/777d1d8d-03b2-4911-8468-4065d501e459" />  | <img width="294" height="213.2" alt="screencapture-rolling-team4-vercel-app-list-2025-10-15-12_07_50" src="https://github.com/user-attachments/assets/68fc2bd0-d65d-4f70-89c0-1e4111ff0452" />   |
+
+
 
 ---
+
 
 
